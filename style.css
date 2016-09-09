@@ -40,7 +40,7 @@ h3 {
 
 header {
 	width: 100%;
-	padding: 20px;
+	padding: 20px 0px;
 	color: #fff;
 }
 
@@ -53,11 +53,19 @@ nav {
 	padding-top: 10px;
 }
 
+nav a:link, a:visited, a:active {
+	color: #fff;
+}
+
+nav a:hover {
+	color: #D6A882;
+}
+
 /* Main Content Positioning and Styling */
 
 main {
 	width: 70%;
-	float: left;
+	float: right;
 }
 
 main section {
@@ -79,7 +87,7 @@ section img {
 
 aside {
 	width: 30%;
-	float: right;
+	float: left;
 	padding: 10px;
 	background-color: #ddd;
 	border-radius: 10px;
