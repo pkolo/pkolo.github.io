@@ -31,21 +31,41 @@ h2 {
 }
 
 h3 {
+	font-family: "Times New Roman";
 	font-size: 1.5em;
 	margin: 5px 0px;
 }
 
-/* Sections */
+/* Element Positioning and Styling */
 
 header {
 	background: #eee;
 	outline: 10px solid #eee;
 }
 
+main {
+	width: 70%;
+	float: left;
+	padding-top:20px;
+}
+
+aside {
+	width: 30%;
+	float: right;
+	padding-top: 20px;
+}
+
+footer {
+	clear: both;
+	margin: auto;
+}
+
+/* Main Content Positioning and Styling */
+
 section {
 	padding: 10px;
 }
 
 section:first-of-type {
-	padding-top:30px;
+	padding-top: 0px;
 }
