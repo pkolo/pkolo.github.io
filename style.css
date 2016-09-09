@@ -2,7 +2,8 @@
 
 html {
 	width: 100%;
-	background: #fff;
+	background-image: url('coffee-bg.jpg');
+	background-attachment: fixed;
 	box-sizing: border-box;
 }
 
@@ -11,7 +12,6 @@ html {
 }
 
 body {
-	background: #ccc;
 	font-family: "Helvetica", sans-serif;
 	font-size: 14px;
 	max-width: 1024px;
@@ -39,20 +39,9 @@ h3 {
 /* Element Positioning and Styling */
 
 header {
-	background: #eee;
-	outline: 10px solid #eee;
-}
-
-main {
-	width: 70%;
-	float: left;
-	padding-top:20px;
-}
-
-aside {
-	width: 30%;
-	float: right;
-	padding-top: 20px;
+	width: 100%;
+	padding: 20px;
+	color: #fff;
 }
 
 footer {
@@ -60,12 +49,42 @@ footer {
 	margin: auto;
 }
 
+nav {
+	padding-top: 10px;
+}
+
 /* Main Content Positioning and Styling */
 
-section {
+main {
+	width: 70%;
+	float: left;
+}
+
+main section {
 	padding: 10px;
+	background-color: #ccc;
+	border-radius: 10px;
+	margin: 15px;
 }
 
 section:first-of-type {
-	padding-top: 0px;
+	margin-top: 0px;
+}
+
+section img {
+	width: 100%;
+}
+
+/* Sidebar Position and Styling */
+
+aside {
+	width: 30%;
+	float: right;
+	padding: 10px;
+	background-color: #ddd;
+	border-radius: 10px;
+	text-align: justify;
+}
+
+aside section {
 }
