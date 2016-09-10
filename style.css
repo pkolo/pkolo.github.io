@@ -119,6 +119,7 @@ footer {
 	background: #F5D5AB;
 	color: #75572F;
 	width: 100%;
+	margin-top:15px;
 }
 
 footer p {
@@ -126,9 +127,7 @@ footer p {
 }
 
 footer section {
-	padding: 10px;
-	border-radius: 10px;
-	margin: 15px;
 	background-color: #F5D5AB;
 	color: #75572F;
+	padding: 1px;
 }
