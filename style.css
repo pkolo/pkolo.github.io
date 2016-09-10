@@ -37,8 +37,12 @@ h3 {
 	margin: 5px 0px;
 }
 
-a:link, a:visited, a:active {
+a:link, a:active {
 	color: #422E20;
+}
+
+a:visited {
+	color: #D6A882;
 }
 
 /* Element Positioning and Styling */
@@ -52,6 +56,13 @@ header {
 
 footer {
 	clear: both;
+	background: #F5D5AB;
+	padding: 2px;
+	color: #75572F;
+}
+
+footer p {
+	width: 50%;
 	margin: auto;
 }
 
@@ -63,7 +74,7 @@ nav a:link, nav a:visited, nav a:active {
 	color: #fff;
 }
 
-nav a:hover {
+nav a:hover, nav a:visited {
 	color: #D6A882;
 }
 
