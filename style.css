@@ -45,6 +45,12 @@ a:visited {
 	color: #D6A882;
 }
 
+.humble {
+	color: #f00;
+	text-shadow: -1px 1px 1px #000080;
+	text-transform: uppercase;
+}
+
 /* Element Positioning and Styling */
 
 header {
