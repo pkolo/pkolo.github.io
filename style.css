@@ -51,25 +51,13 @@ a:visited {
 	text-transform: uppercase;
 }
 
-/* Element Positioning and Styling */
+/* Header Positioning and Styling */
 
 header {
 	width: 100%;
 	padding: 20px 0px;
 	color: #fff;
 
-}
-
-footer {
-	clear: both;
-	background: #F5D5AB;
-	padding: 2px;
-	color: #75572F;
-}
-
-footer p {
-	width: 50%;
-	margin: auto;
 }
 
 nav {
@@ -86,6 +74,10 @@ nav a:hover, nav a:visited {
 
 /* Main Content Positioning and Styling */
 
+#content {
+	overflow: hidden;
+}
+
 main {
 	width: 70%;
 	float: right;
@@ -99,7 +91,7 @@ main section {
 	color: #75572F;
 }
 
-section:first-of-type {
+main section:first-of-type {
 	margin-top: 0px;
 }
 
@@ -120,5 +112,23 @@ aside {
 	color: #75572F;
 }
 
-aside section {
+/* Footer Positioning and Styling */
+
+footer {
+	clear: both;
+	background: #F5D5AB;
+	color: #75572F;
+	width: 100%;
+}
+
+footer p {
+	text-align: center;
+}
+
+footer section {
+	padding: 10px;
+	border-radius: 10px;
+	margin: 15px;
+	background-color: #F5D5AB;
+	color: #75572F;
 }
