@@ -126,3 +126,48 @@ footer p {
 	text-align: center;
 	padding: 15px;
 }
+
+/* Responsive Styling */
+
+@media screen and (max-width: 768px) {
+
+	/* Page Adjustments */
+
+	body {
+		position: relative;
+		width: 100%;
+	}
+
+	/* Header Adjustments */
+
+	header {
+		display: block;
+		margin: auto;
+	}
+
+	/* Main Adjustments */
+
+	main {
+		width: 100%;
+		float: none;
+	}
+
+	/* Sidebar Adjustments */
+
+	aside {
+		width: 100%;
+		float: none;
+		background-color: transparent;
+		padding: 0px;
+	}
+
+	aside section {
+		padding: 10px;
+		border-radius: 10px;
+		margin: 15px;
+		background-color: #F5D5AB;
+		color: #75572F;
+		text-align: left;
+	}
+
+}
