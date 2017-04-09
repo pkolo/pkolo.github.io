@@ -1,8 +1,9 @@
 module Hello exposing (..)
 
-import Html exposing (text)
+import Html exposing (..)
 
 
-main : Html.Html msg
+main : Html msg
 main =
-    text "Hello"
+    div []
+        [ text ("nothing") ]
