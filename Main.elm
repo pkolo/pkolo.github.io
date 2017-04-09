@@ -1,9 +1,10 @@
 module Hello exposing (..)
 
 import Html exposing (..)
+import Html.Attributes exposing (..)
 
 
 main : Html msg
 main =
-    div []
+    h1 []
         [ text ("nothing") ]
