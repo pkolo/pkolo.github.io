@@ -134,7 +134,43 @@ inactiveProjects projects =
 viewProject : Project -> Html Msg
 viewProject project =
     li []
-        [ text project.name ]
+        [ p []
+            [ text project.name
+            , (getLink project)
+            , (getSrc project)
+            , text project.description
+            ]
+        ]
+
+
+getLink : Project -> Html Msg
+getLink project =
+    if project.link /= "" then
+        span []
+            [ text separator
+            , a
+                [ href project.link
+                , target "_blank"
+                ]
+                [ text "link" ]
+            ]
+    else
+        text ""
+
+
+getSrc : Project -> Html Msg
+getSrc project =
+    if project.src_link /= "" then
+        span []
+            [ text separator
+            , a
+                [ href project.src_link
+                , target "_blank"
+                ]
+                [ text "src" ]
+            ]
+    else
+        text ""
 
 
 separator : String
