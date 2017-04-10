@@ -1,4 +1,5 @@
-var _user$project$Main$viewSearchResult = function (result) {
+var _user$project$Main$separator = ' | ';
+var _user$project$Main$viewProject = function (project) {
 	return A2(
 		_elm_lang$html$Html$li,
 		{ctor: '[]'},
@@ -30,12 +31,66 @@ var _user$project$Main$view = function (model) {
 					_1: {
 						ctor: '::',
 						_0: A2(
-							_elm_lang$html$Html$span,
+							_elm_lang$html$Html$nav,
 							{ctor: '[]'},
 							{
 								ctor: '::',
-								_0: _elm_lang$html$Html$text('Like GitHub, but for Elm things.'),
-								_1: {ctor: '[]'}
+								_0: _elm_lang$html$Html$text('Brooklyn, NY'),
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$html$Html$text(_user$project$Main$separator),
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$html$Html$text('pkolodgy at gmail'),
+										_1: {
+											ctor: '::',
+											_0: _elm_lang$html$Html$text(_user$project$Main$separator),
+											_1: {
+												ctor: '::',
+												_0: A2(
+													_elm_lang$html$Html$a,
+													{
+														ctor: '::',
+														_0: _elm_lang$html$Html_Attributes$href('https://github.com/pkolo'),
+														_1: {
+															ctor: '::',
+															_0: _elm_lang$html$Html_Attributes$target('_blank'),
+															_1: {ctor: '[]'}
+														}
+													},
+													{
+														ctor: '::',
+														_0: _elm_lang$html$Html$text('github'),
+														_1: {ctor: '[]'}
+													}),
+												_1: {
+													ctor: '::',
+													_0: _elm_lang$html$Html$text(_user$project$Main$separator),
+													_1: {
+														ctor: '::',
+														_0: A2(
+															_elm_lang$html$Html$a,
+															{
+																ctor: '::',
+																_0: _elm_lang$html$Html_Attributes$href('https://www.linkedin.com/in/pkolodgy/'),
+																_1: {
+																	ctor: '::',
+																	_0: _elm_lang$html$Html_Attributes$target('_blank'),
+																	_1: {ctor: '[]'}
+																}
+															},
+															{
+																ctor: '::',
+																_0: _elm_lang$html$Html$text('linkedin'),
+																_1: {ctor: '[]'}
+															}),
+														_1: {ctor: '[]'}
+													}
+												}
+											}
+										}
+									}
+								}
 							}),
 						_1: {ctor: '[]'}
 					}
@@ -45,7 +100,7 @@ var _user$project$Main$view = function (model) {
 				_0: A2(
 					_elm_lang$html$Html$ul,
 					{ctor: '[]'},
-					A2(_elm_lang$core$List$map, _user$project$Main$viewSearchResult, model.results)),
+					A2(_elm_lang$core$List$map, _user$project$Main$viewProject, model.projects)),
 				_1: {
 					ctor: '::',
 					_0: A2(
@@ -63,9 +118,9 @@ var _user$project$Main$view = function (model) {
 		});
 };
 var _user$project$Main$Model = function (a) {
-	return {results: a};
+	return {projects: a};
 };
-var _user$project$Main$SearchResult = F9(
+var _user$project$Main$Project = F9(
 	function (a, b, c, d, e, f, g, h, i) {
 		return {id: a, name: b, timeline: c, status: d, categories: e, technologies: f, link: g, src_link: h, description: i};
 	});
@@ -105,7 +160,7 @@ var _user$project$Main$searchResultDecoder = A3(
 									_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
 									'id',
 									_elm_lang$core$Json_Decode$int,
-									_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$Main$SearchResult))))))))));
+									_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$Main$Project))))))))));
 var _user$project$Main$responseDecoder = A3(
 	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
 	'projects',
@@ -120,7 +175,7 @@ var _user$project$Main$decodeResults = function (json) {
 	}
 };
 var _user$project$Main$initialModel = {
-	results: _user$project$Main$decodeResults(_user$project$Data$json)
+	projects: _user$project$Main$decodeResults(_user$project$Data$json)
 };
 var _user$project$Main$update = F2(
 	function (msg, model) {

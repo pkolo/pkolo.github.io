@@ -21,17 +21,17 @@ main =
 
 
 type alias Model =
-    { results : List SearchResult
+    { projects : List Project
     }
 
 
 initialModel : Model
 initialModel =
-    { results = decodeResults Data.json
+    { projects = decodeResults Data.json
     }
 
 
-type alias SearchResult =
+type alias Project =
     { id : Int
     , name : String
     , timeline : String
@@ -44,15 +44,15 @@ type alias SearchResult =
     }
 
 
-responseDecoder : Decoder (List SearchResult)
+responseDecoder : Decoder (List Project)
 responseDecoder =
     Json.Decode.Pipeline.decode identity
         |> required "projects" (list searchResultDecoder)
 
 
-searchResultDecoder : Decoder SearchResult
+searchResultDecoder : Decoder Project
 searchResultDecoder =
-    Json.Decode.Pipeline.decode SearchResult
+    Json.Decode.Pipeline.decode Project
         |> required "id" int
         |> required "name" string
         |> required "timeline" string
@@ -64,7 +64,7 @@ searchResultDecoder =
         |> required "description" string
 
 
-decodeResults : String -> List SearchResult
+decodeResults : String -> List Project
 decodeResults json =
     case decodeString responseDecoder json of
         Ok searchResults ->
@@ -83,19 +83,40 @@ view model =
     div []
         [ header []
             [ h1 [] [ text "Patrick Kolodgy" ]
-            , span [] [ text "Like GitHub, but for Elm things." ]
+            , nav []
+                [ text "Brooklyn, NY"
+                , text separator
+                , text "pkolodgy at gmail"
+                , text separator
+                , a
+                    [ href "https://github.com/pkolo"
+                    , target "_blank"
+                    ]
+                    [ text "github" ]
+                , text separator
+                , a
+                    [ href "https://www.linkedin.com/in/pkolodgy/"
+                    , target "_blank"
+                    ]
+                    [ text "linkedin" ]
+                ]
             ]
         , ul []
-            (List.map viewSearchResult model.results)
+            (List.map viewProject model.projects)
         , p []
             [ text (toString model) ]
         ]
 
 
-viewSearchResult : SearchResult -> Html Msg
-viewSearchResult result =
+viewProject : Project -> Html Msg
+viewProject project =
     li []
         [ text "Anything" ]
+
+
+separator : String
+separator =
+    " | "
 
 
 type Msg
