@@ -112,15 +112,15 @@ view model =
             , div [ class Content ]
                 [ div [ class Status ]
                     [ text "Active" ]
-                , ul []
+                , div []
                     (List.map viewProject (activeProjects model.projects))
                 , div [ class Status ]
                     [ text "Works in progress" ]
-                , ul []
+                , div []
                     (List.map viewProject (wipProjects model.projects))
                 , div [ class Status ]
                     [ text "Inactive" ]
-                , ul []
+                , div []
                     (List.map viewProject (inactiveProjects model.projects))
                 ]
             ]
@@ -144,21 +144,20 @@ inactiveProjects projects =
 
 viewProject : Project -> Html Msg
 viewProject project =
-    li []
-        [ div []
-            [ div []
-                [ text project.name
-                , (getLink project)
-                , (getSrc project)
-                ]
-            , div []
-                [ p []
-                    [ text project.description ]
-                , p []
-                    [ text ("Technologies used: " ++ project.technologies) ]
-                , p []
-                    [ text ("File under: " ++ project.categories) ]
-                ]
+    div [ class ProjectInfo ]
+        [ div [ class ProjectHeader ]
+            [ span [ class ProjectName ]
+                [ text project.name ]
+            , (getLink project)
+            , (getSrc project)
+            ]
+        , div []
+            [ div [ class ProjectDetail ]
+                [ text project.description ]
+            , div [ class ProjectDetail ]
+                [ text ("Technologies used: " ++ project.technologies) ]
+            , div [ class ProjectDetail ]
+                [ text ("File under: " ++ project.categories) ]
             ]
         ]
 
@@ -166,7 +165,7 @@ viewProject project =
 getLink : Project -> Html Msg
 getLink project =
     if project.link /= "" then
-        span []
+        span [ class ProjectLink ]
             [ text separator
             , a
                 [ href project.link
@@ -181,7 +180,7 @@ getLink project =
 getSrc : Project -> Html Msg
 getSrc project =
     if project.src_link /= "" then
-        span []
+        span [ class ProjectLink ]
             [ text separator
             , a
                 [ href project.src_link
