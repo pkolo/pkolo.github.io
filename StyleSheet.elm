@@ -10,6 +10,12 @@ type Class
     | Content
     | Title
     | Status
+    | UL
+    | ProjectInfo
+    | ProjectHeader
+    | ProjectLink
+    | ProjectName
+    | ProjectDetail
 
 
 stylesheet : StyleSheet Class msg
@@ -27,5 +33,21 @@ stylesheet =
         , class Title
             [ fontsize 50 ]
         , class Status
-            [ fontsize 25 ]
+            [ fontsize 25
+            , padding (bottom 15)
+            ]
+        , class UL
+            [ spacing (top 10) ]
+        , class ProjectInfo
+            [ padding (leftRightTopBottom 20 0 0 20) ]
+        , class ProjectHeader
+            []
+        , class ProjectLink
+            [ inline ]
+        , class ProjectName
+            [ fontsize 18
+            , inline
+            ]
+        , class ProjectDetail
+            [ padding (bottom 10) ]
         ]
