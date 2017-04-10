@@ -15,7 +15,7 @@ json =
           "technologies": "Ableton Live, Reaper, 4-Track Cassette, 8-Track Cassette, 8-Track Reel-to-reel",
           "link": "https://soundcloud.com/sounds-park",
           "src_link": "",
-          "description": "At this point, the main repository for my musical output. Intermittently updated with songs and remixes of my creation. Everything I make is DIY, self-recorded, self-produced. "
+          "description": "The main repository for my musical output. Intermittently updated with songs and remixes of my creation. Everything I make is DIY, self-recorded, self-produced. "
         },
         {
           "id": 2,
@@ -81,7 +81,7 @@ json =
           "technologies": "Rails, Ruby, React, Javascript, PostgreSQL",
           "link": "https://articulately.herokuapp.com/",
           "src_link": "https://github.com/AlexGio18/articulate-final-project",
-          "description": "A web app for practicing public speeches and presentations. A user can hit 'start', perform their speech, and get immediate results on both their performance. We used the Web Speech API to parse speech to text in-browser, then sent that text to IBM Watson's Alchemy (RIP) and Tone Analyzer APIs to be analyzed. Once the data comes back from Watson, our server parses and interprets it into useful, human-readable feedback. Built by a team of four over the course of a week using Rails, React, and PostgreSQL. Unfortunately, do to the recent demise of the Alchemy API, service will be suspended until we adapt our server to the new Natural Language Understanding API."
+          "description": "A web app for practicing public speeches and presentations. A user can hit 'start', perform their speech, and get immediate results on both their performance and content. We used the Web Speech API to parse speech to text in-browser, then sent that text to IBM Watson's Alchemy (RIP) and Tone Analyzer APIs to be analyzed. Once the data comes back from Watson, our server parses and interprets it into useful, human-readable feedback. Built by a team of four over the course of a week using Rails, React, and PostgreSQL. Unfortunately, do to the recent demise of the Alchemy API, service will be suspended until we adapt our server to the new Natural Language Understanding API."
         },
         {
           "id": 8,
