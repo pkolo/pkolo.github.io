@@ -24,6 +24,7 @@ stylesheet =
         [ class Body
             [ maxWidth (px 960)
             , padding (left 15)
+            , font "serif"
             ]
         , class Header
             [ padding (bottom 25)
