@@ -7,15 +7,15 @@ json =
     {
       "projects": [
         {
-          "id": 1,
-          "name": "Sounds Park",
-          "timeline": "2015 - current",
+          "id": 4,
+          "name": "Pie Finder",
+          "timeline": "Dec 2016",
           "status": "Active",
-          "categories": "Music Production, Audio Engineering",
-          "technologies": "Ableton Live, Reaper, 4-Track Cassette, 8-Track Cassette, 8-Track Reel-to-reel",
-          "link": "https://soundcloud.com/sounds-park",
-          "src_link": "",
-          "description": "The main repository for my musical output. Intermittently updated with songs and remixes of my creation. Everything I make is DIY, self-recorded, self-produced. "
+          "categories": "Web Development",
+          "technologies": "Python, Flask, Javascript",
+          "link": "https://pie-finder.herokuapp.com/",
+          "src_link": "https://github.com/pkolo/raspberry-pi-challenge",
+          "description": "A simple little frontend app where users can enter an ingredient and get back a whole bunch of pie recipes that incorporate that ingredient. Built in a day or so, mostly to familiarize myself with Python and the Flask framework. It also uses the Recipepuppy API."
         },
         {
           "id": 2,
@@ -40,15 +40,15 @@ json =
           "description": "An attempt to build a decent social network for bands. Most of the ones that exist are not very good at connecting bands with eachother. They want to connect bands to fans-- most bands have no fans, except other bands. This is a fact. This site will have a lot of good features for DIY and punk bands to use, I promise. So far it just uses Rails and PostgreSQL."
         },
         {
-          "id": 4,
-          "name": "Pie Finder",
-          "timeline": "Dec 2016",
-          "status": "Inactive",
-          "categories": "Web Development",
-          "technologies": "Python, Flask, Javascript",
-          "link": "https://pie-finder.herokuapp.com/",
-          "src_link": "https://github.com/pkolo/raspberry-pi-challenge",
-          "description": "A simple little frontend app where users can enter an ingredient and get back a whole bunch of pie recipes that incorporate that ingredient. Built in a day or so, mostly to familiarize myself with Python and the Flask framework. It also uses the Recipepuppy API."
+          "id": 1,
+          "name": "Sounds Park",
+          "timeline": "2015 - current",
+          "status": "Active",
+          "categories": "Music Production, Audio Engineering",
+          "technologies": "Ableton Live, Reaper, 4-Track Cassette, 8-Track Cassette, 8-Track Reel-to-reel",
+          "link": "https://soundcloud.com/sounds-park",
+          "src_link": "",
+          "description": "The main repository for my musical output. Intermittently updated with songs and remixes of my creation. Everything I make is DIY, self-recorded, self-produced. "
         },
         {
           "id": 5,
