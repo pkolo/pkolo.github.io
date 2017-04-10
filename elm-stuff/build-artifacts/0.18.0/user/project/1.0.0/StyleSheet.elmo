@@ -1,0 +1,150 @@
+var _user$project$StyleSheet$ProjectDetail = {ctor: 'ProjectDetail'};
+var _user$project$StyleSheet$ProjectName = {ctor: 'ProjectName'};
+var _user$project$StyleSheet$ProjectLink = {ctor: 'ProjectLink'};
+var _user$project$StyleSheet$ProjectHeader = {ctor: 'ProjectHeader'};
+var _user$project$StyleSheet$ProjectInfo = {ctor: 'ProjectInfo'};
+var _user$project$StyleSheet$UL = {ctor: 'UL'};
+var _user$project$StyleSheet$Status = {ctor: 'Status'};
+var _user$project$StyleSheet$Title = {ctor: 'Title'};
+var _user$project$StyleSheet$Content = {ctor: 'Content'};
+var _user$project$StyleSheet$Header = {ctor: 'Header'};
+var _user$project$StyleSheet$Body = {ctor: 'Body'};
+var _user$project$StyleSheet$stylesheet = _mdgriffith$style_elements$Style$render(
+	{
+		ctor: '::',
+		_0: A2(
+			_mdgriffith$style_elements$Style$class,
+			_user$project$StyleSheet$Body,
+			{
+				ctor: '::',
+				_0: _mdgriffith$style_elements$Style$maxWidth(
+					_mdgriffith$style_elements$Style$px(960)),
+				_1: {
+					ctor: '::',
+					_0: _mdgriffith$style_elements$Style$padding(
+						_mdgriffith$style_elements$Style$left(15)),
+					_1: {ctor: '[]'}
+				}
+			}),
+		_1: {
+			ctor: '::',
+			_0: A2(
+				_mdgriffith$style_elements$Style$class,
+				_user$project$StyleSheet$Header,
+				{
+					ctor: '::',
+					_0: _mdgriffith$style_elements$Style$padding(
+						_mdgriffith$style_elements$Style$bottom(25)),
+					_1: {ctor: '[]'}
+				}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_mdgriffith$style_elements$Style$class,
+					_user$project$StyleSheet$Content,
+					{ctor: '[]'}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_mdgriffith$style_elements$Style$class,
+						_user$project$StyleSheet$Title,
+						{
+							ctor: '::',
+							_0: _mdgriffith$style_elements$Style$fontsize(50),
+							_1: {ctor: '[]'}
+						}),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_mdgriffith$style_elements$Style$class,
+							_user$project$StyleSheet$Status,
+							{
+								ctor: '::',
+								_0: _mdgriffith$style_elements$Style$fontsize(25),
+								_1: {
+									ctor: '::',
+									_0: _mdgriffith$style_elements$Style$padding(
+										_mdgriffith$style_elements$Style$bottom(15)),
+									_1: {ctor: '[]'}
+								}
+							}),
+						_1: {
+							ctor: '::',
+							_0: A2(
+								_mdgriffith$style_elements$Style$class,
+								_user$project$StyleSheet$UL,
+								{
+									ctor: '::',
+									_0: _mdgriffith$style_elements$Style$spacing(
+										_mdgriffith$style_elements$Style$top(10)),
+									_1: {ctor: '[]'}
+								}),
+							_1: {
+								ctor: '::',
+								_0: A2(
+									_mdgriffith$style_elements$Style$class,
+									_user$project$StyleSheet$ProjectInfo,
+									{
+										ctor: '::',
+										_0: _mdgriffith$style_elements$Style$padding(
+											A4(_mdgriffith$style_elements$Style$leftRightTopBottom, 20, 0, 0, 20)),
+										_1: {ctor: '[]'}
+									}),
+								_1: {
+									ctor: '::',
+									_0: A2(
+										_mdgriffith$style_elements$Style$class,
+										_user$project$StyleSheet$ProjectHeader,
+										{ctor: '[]'}),
+									_1: {
+										ctor: '::',
+										_0: A2(
+											_mdgriffith$style_elements$Style$class,
+											_user$project$StyleSheet$ProjectLink,
+											{
+												ctor: '::',
+												_0: _mdgriffith$style_elements$Style$inline,
+												_1: {
+													ctor: '::',
+													_0: _mdgriffith$style_elements$Style$padding(
+														_mdgriffith$style_elements$Style$leftRight(5)),
+													_1: {ctor: '[]'}
+												}
+											}),
+										_1: {
+											ctor: '::',
+											_0: A2(
+												_mdgriffith$style_elements$Style$class,
+												_user$project$StyleSheet$ProjectName,
+												{
+													ctor: '::',
+													_0: _mdgriffith$style_elements$Style$fontsize(22),
+													_1: {
+														ctor: '::',
+														_0: _mdgriffith$style_elements$Style$inline,
+														_1: {ctor: '[]'}
+													}
+												}),
+											_1: {
+												ctor: '::',
+												_0: A2(
+													_mdgriffith$style_elements$Style$class,
+													_user$project$StyleSheet$ProjectDetail,
+													{
+														ctor: '::',
+														_0: _mdgriffith$style_elements$Style$padding(
+															_mdgriffith$style_elements$Style$bottom(10)),
+														_1: {ctor: '[]'}
+													}),
+												_1: {ctor: '[]'}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	});

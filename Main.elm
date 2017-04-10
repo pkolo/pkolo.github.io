@@ -4,6 +4,8 @@ import Html exposing (..)
 import Html.Attributes exposing (class, target, href, property)
 import Json.Decode exposing (..)
 import Json.Decode.Pipeline exposing (..)
+import StyleSheet exposing (Class(..))
+import Style exposing (all)
 import Data
 
 
@@ -78,41 +80,50 @@ decodeResults json =
 -- view
 
 
+{ class, classList } =
+    StyleSheet.stylesheet
+
+
 view : Model -> Html Msg
 view model =
     div []
-        [ header []
-            [ h1 [] [ text "Patrick Kolodgy" ]
-            , nav []
-                [ text "Brooklyn, NY"
-                , text separator
-                , text "pkolodgy at gmail"
-                , text separator
-                , a
-                    [ href "https://github.com/pkolo"
-                    , target "_blank"
+        [ Style.embed StyleSheet.stylesheet
+        , div [ class Body ]
+            [ header [ class Header ]
+                [ div [ class Title ] [ text "Patrick Kolodgy" ]
+                , nav []
+                    [ text "Brooklyn, NY"
+                    , text separator
+                    , text "pkolodgy at gmail"
+                    , text separator
+                    , a
+                        [ href "https://github.com/pkolo"
+                        , target "_blank"
+                        ]
+                        [ text "github" ]
+                    , text separator
+                    , a
+                        [ href "https://www.linkedin.com/in/pkolodgy/"
+                        , target "_blank"
+                        ]
+                        [ text "linkedin" ]
                     ]
-                    [ text "github" ]
-                , text separator
-                , a
-                    [ href "https://www.linkedin.com/in/pkolodgy/"
-                    , target "_blank"
-                    ]
-                    [ text "linkedin" ]
+                ]
+            , div [ class Content ]
+                [ div [ class Status ]
+                    [ text "Active" ]
+                , div []
+                    (List.map viewProject (activeProjects model.projects))
+                , div [ class Status ]
+                    [ text "Works in progress" ]
+                , div []
+                    (List.map viewProject (wipProjects model.projects))
+                , div [ class Status ]
+                    [ text "Inactive" ]
+                , div []
+                    (List.map viewProject (inactiveProjects model.projects))
                 ]
             ]
-        , h3 []
-            [ text "Active" ]
-        , ul []
-            (List.map viewProject (activeProjects model.projects))
-        , h3 []
-            [ text "Works in progress" ]
-        , ul []
-            (List.map viewProject (wipProjects model.projects))
-        , h3 []
-            [ text "Inactive" ]
-        , ul []
-            (List.map viewProject (inactiveProjects model.projects))
         ]
 
 
@@ -133,21 +144,20 @@ inactiveProjects projects =
 
 viewProject : Project -> Html Msg
 viewProject project =
-    li []
-        [ div [ class "project" ]
-            [ div [ class "project-info" ]
-                [ text project.name
-                , (getLink project)
-                , (getSrc project)
-                ]
-            , div [ class "project-details" ]
-                [ p []
-                    [ text project.description ]
-                , p []
-                    [ text ("Technologies used: " ++ project.technologies) ]
-                , p []
-                    [ text ("File under: " ++ project.categories) ]
-                ]
+    div [ class ProjectInfo ]
+        [ div [ class ProjectHeader ]
+            [ span [ class ProjectName ]
+                [ text project.name ]
+            , (getLink project)
+            , (getSrc project)
+            ]
+        , div []
+            [ div [ class ProjectDetail ]
+                [ text project.description ]
+            , div [ class ProjectDetail ]
+                [ text ("Technologies used: " ++ project.technologies) ]
+            , div [ class ProjectDetail ]
+                [ text ("File under: " ++ project.categories) ]
             ]
         ]
 
@@ -155,9 +165,8 @@ viewProject project =
 getLink : Project -> Html Msg
 getLink project =
     if project.link /= "" then
-        span []
-            [ text separator
-            , a
+        span [ class ProjectLink ]
+            [ a
                 [ href project.link
                 , target "_blank"
                 ]
@@ -170,9 +179,8 @@ getLink project =
 getSrc : Project -> Html Msg
 getSrc project =
     if project.src_link /= "" then
-        span []
-            [ text separator
-            , a
+        span [ class ProjectLink ]
+            [ a
                 [ href project.src_link
                 , target "_blank"
                 ]
