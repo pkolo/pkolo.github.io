@@ -5,13 +5,27 @@ import Html exposing (Html)
 
 
 type Class
-    = Content
+    = Body
+    | Header
+    | Content
+    | Title
+    | Status
 
 
 stylesheet : StyleSheet Class msg
 stylesheet =
     Style.render
-        [ class Content
-            [ width (px 300)
+        [ class Body
+            [ maxWidth (px 960)
+            , padding (left 15)
             ]
+        , class Header
+            [ padding (bottom 25)
+            ]
+        , class Content
+            []
+        , class Title
+            [ fontsize 50 ]
+        , class Status
+            [ fontsize 25 ]
         ]

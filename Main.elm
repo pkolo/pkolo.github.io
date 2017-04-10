@@ -88,39 +88,41 @@ view : Model -> Html Msg
 view model =
     div []
         [ Style.embed StyleSheet.stylesheet
-        , header []
-            [ h1 [] [ text "Patrick Kolodgy" ]
-            , nav []
-                [ text "Brooklyn, NY"
-                , text separator
-                , text "pkolodgy at gmail"
-                , text separator
-                , a
-                    [ href "https://github.com/pkolo"
-                    , target "_blank"
+        , div [ class Body ]
+            [ header [ class Header ]
+                [ div [ class Title ] [ text "Patrick Kolodgy" ]
+                , nav []
+                    [ text "Brooklyn, NY"
+                    , text separator
+                    , text "pkolodgy at gmail"
+                    , text separator
+                    , a
+                        [ href "https://github.com/pkolo"
+                        , target "_blank"
+                        ]
+                        [ text "github" ]
+                    , text separator
+                    , a
+                        [ href "https://www.linkedin.com/in/pkolodgy/"
+                        , target "_blank"
+                        ]
+                        [ text "linkedin" ]
                     ]
-                    [ text "github" ]
-                , text separator
-                , a
-                    [ href "https://www.linkedin.com/in/pkolodgy/"
-                    , target "_blank"
-                    ]
-                    [ text "linkedin" ]
                 ]
-            ]
-        , div [ class Content ]
-            [ h3 []
-                [ text "Active" ]
-            , ul []
-                (List.map viewProject (activeProjects model.projects))
-            , h3 []
-                [ text "Works in progress" ]
-            , ul []
-                (List.map viewProject (wipProjects model.projects))
-            , h3 []
-                [ text "Inactive" ]
-            , ul []
-                (List.map viewProject (inactiveProjects model.projects))
+            , div [ class Content ]
+                [ div [ class Status ]
+                    [ text "Active" ]
+                , ul []
+                    (List.map viewProject (activeProjects model.projects))
+                , div [ class Status ]
+                    [ text "Works in progress" ]
+                , ul []
+                    (List.map viewProject (wipProjects model.projects))
+                , div [ class Status ]
+                    [ text "Inactive" ]
+                , ul []
+                    (List.map viewProject (inactiveProjects model.projects))
+                ]
             ]
         ]
 
