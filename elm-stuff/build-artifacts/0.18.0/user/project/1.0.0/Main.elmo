@@ -64,23 +64,80 @@ var _user$project$Main$viewProject = function (project) {
 		{
 			ctor: '::',
 			_0: A2(
-				_elm_lang$html$Html$p,
-				{ctor: '[]'},
+				_elm_lang$html$Html$div,
 				{
 					ctor: '::',
-					_0: _elm_lang$html$Html$text(project.name),
-					_1: {
-						ctor: '::',
-						_0: _user$project$Main$getLink(project),
-						_1: {
+					_0: _elm_lang$html$Html_Attributes$class('project'),
+					_1: {ctor: '[]'}
+				},
+				{
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$div,
+						{
 							ctor: '::',
-							_0: _user$project$Main$getSrc(project),
+							_0: _elm_lang$html$Html_Attributes$class('project-info'),
+							_1: {ctor: '[]'}
+						},
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html$text(project.name),
 							_1: {
 								ctor: '::',
-								_0: _elm_lang$html$Html$text(project.description),
-								_1: {ctor: '[]'}
+								_0: _user$project$Main$getLink(project),
+								_1: {
+									ctor: '::',
+									_0: _user$project$Main$getSrc(project),
+									_1: {ctor: '[]'}
+								}
 							}
-						}
+						}),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_elm_lang$html$Html$div,
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$class('project-details'),
+								_1: {ctor: '[]'}
+							},
+							{
+								ctor: '::',
+								_0: A2(
+									_elm_lang$html$Html$p,
+									{ctor: '[]'},
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html$text(project.description),
+										_1: {ctor: '[]'}
+									}),
+								_1: {
+									ctor: '::',
+									_0: A2(
+										_elm_lang$html$Html$p,
+										{ctor: '[]'},
+										{
+											ctor: '::',
+											_0: _elm_lang$html$Html$text(
+												A2(_elm_lang$core$Basics_ops['++'], 'Technologies used: ', project.technologies)),
+											_1: {ctor: '[]'}
+										}),
+									_1: {
+										ctor: '::',
+										_0: A2(
+											_elm_lang$html$Html$p,
+											{ctor: '[]'},
+											{
+												ctor: '::',
+												_0: _elm_lang$html$Html$text(
+													A2(_elm_lang$core$Basics_ops['++'], 'File under: ', project.categories)),
+												_1: {ctor: '[]'}
+											}),
+										_1: {ctor: '[]'}
+									}
+								}
+							}),
+						_1: {ctor: '[]'}
 					}
 				}),
 			_1: {ctor: '[]'}

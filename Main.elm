@@ -134,11 +134,20 @@ inactiveProjects projects =
 viewProject : Project -> Html Msg
 viewProject project =
     li []
-        [ p []
-            [ text project.name
-            , (getLink project)
-            , (getSrc project)
-            , text project.description
+        [ div [ class "project" ]
+            [ div [ class "project-info" ]
+                [ text project.name
+                , (getLink project)
+                , (getSrc project)
+                ]
+            , div [ class "project-details" ]
+                [ p []
+                    [ text project.description ]
+                , p []
+                    [ text ("Technologies used: " ++ project.technologies) ]
+                , p []
+                    [ text ("File under: " ++ project.categories) ]
+                ]
             ]
         ]
 
