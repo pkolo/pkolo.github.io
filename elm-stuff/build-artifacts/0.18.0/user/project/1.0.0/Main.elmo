@@ -11,11 +11,7 @@ var _user$project$Main$viewSearchResult = function (result) {
 var _user$project$Main$view = function (model) {
 	return A2(
 		_elm_lang$html$Html$div,
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$class('content'),
-			_1: {ctor: '[]'}
-		},
+		{ctor: '[]'},
 		{
 			ctor: '::',
 			_0: A2(
@@ -28,7 +24,7 @@ var _user$project$Main$view = function (model) {
 						{ctor: '[]'},
 						{
 							ctor: '::',
-							_0: _elm_lang$html$Html$text('ElmHub'),
+							_0: _elm_lang$html$Html$text('Patrick Kolodgy'),
 							_1: {ctor: '[]'}
 						}),
 					_1: {
@@ -50,7 +46,19 @@ var _user$project$Main$view = function (model) {
 					_elm_lang$html$Html$ul,
 					{ctor: '[]'},
 					A2(_elm_lang$core$List$map, _user$project$Main$viewSearchResult, model.results)),
-				_1: {ctor: '[]'}
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$p,
+						{ctor: '[]'},
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html$text(
+								_elm_lang$core$Basics$toString(model)),
+							_1: {ctor: '[]'}
+						}),
+					_1: {ctor: '[]'}
+				}
 			}
 		});
 };

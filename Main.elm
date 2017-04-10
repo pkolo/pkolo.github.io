@@ -3,7 +3,7 @@ module Main exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (class, target, href, property)
 import Json.Decode exposing (..)
-import Json.Decode.Pipeline exposing (required)
+import Json.Decode.Pipeline exposing (..)
 import Data
 
 
@@ -25,6 +25,12 @@ type alias Model =
     }
 
 
+initialModel : Model
+initialModel =
+    { results = decodeResults Data.json
+    }
+
+
 type alias SearchResult =
     { id : Int
     , name : String
@@ -36,22 +42,6 @@ type alias SearchResult =
     , src_link : String
     , description : String
     }
-
-
-initialModel : Model
-initialModel =
-    { results = decodeResults Data.json
-    }
-
-
-decodeResults : String -> List SearchResult
-decodeResults json =
-    case decodeString responseDecoder json of
-        Ok searchResults ->
-            searchResults
-
-        Err errorMessage ->
-            []
 
 
 responseDecoder : Decoder (List SearchResult)
@@ -74,19 +64,31 @@ searchResultDecoder =
         |> required "description" string
 
 
+decodeResults : String -> List SearchResult
+decodeResults json =
+    case decodeString responseDecoder json of
+        Ok searchResults ->
+            searchResults
+
+        Err errorMessage ->
+            []
+
+
 
 -- view
 
 
 view : Model -> Html Msg
 view model =
-    div [ class "content" ]
+    div []
         [ header []
-            [ h1 [] [ text "ElmHub" ]
+            [ h1 [] [ text "Patrick Kolodgy" ]
             , span [] [ text "Like GitHub, but for Elm things." ]
             ]
         , ul []
             (List.map viewSearchResult model.results)
+        , p []
+            [ text (toString model) ]
         ]
 
 
