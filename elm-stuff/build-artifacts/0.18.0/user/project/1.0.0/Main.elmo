@@ -36,27 +36,23 @@ var _user$project$Main$getLink = function (project) {
 		},
 		{
 			ctor: '::',
-			_0: _elm_lang$html$Html$text(_user$project$Main$separator),
-			_1: {
-				ctor: '::',
-				_0: A2(
-					_elm_lang$html$Html$a,
-					{
+			_0: A2(
+				_elm_lang$html$Html$a,
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$href(project.link),
+					_1: {
 						ctor: '::',
-						_0: _elm_lang$html$Html_Attributes$href(project.link),
-						_1: {
-							ctor: '::',
-							_0: _elm_lang$html$Html_Attributes$target('_blank'),
-							_1: {ctor: '[]'}
-						}
-					},
-					{
-						ctor: '::',
-						_0: _elm_lang$html$Html$text('link'),
+						_0: _elm_lang$html$Html_Attributes$target('_blank'),
 						_1: {ctor: '[]'}
-					}),
-				_1: {ctor: '[]'}
-			}
+					}
+				},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text('link'),
+					_1: {ctor: '[]'}
+				}),
+			_1: {ctor: '[]'}
 		}) : _elm_lang$html$Html$text('');
 };
 var _user$project$Main$getSrc = function (project) {
@@ -69,27 +65,23 @@ var _user$project$Main$getSrc = function (project) {
 		},
 		{
 			ctor: '::',
-			_0: _elm_lang$html$Html$text(_user$project$Main$separator),
-			_1: {
-				ctor: '::',
-				_0: A2(
-					_elm_lang$html$Html$a,
-					{
+			_0: A2(
+				_elm_lang$html$Html$a,
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$href(project.src_link),
+					_1: {
 						ctor: '::',
-						_0: _elm_lang$html$Html_Attributes$href(project.src_link),
-						_1: {
-							ctor: '::',
-							_0: _elm_lang$html$Html_Attributes$target('_blank'),
-							_1: {ctor: '[]'}
-						}
-					},
-					{
-						ctor: '::',
-						_0: _elm_lang$html$Html$text('src'),
+						_0: _elm_lang$html$Html_Attributes$target('_blank'),
 						_1: {ctor: '[]'}
-					}),
-				_1: {ctor: '[]'}
-			}
+					}
+				},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text('src'),
+					_1: {ctor: '[]'}
+				}),
+			_1: {ctor: '[]'}
 		}) : _elm_lang$html$Html$text('');
 };
 var _user$project$Main$viewProject = function (project) {

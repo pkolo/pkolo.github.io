@@ -166,8 +166,7 @@ getLink : Project -> Html Msg
 getLink project =
     if project.link /= "" then
         span [ class ProjectLink ]
-            [ text separator
-            , a
+            [ a
                 [ href project.link
                 , target "_blank"
                 ]
@@ -181,8 +180,7 @@ getSrc : Project -> Html Msg
 getSrc project =
     if project.src_link /= "" then
         span [ class ProjectLink ]
-            [ text separator
-            , a
+            [ a
                 [ href project.src_link
                 , target "_blank"
                 ]

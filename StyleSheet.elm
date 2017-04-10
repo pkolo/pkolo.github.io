@@ -43,9 +43,11 @@ stylesheet =
         , class ProjectHeader
             []
         , class ProjectLink
-            [ inline ]
+            [ inline
+            , padding (leftRight 5)
+            ]
         , class ProjectName
-            [ fontsize 18
+            [ fontsize 22
             , inline
             ]
         , class ProjectDetail
