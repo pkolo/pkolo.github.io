@@ -101,17 +101,40 @@ view model =
                     [ text "linkedin" ]
                 ]
             ]
+        , h3 []
+            [ text "Active" ]
         , ul []
-            (List.map viewProject model.projects)
-        , p []
-            [ text (toString model) ]
+            (List.map viewProject (activeProjects model.projects))
+        , h3 []
+            [ text "Works in progress" ]
+        , ul []
+            (List.map viewProject (wipProjects model.projects))
+        , h3 []
+            [ text "Inactive" ]
+        , ul []
+            (List.map viewProject (inactiveProjects model.projects))
         ]
+
+
+activeProjects : List Project -> List Project
+activeProjects projects =
+    List.filter (\project -> (project.status == "Active")) projects
+
+
+wipProjects : List Project -> List Project
+wipProjects projects =
+    List.filter (\project -> (project.status == "Work in progress")) projects
+
+
+inactiveProjects : List Project -> List Project
+inactiveProjects projects =
+    List.filter (\project -> (project.status == "Inactive")) projects
 
 
 viewProject : Project -> Html Msg
 viewProject project =
     li []
-        [ text "Anything" ]
+        [ text project.name ]
 
 
 separator : String

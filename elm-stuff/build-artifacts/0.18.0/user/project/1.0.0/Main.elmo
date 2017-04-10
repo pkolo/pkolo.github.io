@@ -5,9 +5,33 @@ var _user$project$Main$viewProject = function (project) {
 		{ctor: '[]'},
 		{
 			ctor: '::',
-			_0: _elm_lang$html$Html$text('Anything'),
+			_0: _elm_lang$html$Html$text(project.name),
 			_1: {ctor: '[]'}
 		});
+};
+var _user$project$Main$inactiveProjects = function (projects) {
+	return A2(
+		_elm_lang$core$List$filter,
+		function (project) {
+			return _elm_lang$core$Native_Utils.eq(project.status, 'Inactive');
+		},
+		projects);
+};
+var _user$project$Main$wipProjects = function (projects) {
+	return A2(
+		_elm_lang$core$List$filter,
+		function (project) {
+			return _elm_lang$core$Native_Utils.eq(project.status, 'Work in progress');
+		},
+		projects);
+};
+var _user$project$Main$activeProjects = function (projects) {
+	return A2(
+		_elm_lang$core$List$filter,
+		function (project) {
+			return _elm_lang$core$Native_Utils.eq(project.status, 'Active');
+		},
+		projects);
 };
 var _user$project$Main$view = function (model) {
 	return A2(
@@ -98,21 +122,65 @@ var _user$project$Main$view = function (model) {
 			_1: {
 				ctor: '::',
 				_0: A2(
-					_elm_lang$html$Html$ul,
+					_elm_lang$html$Html$h3,
 					{ctor: '[]'},
-					A2(_elm_lang$core$List$map, _user$project$Main$viewProject, model.projects)),
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html$text('Active'),
+						_1: {ctor: '[]'}
+					}),
 				_1: {
 					ctor: '::',
 					_0: A2(
-						_elm_lang$html$Html$p,
+						_elm_lang$html$Html$ul,
 						{ctor: '[]'},
-						{
+						A2(
+							_elm_lang$core$List$map,
+							_user$project$Main$viewProject,
+							_user$project$Main$activeProjects(model.projects))),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_elm_lang$html$Html$h3,
+							{ctor: '[]'},
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html$text('Works in progress'),
+								_1: {ctor: '[]'}
+							}),
+						_1: {
 							ctor: '::',
-							_0: _elm_lang$html$Html$text(
-								_elm_lang$core$Basics$toString(model)),
-							_1: {ctor: '[]'}
-						}),
-					_1: {ctor: '[]'}
+							_0: A2(
+								_elm_lang$html$Html$ul,
+								{ctor: '[]'},
+								A2(
+									_elm_lang$core$List$map,
+									_user$project$Main$viewProject,
+									_user$project$Main$wipProjects(model.projects))),
+							_1: {
+								ctor: '::',
+								_0: A2(
+									_elm_lang$html$Html$h3,
+									{ctor: '[]'},
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html$text('Inactive'),
+										_1: {ctor: '[]'}
+									}),
+								_1: {
+									ctor: '::',
+									_0: A2(
+										_elm_lang$html$Html$ul,
+										{ctor: '[]'},
+										A2(
+											_elm_lang$core$List$map,
+											_user$project$Main$viewProject,
+											_user$project$Main$inactiveProjects(model.projects))),
+									_1: {ctor: '[]'}
+								}
+							}
+						}
+					}
 				}
 			}
 		});
