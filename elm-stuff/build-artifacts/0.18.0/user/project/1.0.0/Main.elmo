@@ -65,20 +65,12 @@ var _user$project$Main$viewProject = function (project) {
 			ctor: '::',
 			_0: A2(
 				_elm_lang$html$Html$div,
-				{
-					ctor: '::',
-					_0: _elm_lang$html$Html_Attributes$class('project'),
-					_1: {ctor: '[]'}
-				},
+				{ctor: '[]'},
 				{
 					ctor: '::',
 					_0: A2(
 						_elm_lang$html$Html$div,
-						{
-							ctor: '::',
-							_0: _elm_lang$html$Html_Attributes$class('project-info'),
-							_1: {ctor: '[]'}
-						},
+						{ctor: '[]'},
 						{
 							ctor: '::',
 							_0: _elm_lang$html$Html$text(project.name),
@@ -96,11 +88,7 @@ var _user$project$Main$viewProject = function (project) {
 						ctor: '::',
 						_0: A2(
 							_elm_lang$html$Html$div,
-							{
-								ctor: '::',
-								_0: _elm_lang$html$Html_Attributes$class('project-details'),
-								_1: {ctor: '[]'}
-							},
+							{ctor: '[]'},
 							{
 								ctor: '::',
 								_0: A2(
@@ -167,154 +155,172 @@ var _user$project$Main$activeProjects = function (projects) {
 		},
 		projects);
 };
+var _user$project$Main$_p0 = _user$project$StyleSheet$stylesheet;
+var _user$project$Main$class = _user$project$Main$_p0.$class;
+var _user$project$Main$classList = _user$project$Main$_p0.classList;
 var _user$project$Main$view = function (model) {
 	return A2(
 		_elm_lang$html$Html$div,
 		{ctor: '[]'},
 		{
 			ctor: '::',
-			_0: A2(
-				_elm_lang$html$Html$header,
-				{ctor: '[]'},
-				{
-					ctor: '::',
-					_0: A2(
-						_elm_lang$html$Html$h1,
-						{ctor: '[]'},
-						{
-							ctor: '::',
-							_0: _elm_lang$html$Html$text('Patrick Kolodgy'),
-							_1: {ctor: '[]'}
-						}),
-					_1: {
-						ctor: '::',
-						_0: A2(
-							_elm_lang$html$Html$nav,
-							{ctor: '[]'},
-							{
-								ctor: '::',
-								_0: _elm_lang$html$Html$text('Brooklyn, NY'),
-								_1: {
-									ctor: '::',
-									_0: _elm_lang$html$Html$text(_user$project$Main$separator),
-									_1: {
-										ctor: '::',
-										_0: _elm_lang$html$Html$text('pkolodgy at gmail'),
-										_1: {
-											ctor: '::',
-											_0: _elm_lang$html$Html$text(_user$project$Main$separator),
-											_1: {
-												ctor: '::',
-												_0: A2(
-													_elm_lang$html$Html$a,
-													{
-														ctor: '::',
-														_0: _elm_lang$html$Html_Attributes$href('https://github.com/pkolo'),
-														_1: {
-															ctor: '::',
-															_0: _elm_lang$html$Html_Attributes$target('_blank'),
-															_1: {ctor: '[]'}
-														}
-													},
-													{
-														ctor: '::',
-														_0: _elm_lang$html$Html$text('github'),
-														_1: {ctor: '[]'}
-													}),
-												_1: {
-													ctor: '::',
-													_0: _elm_lang$html$Html$text(_user$project$Main$separator),
-													_1: {
-														ctor: '::',
-														_0: A2(
-															_elm_lang$html$Html$a,
-															{
-																ctor: '::',
-																_0: _elm_lang$html$Html_Attributes$href('https://www.linkedin.com/in/pkolodgy/'),
-																_1: {
-																	ctor: '::',
-																	_0: _elm_lang$html$Html_Attributes$target('_blank'),
-																	_1: {ctor: '[]'}
-																}
-															},
-															{
-																ctor: '::',
-																_0: _elm_lang$html$Html$text('linkedin'),
-																_1: {ctor: '[]'}
-															}),
-														_1: {ctor: '[]'}
-													}
-												}
-											}
-										}
-									}
-								}
-							}),
-						_1: {ctor: '[]'}
-					}
-				}),
+			_0: _mdgriffith$style_elements$Style$embed(_user$project$StyleSheet$stylesheet),
 			_1: {
 				ctor: '::',
 				_0: A2(
-					_elm_lang$html$Html$h3,
+					_elm_lang$html$Html$header,
 					{ctor: '[]'},
 					{
 						ctor: '::',
-						_0: _elm_lang$html$Html$text('Active'),
-						_1: {ctor: '[]'}
-					}),
-				_1: {
-					ctor: '::',
-					_0: A2(
-						_elm_lang$html$Html$ul,
-						{ctor: '[]'},
-						A2(
-							_elm_lang$core$List$map,
-							_user$project$Main$viewProject,
-							_user$project$Main$activeProjects(model.projects))),
-					_1: {
-						ctor: '::',
 						_0: A2(
-							_elm_lang$html$Html$h3,
+							_elm_lang$html$Html$h1,
 							{ctor: '[]'},
 							{
 								ctor: '::',
-								_0: _elm_lang$html$Html$text('Works in progress'),
+								_0: _elm_lang$html$Html$text('Patrick Kolodgy'),
 								_1: {ctor: '[]'}
 							}),
 						_1: {
 							ctor: '::',
 							_0: A2(
-								_elm_lang$html$Html$ul,
+								_elm_lang$html$Html$nav,
 								{ctor: '[]'},
-								A2(
-									_elm_lang$core$List$map,
-									_user$project$Main$viewProject,
-									_user$project$Main$wipProjects(model.projects))),
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html$text('Brooklyn, NY'),
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$html$Html$text(_user$project$Main$separator),
+										_1: {
+											ctor: '::',
+											_0: _elm_lang$html$Html$text('pkolodgy at gmail'),
+											_1: {
+												ctor: '::',
+												_0: _elm_lang$html$Html$text(_user$project$Main$separator),
+												_1: {
+													ctor: '::',
+													_0: A2(
+														_elm_lang$html$Html$a,
+														{
+															ctor: '::',
+															_0: _elm_lang$html$Html_Attributes$href('https://github.com/pkolo'),
+															_1: {
+																ctor: '::',
+																_0: _elm_lang$html$Html_Attributes$target('_blank'),
+																_1: {ctor: '[]'}
+															}
+														},
+														{
+															ctor: '::',
+															_0: _elm_lang$html$Html$text('github'),
+															_1: {ctor: '[]'}
+														}),
+													_1: {
+														ctor: '::',
+														_0: _elm_lang$html$Html$text(_user$project$Main$separator),
+														_1: {
+															ctor: '::',
+															_0: A2(
+																_elm_lang$html$Html$a,
+																{
+																	ctor: '::',
+																	_0: _elm_lang$html$Html_Attributes$href('https://www.linkedin.com/in/pkolodgy/'),
+																	_1: {
+																		ctor: '::',
+																		_0: _elm_lang$html$Html_Attributes$target('_blank'),
+																		_1: {ctor: '[]'}
+																	}
+																},
+																{
+																	ctor: '::',
+																	_0: _elm_lang$html$Html$text('linkedin'),
+																	_1: {ctor: '[]'}
+																}),
+															_1: {ctor: '[]'}
+														}
+													}
+												}
+											}
+										}
+									}
+								}),
+							_1: {ctor: '[]'}
+						}
+					}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$div,
+						{
+							ctor: '::',
+							_0: _user$project$Main$class(_user$project$StyleSheet$Content),
+							_1: {ctor: '[]'}
+						},
+						{
+							ctor: '::',
+							_0: A2(
+								_elm_lang$html$Html$h3,
+								{ctor: '[]'},
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html$text('Active'),
+									_1: {ctor: '[]'}
+								}),
 							_1: {
 								ctor: '::',
 								_0: A2(
-									_elm_lang$html$Html$h3,
+									_elm_lang$html$Html$ul,
 									{ctor: '[]'},
-									{
-										ctor: '::',
-										_0: _elm_lang$html$Html$text('Inactive'),
-										_1: {ctor: '[]'}
-									}),
+									A2(
+										_elm_lang$core$List$map,
+										_user$project$Main$viewProject,
+										_user$project$Main$activeProjects(model.projects))),
 								_1: {
 									ctor: '::',
 									_0: A2(
-										_elm_lang$html$Html$ul,
+										_elm_lang$html$Html$h3,
 										{ctor: '[]'},
-										A2(
-											_elm_lang$core$List$map,
-											_user$project$Main$viewProject,
-											_user$project$Main$inactiveProjects(model.projects))),
-									_1: {ctor: '[]'}
+										{
+											ctor: '::',
+											_0: _elm_lang$html$Html$text('Works in progress'),
+											_1: {ctor: '[]'}
+										}),
+									_1: {
+										ctor: '::',
+										_0: A2(
+											_elm_lang$html$Html$ul,
+											{ctor: '[]'},
+											A2(
+												_elm_lang$core$List$map,
+												_user$project$Main$viewProject,
+												_user$project$Main$wipProjects(model.projects))),
+										_1: {
+											ctor: '::',
+											_0: A2(
+												_elm_lang$html$Html$h3,
+												{ctor: '[]'},
+												{
+													ctor: '::',
+													_0: _elm_lang$html$Html$text('Inactive'),
+													_1: {ctor: '[]'}
+												}),
+											_1: {
+												ctor: '::',
+												_0: A2(
+													_elm_lang$html$Html$ul,
+													{ctor: '[]'},
+													A2(
+														_elm_lang$core$List$map,
+														_user$project$Main$viewProject,
+														_user$project$Main$inactiveProjects(model.projects))),
+												_1: {ctor: '[]'}
+											}
+										}
+									}
 								}
 							}
-						}
-					}
+						}),
+					_1: {ctor: '[]'}
 				}
 			}
 		});
@@ -369,9 +375,9 @@ var _user$project$Main$responseDecoder = A3(
 	_elm_lang$core$Json_Decode$list(_user$project$Main$searchResultDecoder),
 	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_elm_lang$core$Basics$identity));
 var _user$project$Main$decodeResults = function (json) {
-	var _p0 = A2(_elm_lang$core$Json_Decode$decodeString, _user$project$Main$responseDecoder, json);
-	if (_p0.ctor === 'Ok') {
-		return _p0._0;
+	var _p1 = A2(_elm_lang$core$Json_Decode$decodeString, _user$project$Main$responseDecoder, json);
+	if (_p1.ctor === 'Ok') {
+		return _p1._0;
 	} else {
 		return {ctor: '[]'};
 	}

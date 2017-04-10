@@ -4,6 +4,8 @@ import Html exposing (..)
 import Html.Attributes exposing (class, target, href, property)
 import Json.Decode exposing (..)
 import Json.Decode.Pipeline exposing (..)
+import StyleSheet exposing (Class(..))
+import Style exposing (all)
 import Data
 
 
@@ -78,10 +80,15 @@ decodeResults json =
 -- view
 
 
+{ class, classList } =
+    StyleSheet.stylesheet
+
+
 view : Model -> Html Msg
 view model =
     div []
-        [ header []
+        [ Style.embed StyleSheet.stylesheet
+        , header []
             [ h1 [] [ text "Patrick Kolodgy" ]
             , nav []
                 [ text "Brooklyn, NY"
@@ -101,18 +108,20 @@ view model =
                     [ text "linkedin" ]
                 ]
             ]
-        , h3 []
-            [ text "Active" ]
-        , ul []
-            (List.map viewProject (activeProjects model.projects))
-        , h3 []
-            [ text "Works in progress" ]
-        , ul []
-            (List.map viewProject (wipProjects model.projects))
-        , h3 []
-            [ text "Inactive" ]
-        , ul []
-            (List.map viewProject (inactiveProjects model.projects))
+        , div [ class Content ]
+            [ h3 []
+                [ text "Active" ]
+            , ul []
+                (List.map viewProject (activeProjects model.projects))
+            , h3 []
+                [ text "Works in progress" ]
+            , ul []
+                (List.map viewProject (wipProjects model.projects))
+            , h3 []
+                [ text "Inactive" ]
+            , ul []
+                (List.map viewProject (inactiveProjects model.projects))
+            ]
         ]
 
 
@@ -134,13 +143,13 @@ inactiveProjects projects =
 viewProject : Project -> Html Msg
 viewProject project =
     li []
-        [ div [ class "project" ]
-            [ div [ class "project-info" ]
+        [ div []
+            [ div []
                 [ text project.name
                 , (getLink project)
                 , (getSrc project)
                 ]
-            , div [ class "project-details" ]
+            , div []
                 [ p []
                     [ text project.description ]
                 , p []
