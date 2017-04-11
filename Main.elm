@@ -37,7 +37,7 @@ type alias Project =
     { id : Int
     , name : String
     , timeline : String
-    , status : String
+    , status : Int
     , categories : String
     , technologies : String
     , link : String
@@ -58,7 +58,7 @@ searchResultDecoder =
         |> required "id" int
         |> required "name" string
         |> required "timeline" string
-        |> required "status" string
+        |> required "status" int
         |> required "categories" string
         |> required "technologies" string
         |> required "link" string
@@ -112,17 +112,7 @@ view model =
                     ]
                 ]
             , div [ class Content ]
-                [ div [ class Status ]
-                    [ text "Active" ]
-                , div []
-                    (List.map viewProject (activeProjects model.projects))
-                , div [ class Status ]
-                    [ text "In progress" ]
-                , div []
-                    (List.map viewProject (wipProjects model.projects))
-                , div [ class Status ]
-                    [ text "Inactive" ]
-                , div []
+                [ div []
                     (List.map viewProject (inactiveProjects model.projects))
                 ]
             ]
