@@ -9,7 +9,13 @@ var _user$project$StyleSheet$Title = {ctor: 'Title'};
 var _user$project$StyleSheet$Content = {ctor: 'Content'};
 var _user$project$StyleSheet$Header = {ctor: 'Header'};
 var _user$project$StyleSheet$Body = {ctor: 'Body'};
-var _user$project$StyleSheet$stylesheet = _mdgriffith$style_elements$Style$render(
+var _user$project$StyleSheet$stylesheet = A2(
+	_mdgriffith$style_elements$Style$renderWith,
+	{
+		ctor: '::',
+		_0: _mdgriffith$style_elements$Style$autoImportGoogleFonts,
+		_1: {ctor: '[]'}
+	},
 	{
 		ctor: '::',
 		_0: A2(
@@ -25,7 +31,7 @@ var _user$project$StyleSheet$stylesheet = _mdgriffith$style_elements$Style$rende
 						_mdgriffith$style_elements$Style$left(15)),
 					_1: {
 						ctor: '::',
-						_0: _mdgriffith$style_elements$Style$font('serif'),
+						_0: _mdgriffith$style_elements$Style$font('Didact Gothic'),
 						_1: {ctor: '[]'}
 					}
 				}

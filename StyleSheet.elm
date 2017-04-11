@@ -20,11 +20,11 @@ type Class
 
 stylesheet : StyleSheet Class msg
 stylesheet =
-    Style.render
+    Style.renderWith [ Style.autoImportGoogleFonts ]
         [ class Body
             [ maxWidth (px 960)
             , padding (left 15)
-            , font "serif"
+            , font "Didact Gothic"
             ]
         , class Header
             [ padding (bottom 25)
@@ -32,7 +32,8 @@ stylesheet =
         , class Content
             []
         , class Title
-            [ fontsize 50 ]
+            [ fontsize 50
+            ]
         , class Status
             [ fontsize 25
             , padding (bottom 15)
