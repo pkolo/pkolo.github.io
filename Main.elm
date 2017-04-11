@@ -142,11 +142,14 @@ viewProject project =
 getStatus : Project -> Html Msg
 getStatus project =
     if project.status == 0 then
-        text "active"
+        div [ class Active ]
+            [ text "(active)" ]
     else if project.status == 1 then
-        text "in progress"
+        div [ class InProgress ]
+            [ text "(in progress)" ]
     else
-        text "inactive"
+        div [ class Inactive ]
+            [ text "(inactive)" ]
 
 
 getLink : Project -> Html Msg

@@ -14,6 +14,9 @@ type Class
     | Status
     | UL
     | P
+    | Active
+    | InProgress
+    | Inactive
     | ProjectInfo
     | ProjectHeader
     | ProjectLink
@@ -53,6 +56,21 @@ stylesheet =
             [ spacing (top 10) ]
         , class P
             []
+        , class Active
+            [ textColor (Color.rgb 150 150 50)
+            , inline
+            , padding (left 5)
+            ]
+        , class InProgress
+            [ textColor (Color.rgb 150 150 50)
+            , inline
+            , padding (left 5)
+            ]
+        , class Inactive
+            [ textColor (Color.rgb 150 50 50)
+            , inline
+            , padding (left 5)
+            ]
         , class ProjectInfo
             [ padding (leftRightTopBottom 20 0 0 20) ]
         , class ProjectHeader
