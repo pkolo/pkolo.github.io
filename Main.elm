@@ -113,25 +113,10 @@ view model =
                 ]
             , div [ class Content ]
                 [ div []
-                    (List.map viewProject (inactiveProjects model.projects))
+                    (List.map viewProject (List.sortBy .status model.projects))
                 ]
             ]
         ]
-
-
-activeProjects : List Project -> List Project
-activeProjects projects =
-    List.filter (\project -> (project.status == "Active")) projects
-
-
-wipProjects : List Project -> List Project
-wipProjects projects =
-    List.filter (\project -> (project.status == "Work in progress")) projects
-
-
-inactiveProjects : List Project -> List Project
-inactiveProjects projects =
-    List.filter (\project -> (project.status == "Inactive")) projects
 
 
 viewProject : Project -> Html Msg

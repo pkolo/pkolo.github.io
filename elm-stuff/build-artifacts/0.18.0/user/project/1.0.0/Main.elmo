@@ -1,28 +1,4 @@
 var _user$project$Main$separator = ' | ';
-var _user$project$Main$inactiveProjects = function (projects) {
-	return A2(
-		_elm_lang$core$List$filter,
-		function (project) {
-			return _elm_lang$core$Native_Utils.eq(project.status, 'Inactive');
-		},
-		projects);
-};
-var _user$project$Main$wipProjects = function (projects) {
-	return A2(
-		_elm_lang$core$List$filter,
-		function (project) {
-			return _elm_lang$core$Native_Utils.eq(project.status, 'Work in progress');
-		},
-		projects);
-};
-var _user$project$Main$activeProjects = function (projects) {
-	return A2(
-		_elm_lang$core$List$filter,
-		function (project) {
-			return _elm_lang$core$Native_Utils.eq(project.status, 'Active');
-		},
-		projects);
-};
 var _user$project$Main$_p0 = _user$project$StyleSheet$stylesheet;
 var _user$project$Main$class = _user$project$Main$_p0.$class;
 var _user$project$Main$classList = _user$project$Main$_p0.classList;
@@ -340,7 +316,12 @@ var _user$project$Main$view = function (model) {
 										A2(
 											_elm_lang$core$List$map,
 											_user$project$Main$viewProject,
-											_user$project$Main$inactiveProjects(model.projects))),
+											A2(
+												_elm_lang$core$List$sortBy,
+												function (_) {
+													return _.status;
+												},
+												model.projects))),
 									_1: {ctor: '[]'}
 								}),
 							_1: {ctor: '[]'}
@@ -380,7 +361,7 @@ var _user$project$Main$searchResultDecoder = A3(
 					A3(
 						_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
 						'status',
-						_elm_lang$core$Json_Decode$string,
+						_elm_lang$core$Json_Decode$int,
 						A3(
 							_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
 							'timeline',
