@@ -14,6 +14,9 @@ type Class
     | Status
     | UL
     | P
+    | Active
+    | InProgress
+    | Inactive
     | ProjectInfo
     | ProjectHeader
     | ProjectLink
@@ -52,9 +55,24 @@ stylesheet =
         , class UL
             [ spacing (top 10) ]
         , class P
-            []
+            [ padding (bottom 5) ]
+        , class Active
+            [ textColor (Color.rgb 50 150 50)
+            , inline
+            , padding (left 5)
+            ]
+        , class InProgress
+            [ textColor (Color.rgb 150 150 50)
+            , inline
+            , padding (left 5)
+            ]
+        , class Inactive
+            [ textColor (Color.rgb 150 50 50)
+            , inline
+            , padding (left 5)
+            ]
         , class ProjectInfo
-            [ padding (leftRightTopBottom 20 0 0 20) ]
+            [ padding (leftRightTopBottom 20 0 0 10) ]
         , class ProjectHeader
             []
         , class ProjectLink
@@ -66,7 +84,7 @@ stylesheet =
             , inline
             ]
         , class ProjectDetails
-            [ maxWidth (px 725)
+            [ maxWidth (px 825)
             , Style.flowLeft
                 { wrap = True
                 , horizontal = Style.alignRight
@@ -75,7 +93,7 @@ stylesheet =
             ]
         , class ProjectDetail
             [ padding (bottom 10)
-            , width (px 600)
+            , width (px 700)
             ]
         , class ProjectThumb
             [ width (px 120)

@@ -37,7 +37,7 @@ type alias Project =
     { id : Int
     , name : String
     , timeline : String
-    , status : String
+    , status : Int
     , categories : String
     , technologies : String
     , link : String
@@ -58,7 +58,7 @@ searchResultDecoder =
         |> required "id" int
         |> required "name" string
         |> required "timeline" string
-        |> required "status" string
+        |> required "status" int
         |> required "categories" string
         |> required "technologies" string
         |> required "link" string
@@ -112,36 +112,11 @@ view model =
                     ]
                 ]
             , div [ class Content ]
-                [ div [ class Status ]
-                    [ text "Active" ]
-                , div []
-                    (List.map viewProject (activeProjects model.projects))
-                , div [ class Status ]
-                    [ text "In progress" ]
-                , div []
-                    (List.map viewProject (wipProjects model.projects))
-                , div [ class Status ]
-                    [ text "Inactive" ]
-                , div []
-                    (List.map viewProject (inactiveProjects model.projects))
+                [ div []
+                    (List.map viewProject (List.sortBy .status model.projects))
                 ]
             ]
         ]
-
-
-activeProjects : List Project -> List Project
-activeProjects projects =
-    List.filter (\project -> (project.status == "Active")) projects
-
-
-wipProjects : List Project -> List Project
-wipProjects projects =
-    List.filter (\project -> (project.status == "Work in progress")) projects
-
-
-inactiveProjects : List Project -> List Project
-inactiveProjects projects =
-    List.filter (\project -> (project.status == "Inactive")) projects
 
 
 viewProject : Project -> Html Msg
@@ -150,17 +125,31 @@ viewProject project =
         [ div [ class ProjectHeader ]
             [ span [ class ProjectName ]
                 [ text project.name ]
+            , (getStatus project)
             , (getLink project)
             , (getSrc project)
             ]
         , div [ class ProjectDetails ]
             [ div [ class ProjectDetail ]
-                [ p [ class P ] [ text project.description ]
-                , p [ class P ] [ text ("Technologies used: " ++ project.technologies) ]
-                , p [ class P ] [ text ("File under: " ++ project.categories) ]
+                [ div [ class P ] [ text project.description ]
+                , div [ class P ] [ text ("Technologies used: " ++ project.technologies) ]
+                , div [ class P ] [ text ("File under: " ++ project.categories) ]
                 ]
             ]
         ]
+
+
+getStatus : Project -> Html Msg
+getStatus project =
+    if project.status == 0 then
+        div [ class Active ]
+            [ text "(active)" ]
+    else if project.status == 1 then
+        div [ class InProgress ]
+            [ text "(in progress)" ]
+    else
+        div [ class Inactive ]
+            [ text "(inactive)" ]
 
 
 getLink : Project -> Html Msg
