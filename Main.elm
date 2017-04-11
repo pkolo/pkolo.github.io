@@ -125,6 +125,7 @@ viewProject project =
         [ div [ class ProjectHeader ]
             [ span [ class ProjectName ]
                 [ text project.name ]
+            , (getStatus project)
             , (getLink project)
             , (getSrc project)
             ]
@@ -136,6 +137,16 @@ viewProject project =
                 ]
             ]
         ]
+
+
+getStatus : Project -> Html Msg
+getStatus project =
+    if project.status == 0 then
+        text "active"
+    else if project.status == 1 then
+        text "in progress"
+    else
+        text "inactive"
 
 
 getLink : Project -> Html Msg
