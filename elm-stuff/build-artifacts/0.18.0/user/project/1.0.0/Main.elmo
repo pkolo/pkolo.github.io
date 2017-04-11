@@ -170,7 +170,7 @@ var _user$project$Main$viewProject = function (project) {
 							{
 								ctor: '::',
 								_0: A2(
-									_elm_lang$html$Html$p,
+									_elm_lang$html$Html$div,
 									{
 										ctor: '::',
 										_0: _user$project$Main$class(_user$project$StyleSheet$P),
@@ -184,7 +184,7 @@ var _user$project$Main$viewProject = function (project) {
 								_1: {
 									ctor: '::',
 									_0: A2(
-										_elm_lang$html$Html$p,
+										_elm_lang$html$Html$div,
 										{
 											ctor: '::',
 											_0: _user$project$Main$class(_user$project$StyleSheet$P),
@@ -199,7 +199,7 @@ var _user$project$Main$viewProject = function (project) {
 									_1: {
 										ctor: '::',
 										_0: A2(
-											_elm_lang$html$Html$p,
+											_elm_lang$html$Html$div,
 											{
 												ctor: '::',
 												_0: _user$project$Main$class(_user$project$StyleSheet$P),

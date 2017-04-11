@@ -133,7 +133,12 @@ var _user$project$StyleSheet$stylesheet = A2(
 										_0: A2(
 											_mdgriffith$style_elements$Style$class,
 											_user$project$StyleSheet$P,
-											{ctor: '[]'}),
+											{
+												ctor: '::',
+												_0: _mdgriffith$style_elements$Style$padding(
+													_mdgriffith$style_elements$Style$bottom(5)),
+												_1: {ctor: '[]'}
+											}),
 										_1: {
 											ctor: '::',
 											_0: A2(
@@ -142,7 +147,7 @@ var _user$project$StyleSheet$stylesheet = A2(
 												{
 													ctor: '::',
 													_0: _mdgriffith$style_elements$Style$textColor(
-														A3(_elm_lang$core$Color$rgb, 150, 150, 50)),
+														A3(_elm_lang$core$Color$rgb, 50, 150, 50)),
 													_1: {
 														ctor: '::',
 														_0: _mdgriffith$style_elements$Style$inline,
@@ -202,7 +207,7 @@ var _user$project$StyleSheet$stylesheet = A2(
 															{
 																ctor: '::',
 																_0: _mdgriffith$style_elements$Style$padding(
-																	A4(_mdgriffith$style_elements$Style$leftRightTopBottom, 20, 0, 0, 20)),
+																	A4(_mdgriffith$style_elements$Style$leftRightTopBottom, 20, 0, 0, 10)),
 																_1: {ctor: '[]'}
 															}),
 														_1: {
@@ -248,7 +253,7 @@ var _user$project$StyleSheet$stylesheet = A2(
 																			{
 																				ctor: '::',
 																				_0: _mdgriffith$style_elements$Style$maxWidth(
-																					_mdgriffith$style_elements$Style$px(725)),
+																					_mdgriffith$style_elements$Style$px(825)),
 																				_1: {
 																					ctor: '::',
 																					_0: _mdgriffith$style_elements$Style$flowLeft(
@@ -268,7 +273,7 @@ var _user$project$StyleSheet$stylesheet = A2(
 																					_1: {
 																						ctor: '::',
 																						_0: _mdgriffith$style_elements$Style$width(
-																							_mdgriffith$style_elements$Style$px(600)),
+																							_mdgriffith$style_elements$Style$px(700)),
 																						_1: {ctor: '[]'}
 																					}
 																				}),
