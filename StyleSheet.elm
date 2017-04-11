@@ -1,21 +1,26 @@
 module StyleSheet exposing (..)
 
 import Style exposing (..)
-import Html exposing (Html)
+import Color exposing (Color)
 
 
 type Class
     = Body
     | Header
+    | Nav
+    | Link
     | Content
     | Title
     | Status
     | UL
+    | P
     | ProjectInfo
     | ProjectHeader
     | ProjectLink
     | ProjectName
+    | ProjectDetails
     | ProjectDetail
+    | ProjectThumb
 
 
 stylesheet : StyleSheet Class msg
@@ -29,10 +34,16 @@ stylesheet =
         , class Header
             [ padding (bottom 25)
             ]
+        , class Nav
+            [ padding (left 2) ]
+        , class Link
+            [ textColor (Color.rgb 130 130 210)
+            , inline
+            ]
         , class Content
-            []
+            [ padding (left 2) ]
         , class Title
-            [ fontsize 50
+            [ fontsize 52
             ]
         , class Status
             [ fontsize 25
@@ -40,6 +51,8 @@ stylesheet =
             ]
         , class UL
             [ spacing (top 10) ]
+        , class P
+            []
         , class ProjectInfo
             [ padding (leftRightTopBottom 20 0 0 20) ]
         , class ProjectHeader
@@ -52,6 +65,21 @@ stylesheet =
             [ fontsize 22
             , inline
             ]
+        , class ProjectDetails
+            [ maxWidth (px 725)
+            , Style.flowLeft
+                { wrap = True
+                , horizontal = Style.alignRight
+                , vertical = Style.alignTop
+                }
+            ]
         , class ProjectDetail
-            [ padding (bottom 10) ]
+            [ padding (bottom 10)
+            , width (px 600)
+            ]
+        , class ProjectThumb
+            [ width (px 120)
+            , Style.floatLeft
+            , padding (allButLeft 5)
+            ]
         ]
