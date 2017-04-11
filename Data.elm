@@ -15,7 +15,7 @@ json =
           "technologies": "Python, Flask, Javascript",
           "link": "https://pie-finder.herokuapp.com/",
           "src_link": "https://github.com/pkolo/raspberry-pi-challenge",
-          "description": "A simple little frontend app where users can enter an ingredient and get back a whole bunch of pie recipes that incorporate that ingredient. Built in a day or so, mostly to familiarize myself with Python and the Flask framework. It also uses the Recipepuppy API."
+          "description": "A single-page front-end app where users can enter an ingredient and get back several pie recipes that incorporate that ingredient. Built in a day or so, mostly to familiarize myself with Python and the Flask framework. It also uses the Recipepuppy API."
         },
         {
           "id": 2,

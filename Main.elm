@@ -1,7 +1,7 @@
 module Main exposing (..)
 
 import Html exposing (..)
-import Html.Attributes exposing (class, target, href, property)
+import Html.Attributes exposing (class, target, href, property, src)
 import Json.Decode exposing (..)
 import Json.Decode.Pipeline exposing (..)
 import StyleSheet exposing (Class(..))
@@ -91,7 +91,7 @@ view model =
         , div [ class Body ]
             [ header [ class Header ]
                 [ div [ class Title ] [ text "Patrick Kolodgy" ]
-                , nav []
+                , nav [ class Nav ]
                     [ text "Brooklyn, NY"
                     , text separator
                     , text "pkolodgy at gmail"
@@ -99,12 +99,14 @@ view model =
                     , a
                         [ href "https://github.com/pkolo"
                         , target "_blank"
+                        , class Link
                         ]
                         [ text "github" ]
                     , text separator
                     , a
                         [ href "https://www.linkedin.com/in/pkolodgy/"
                         , target "_blank"
+                        , class Link
                         ]
                         [ text "linkedin" ]
                     ]
@@ -115,7 +117,7 @@ view model =
                 , div []
                     (List.map viewProject (activeProjects model.projects))
                 , div [ class Status ]
-                    [ text "Works in progress" ]
+                    [ text "In progress" ]
                 , div []
                     (List.map viewProject (wipProjects model.projects))
                 , div [ class Status ]
@@ -151,13 +153,12 @@ viewProject project =
             , (getLink project)
             , (getSrc project)
             ]
-        , div []
+        , div [ class ProjectDetails ]
             [ div [ class ProjectDetail ]
-                [ text project.description ]
-            , div [ class ProjectDetail ]
-                [ text ("Technologies used: " ++ project.technologies) ]
-            , div [ class ProjectDetail ]
-                [ text ("File under: " ++ project.categories) ]
+                [ p [ class P ] [ text project.description ]
+                , p [ class P ] [ text ("Technologies used: " ++ project.technologies) ]
+                , p [ class P ] [ text ("File under: " ++ project.categories) ]
+                ]
             ]
         ]
 
@@ -169,6 +170,7 @@ getLink project =
             [ a
                 [ href project.link
                 , target "_blank"
+                , class Link
                 ]
                 [ text "link" ]
             ]
@@ -183,6 +185,7 @@ getSrc project =
             [ a
                 [ href project.src_link
                 , target "_blank"
+                , class Link
                 ]
                 [ text "src" ]
             ]
