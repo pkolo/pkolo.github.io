@@ -5,6 +5,7 @@ json : String
 json =
     """
     {
+      "bio": "This is the bio. Fill in the details later.",
       "projects": [
         {
           "id": 4,
