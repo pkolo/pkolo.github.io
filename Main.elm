@@ -25,6 +25,13 @@ main =
 
 type alias Model =
     { bio : String
+    , categories : List String
+    , projects : List Project
+    }
+
+
+type alias Result =
+    { bio : String
     , projects : List Project
     }
 
@@ -44,10 +51,17 @@ type alias Project =
 
 initialModel : Model
 initialModel =
-    decodeResult Data.json
+    let
+        result =
+            decodeResult Data.json
+    in
+        { bio = result.bio
+        , categories = []
+        , projects = result.projects
+        }
 
 
-decodeResult : String -> Model
+decodeResult : String -> Result
 decodeResult json =
     case Json.Decode.decodeString modelDecoder json of
         Ok model ->
@@ -59,9 +73,9 @@ decodeResult json =
             }
 
 
-modelDecoder : Decoder Model
+modelDecoder : Decoder Result
 modelDecoder =
-    Json.Decode.Pipeline.decode Model
+    Json.Decode.Pipeline.decode Result
         |> required "bio" string
         |> required "projects" (list projectDecoder)
 

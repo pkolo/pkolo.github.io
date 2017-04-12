@@ -239,7 +239,11 @@ var _user$project$Main$viewProject = function (project) {
 			}
 		});
 };
-var _user$project$Main$Model = F2(
+var _user$project$Main$Model = F3(
+	function (a, b, c) {
+		return {bio: a, categories: b, projects: c};
+	});
+var _user$project$Main$Result = F2(
 	function (a, b) {
 		return {bio: a, projects: b};
 	});
@@ -292,7 +296,7 @@ var _user$project$Main$modelDecoder = A3(
 		_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
 		'bio',
 		_elm_lang$core$Json_Decode$string,
-		_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$Main$Model)));
+		_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$Main$Result)));
 var _user$project$Main$decodeResult = function (json) {
 	var _p1 = A2(_elm_lang$core$Json_Decode$decodeString, _user$project$Main$modelDecoder, json);
 	if (_p1.ctor === 'Ok') {
@@ -304,7 +308,14 @@ var _user$project$Main$decodeResult = function (json) {
 		};
 	}
 };
-var _user$project$Main$initialModel = _user$project$Main$decodeResult(_user$project$Data$json);
+var _user$project$Main$initialModel = function () {
+	var result = _user$project$Main$decodeResult(_user$project$Data$json);
+	return {
+		bio: result.bio,
+		categories: {ctor: '[]'},
+		projects: result.projects
+	};
+}();
 var _user$project$Main$update = F2(
 	function (msg, model) {
 		var _p2 = msg;
