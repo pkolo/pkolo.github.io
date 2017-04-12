@@ -53,6 +53,10 @@ stylesheet =
         , class FilterBtn
             [ inline
             , padding (right 5)
+            , hover
+                [ textColor (Color.rgb 210 130 130)
+                , cursor "pointer"
+                ]
             ]
         , class Content
             [ padding (left 2) ]
