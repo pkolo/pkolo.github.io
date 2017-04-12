@@ -2,6 +2,7 @@ module Main exposing (..)
 
 import Html exposing (..)
 import Html.Attributes exposing (class, target, href, property, src)
+import Html.Events exposing (onClick)
 import Json.Decode exposing (..)
 import Json.Decode.Pipeline exposing (..)
 import StyleSheet exposing (Class(..))
@@ -114,6 +115,11 @@ view model =
                         [ text "linkedin" ]
                     ]
                 , div [ class Bio ] [ text model.bio ]
+                , div
+                    [ class Bio
+                    , onClick (GetActive 0)
+                    ]
+                    [ text "Active" ]
                 ]
             , div [ class Content ]
                 [ div []
@@ -191,14 +197,25 @@ separator =
     " | "
 
 
-type Msg
-    = SetQuery String
-
-
 
 -- update
 
 
+type Msg
+    = GetActive Int
+
+
 update : Msg -> Model -> Model
 update msg model =
-    initialModel
+    case msg of
+        GetActive status ->
+            findActiveProjects model status
+
+
+findActiveProjects : Model -> Int -> Model
+findActiveProjects model status =
+    let
+        activeProjects =
+            List.filter (\project -> project.status == status) model.projects
+    in
+        { model | projects = activeProjects }
