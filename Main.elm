@@ -164,7 +164,7 @@ view model =
                         [ text "linkedin" ]
                     ]
                 , div [ class Bio ] [ text model.bio ]
-                , div
+                , p
                     [ class FilterBtn
                     , onClick (StatusFilter 0)
                     ]
@@ -220,7 +220,9 @@ categoryFilters category =
         [ class FilterBtn
         , onClick (CategoryFilter category)
         ]
-        [ text category ]
+        [ text category
+        , text separator
+        ]
 
 
 techFilters : String -> Html Msg
@@ -229,7 +231,9 @@ techFilters tech =
         [ class FilterBtn
         , onClick (TechFilter tech)
         ]
-        [ text tech ]
+        [ text tech
+        , text separator
+        ]
 
 
 getStatus : Project -> Html Msg

@@ -102,7 +102,12 @@ var _user$project$StyleSheet$stylesheet = A2(
 								{
 									ctor: '::',
 									_0: _mdgriffith$style_elements$Style$inline,
-									_1: {ctor: '[]'}
+									_1: {
+										ctor: '::',
+										_0: _mdgriffith$style_elements$Style$padding(
+											_mdgriffith$style_elements$Style$right(5)),
+										_1: {ctor: '[]'}
+									}
 								}),
 							_1: {
 								ctor: '::',

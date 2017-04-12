@@ -48,7 +48,9 @@ stylesheet =
         , class Bio
             [ padding (top 10) ]
         , class FilterBtn
-            [ inline ]
+            [ inline
+            , padding (right 5)
+            ]
         , class Content
             [ padding (left 2) ]
         , class Title
