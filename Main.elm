@@ -183,12 +183,12 @@ view model =
 
 filterBars : Model -> Html Msg
 filterBars model =
-    div []
-        [ p []
+    div [ class FilterBars ]
+        [ div []
             (List.map statusFilters model.statuses)
-        , p []
+        , div []
             (List.map categoryFilters model.categories)
-        , p []
+        , div []
             (List.map techFilters model.technologies)
         ]
 

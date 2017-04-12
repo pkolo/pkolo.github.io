@@ -10,6 +10,7 @@ type Class
     | Nav
     | Link
     | Bio
+    | FilterBars
     | FilterBtn
     | Content
     | Title
@@ -47,6 +48,8 @@ stylesheet =
             ]
         , class Bio
             [ padding (top 10) ]
+        , class FilterBars
+            []
         , class FilterBtn
             [ inline
             , padding (right 5)
