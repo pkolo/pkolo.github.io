@@ -9,6 +9,7 @@ type Class
     | Header
     | Nav
     | Link
+    | Bio
     | Content
     | Title
     | Status
@@ -43,6 +44,8 @@ stylesheet =
             [ textColor (Color.rgb 130 130 210)
             , inline
             ]
+        , class Bio
+            [ padding (top 10) ]
         , class Content
             [ padding (left 2) ]
         , class Title

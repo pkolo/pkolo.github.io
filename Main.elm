@@ -113,7 +113,7 @@ view model =
                         ]
                         [ text "linkedin" ]
                     ]
-                , div [] [ text model.bio ]
+                , div [ class Bio ] [ text model.bio ]
                 ]
             , div [ class Content ]
                 [ div []
