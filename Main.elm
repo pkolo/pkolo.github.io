@@ -171,18 +171,25 @@ view model =
                         [ text "linkedin" ]
                     ]
                 , div [ class Bio ] [ text model.bio ]
+                , (filterBars model)
                 ]
-            , p []
-                (List.map statusFilters model.statuses)
-            , p []
-                (List.map categoryFilters model.categories)
-            , p []
-                (List.map techFilters model.technologies)
             , div [ class Content ]
                 [ div []
                     (List.map viewProject (List.sortBy .status model.projects))
                 ]
             ]
+        ]
+
+
+filterBars : Model -> Html Msg
+filterBars model =
+    div []
+        [ p []
+            (List.map statusFilters model.statuses)
+        , p []
+            (List.map categoryFilters model.categories)
+        , p []
+            (List.map techFilters model.technologies)
         ]
 
 

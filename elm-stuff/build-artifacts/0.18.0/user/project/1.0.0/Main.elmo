@@ -497,6 +497,33 @@ var _user$project$Main$statusFilters = function (status) {
 			}
 		});
 };
+var _user$project$Main$filterBars = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$p,
+				{ctor: '[]'},
+				A2(_elm_lang$core$List$map, _user$project$Main$statusFilters, model.statuses)),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$p,
+					{ctor: '[]'},
+					A2(_elm_lang$core$List$map, _user$project$Main$categoryFilters, model.categories)),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$p,
+						{ctor: '[]'},
+						A2(_elm_lang$core$List$map, _user$project$Main$techFilters, model.technologies)),
+					_1: {ctor: '[]'}
+				}
+			}
+		});
+};
 var _user$project$Main$view = function (model) {
 	return A2(
 		_elm_lang$html$Html$div,
@@ -626,57 +653,40 @@ var _user$project$Main$view = function (model) {
 												_0: _elm_lang$html$Html$text(model.bio),
 												_1: {ctor: '[]'}
 											}),
-										_1: {ctor: '[]'}
+										_1: {
+											ctor: '::',
+											_0: _user$project$Main$filterBars(model),
+											_1: {ctor: '[]'}
+										}
 									}
 								}
 							}),
 						_1: {
 							ctor: '::',
 							_0: A2(
-								_elm_lang$html$Html$p,
-								{ctor: '[]'},
-								A2(_elm_lang$core$List$map, _user$project$Main$statusFilters, model.statuses)),
-							_1: {
-								ctor: '::',
-								_0: A2(
-									_elm_lang$html$Html$p,
-									{ctor: '[]'},
-									A2(_elm_lang$core$List$map, _user$project$Main$categoryFilters, model.categories)),
-								_1: {
+								_elm_lang$html$Html$div,
+								{
+									ctor: '::',
+									_0: _user$project$Main$class(_user$project$StyleSheet$Content),
+									_1: {ctor: '[]'}
+								},
+								{
 									ctor: '::',
 									_0: A2(
-										_elm_lang$html$Html$p,
+										_elm_lang$html$Html$div,
 										{ctor: '[]'},
-										A2(_elm_lang$core$List$map, _user$project$Main$techFilters, model.technologies)),
-									_1: {
-										ctor: '::',
-										_0: A2(
-											_elm_lang$html$Html$div,
-											{
-												ctor: '::',
-												_0: _user$project$Main$class(_user$project$StyleSheet$Content),
-												_1: {ctor: '[]'}
-											},
-											{
-												ctor: '::',
-												_0: A2(
-													_elm_lang$html$Html$div,
-													{ctor: '[]'},
-													A2(
-														_elm_lang$core$List$map,
-														_user$project$Main$viewProject,
-														A2(
-															_elm_lang$core$List$sortBy,
-															function (_) {
-																return _.status;
-															},
-															model.projects))),
-												_1: {ctor: '[]'}
-											}),
-										_1: {ctor: '[]'}
-									}
-								}
-							}
+										A2(
+											_elm_lang$core$List$map,
+											_user$project$Main$viewProject,
+											A2(
+												_elm_lang$core$List$sortBy,
+												function (_) {
+													return _.status;
+												},
+												model.projects))),
+									_1: {ctor: '[]'}
+								}),
+							_1: {ctor: '[]'}
 						}
 					}),
 				_1: {ctor: '[]'}
