@@ -7,6 +7,7 @@ import Json.Decode exposing (..)
 import Json.Decode.Pipeline exposing (..)
 import StyleSheet exposing (Class(..))
 import Style exposing (all)
+import Set exposing (..)
 import Data
 
 
@@ -56,7 +57,7 @@ initialModel =
             decodeResult Data.json
     in
         { bio = result.bio
-        , categories = (getCategories result.projects)
+        , categories = (unique (getCategories result.projects))
         , projects = result.projects
         }
 
@@ -97,6 +98,28 @@ projectDecoder =
 getCategories : List Project -> List String
 getCategories projects =
     List.concat (List.map (\p -> p.categories) projects)
+
+
+unique : List comparable -> List comparable
+unique list =
+    uniqueHelp identity Set.empty list
+
+
+uniqueHelp : (a -> comparable) -> Set comparable -> List a -> List a
+uniqueHelp f existing remaining =
+    case remaining of
+        [] ->
+            []
+
+        first :: rest ->
+            let
+                computedFirst =
+                    f first
+            in
+                if Set.member computedFirst existing then
+                    uniqueHelp f existing rest
+                else
+                    first :: uniqueHelp f (Set.insert computedFirst existing) rest
 
 
 
