@@ -1,14 +1,26 @@
-var _user$project$Main$filterByStatus = F2(
-	function (model, status) {
-		var activeProjects = A2(
+var _user$project$Main$filterByCategory = F2(
+	function (model, category) {
+		var newProjects = A2(
 			_elm_lang$core$List$filter,
-			function (project) {
-				return _elm_lang$core$Native_Utils.eq(project.status, status);
+			function (p) {
+				return A2(_elm_lang$core$List$member, category, p.categories);
 			},
 			model.projects);
 		return _elm_lang$core$Native_Utils.update(
 			model,
-			{projects: activeProjects});
+			{projects: newProjects});
+	});
+var _user$project$Main$filterByStatus = F2(
+	function (model, status) {
+		var newProjects = A2(
+			_elm_lang$core$List$filter,
+			function (p) {
+				return _elm_lang$core$Native_Utils.eq(p.status, status);
+			},
+			model.projects);
+		return _elm_lang$core$Native_Utils.update(
+			model,
+			{projects: newProjects});
 	});
 var _user$project$Main$separator = ' | ';
 var _user$project$Main$_p0 = _user$project$StyleSheet$stylesheet;
@@ -365,8 +377,34 @@ var _user$project$Main$initialModel = function () {
 var _user$project$Main$update = F2(
 	function (msg, model) {
 		var _p5 = msg;
-		return A2(_user$project$Main$filterByStatus, _user$project$Main$initialModel, _p5._0);
+		if (_p5.ctor === 'StatusFilter') {
+			return A2(_user$project$Main$filterByStatus, _user$project$Main$initialModel, _p5._0);
+		} else {
+			return A2(_user$project$Main$filterByCategory, _user$project$Main$initialModel, _p5._0);
+		}
 	});
+var _user$project$Main$CategoryFilter = function (a) {
+	return {ctor: 'CategoryFilter', _0: a};
+};
+var _user$project$Main$categoryFilters = function (category) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _user$project$Main$class(_user$project$StyleSheet$FilterBtn),
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$html$Html_Events$onClick(
+					_user$project$Main$CategoryFilter(category)),
+				_1: {ctor: '[]'}
+			}
+		},
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html$text(category),
+			_1: {ctor: '[]'}
+		});
+};
 var _user$project$Main$StatusFilter = function (a) {
 	return {ctor: 'StatusFilter', _0: a};
 };
@@ -520,23 +558,7 @@ var _user$project$Main$view = function (model) {
 												}),
 											_1: {
 												ctor: '::',
-												_0: A2(
-													_elm_lang$html$Html$div,
-													{
-														ctor: '::',
-														_0: _user$project$Main$class(_user$project$StyleSheet$FilterBtn),
-														_1: {
-															ctor: '::',
-															_0: _elm_lang$html$Html_Events$onClick(
-																_user$project$Main$StatusFilter(1)),
-															_1: {ctor: '[]'}
-														}
-													},
-													{
-														ctor: '::',
-														_0: _elm_lang$html$Html$text('In Progress'),
-														_1: {ctor: '[]'}
-													}),
+												_0: _elm_lang$html$Html$text(_user$project$Main$separator),
 												_1: {
 													ctor: '::',
 													_0: A2(
@@ -547,16 +569,40 @@ var _user$project$Main$view = function (model) {
 															_1: {
 																ctor: '::',
 																_0: _elm_lang$html$Html_Events$onClick(
-																	_user$project$Main$StatusFilter(2)),
+																	_user$project$Main$StatusFilter(1)),
 																_1: {ctor: '[]'}
 															}
 														},
 														{
 															ctor: '::',
-															_0: _elm_lang$html$Html$text('Inactive'),
+															_0: _elm_lang$html$Html$text('In Progress'),
 															_1: {ctor: '[]'}
 														}),
-													_1: {ctor: '[]'}
+													_1: {
+														ctor: '::',
+														_0: _elm_lang$html$Html$text(_user$project$Main$separator),
+														_1: {
+															ctor: '::',
+															_0: A2(
+																_elm_lang$html$Html$div,
+																{
+																	ctor: '::',
+																	_0: _user$project$Main$class(_user$project$StyleSheet$FilterBtn),
+																	_1: {
+																		ctor: '::',
+																		_0: _elm_lang$html$Html_Events$onClick(
+																			_user$project$Main$StatusFilter(2)),
+																		_1: {ctor: '[]'}
+																	}
+																},
+																{
+																	ctor: '::',
+																	_0: _elm_lang$html$Html$text('Inactive'),
+																	_1: {ctor: '[]'}
+																}),
+															_1: {ctor: '[]'}
+														}
+													}
 												}
 											}
 										}
@@ -568,12 +614,7 @@ var _user$project$Main$view = function (model) {
 							_0: A2(
 								_elm_lang$html$Html$p,
 								{ctor: '[]'},
-								{
-									ctor: '::',
-									_0: _elm_lang$html$Html$text(
-										_elm_lang$core$Basics$toString(model.categories)),
-									_1: {ctor: '[]'}
-								}),
+								A2(_elm_lang$core$List$map, _user$project$Main$categoryFilters, model.categories)),
 							_1: {
 								ctor: '::',
 								_0: A2(

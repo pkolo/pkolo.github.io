@@ -162,18 +162,21 @@ view model =
                     , onClick (StatusFilter 0)
                     ]
                     [ text "Active" ]
+                , text separator
                 , div
                     [ class FilterBtn
                     , onClick (StatusFilter 1)
                     ]
                     [ text "In Progress" ]
+                , text separator
                 , div
                     [ class FilterBtn
                     , onClick (StatusFilter 2)
                     ]
                     [ text "Inactive" ]
                 ]
-            , p [] [ text (toString model.categories) ]
+            , p []
+                (List.map categoryFilters model.categories)
             , div [ class Content ]
                 [ div []
                     (List.map viewProject (List.sortBy .status model.projects))
@@ -200,6 +203,15 @@ viewProject project =
                 ]
             ]
         ]
+
+
+categoryFilters : String -> Html Msg
+categoryFilters category =
+    div
+        [ class FilterBtn
+        , onClick (CategoryFilter category)
+        ]
+        [ text category ]
 
 
 getStatus : Project -> Html Msg
@@ -256,6 +268,7 @@ separator =
 
 type Msg
     = StatusFilter Int
+    | CategoryFilter String
 
 
 update : Msg -> Model -> Model
@@ -264,11 +277,23 @@ update msg model =
         StatusFilter status ->
             filterByStatus initialModel status
 
+        CategoryFilter category ->
+            filterByCategory initialModel category
+
 
 filterByStatus : Model -> Int -> Model
 filterByStatus model status =
     let
-        activeProjects =
-            List.filter (\project -> project.status == status) model.projects
+        newProjects =
+            List.filter (\p -> p.status == status) model.projects
     in
-        { model | projects = activeProjects }
+        { model | projects = newProjects }
+
+
+filterByCategory : Model -> String -> Model
+filterByCategory model category =
+    let
+        newProjects =
+            List.filter (\p -> (List.member category p.categories)) model.projects
+    in
+        { model | projects = newProjects }
