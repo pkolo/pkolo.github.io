@@ -96,7 +96,7 @@ projectDecoder =
 
 getCategories : List Project -> List String
 getCategories projects =
-    [ "a", "b", "c" ]
+    List.concat (List.map (\p -> p.categories) projects)
 
 
 

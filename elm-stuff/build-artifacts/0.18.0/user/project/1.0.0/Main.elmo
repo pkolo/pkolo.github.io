@@ -240,19 +240,13 @@ var _user$project$Main$viewProject = function (project) {
 		});
 };
 var _user$project$Main$getCategories = function (projects) {
-	return {
-		ctor: '::',
-		_0: 'a',
-		_1: {
-			ctor: '::',
-			_0: 'b',
-			_1: {
-				ctor: '::',
-				_0: 'c',
-				_1: {ctor: '[]'}
-			}
-		}
-	};
+	return _elm_lang$core$List$concat(
+		A2(
+			_elm_lang$core$List$map,
+			function (p) {
+				return p.categories;
+			},
+			projects));
 };
 var _user$project$Main$Model = F3(
 	function (a, b, c) {
