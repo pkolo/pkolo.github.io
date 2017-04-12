@@ -23,13 +23,8 @@ main =
 
 
 type alias Model =
-    { projects : List Project
-    }
-
-
-initialModel : Model
-initialModel =
-    { projects = decodeResults Data.json
+    { bio : String
+    , projects : List Project
     }
 
 
@@ -46,14 +41,32 @@ type alias Project =
     }
 
 
-responseDecoder : Decoder (List Project)
-responseDecoder =
-    Json.Decode.Pipeline.decode identity
-        |> required "projects" (list searchResultDecoder)
+initialModel : Model
+initialModel =
+    decodeResult Data.json
 
 
-searchResultDecoder : Decoder Project
-searchResultDecoder =
+decodeResult : String -> Model
+decodeResult json =
+    case Json.Decode.decodeString modelDecoder json of
+        Ok model ->
+            model
+
+        Err errorMessage ->
+            { bio = "Error"
+            , projects = []
+            }
+
+
+modelDecoder : Decoder Model
+modelDecoder =
+    Json.Decode.Pipeline.decode Model
+        |> required "bio" string
+        |> required "projects" (list projectDecoder)
+
+
+projectDecoder : Decoder Project
+projectDecoder =
     Json.Decode.Pipeline.decode Project
         |> required "id" int
         |> required "name" string
@@ -64,16 +77,6 @@ searchResultDecoder =
         |> required "link" string
         |> required "src_link" string
         |> required "description" string
-
-
-decodeResults : String -> List Project
-decodeResults json =
-    case decodeString responseDecoder json of
-        Ok searchResults ->
-            searchResults
-
-        Err errorMessage ->
-            []
 
 
 
@@ -110,6 +113,7 @@ view model =
                         ]
                         [ text "linkedin" ]
                     ]
+                , div [] [ text model.bio ]
                 ]
             , div [ class Content ]
                 [ div []
