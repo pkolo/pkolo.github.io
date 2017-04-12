@@ -1,3 +1,15 @@
+var _user$project$Main$filterByTech = F2(
+	function (model, tech) {
+		var newProjects = A2(
+			_elm_lang$core$List$filter,
+			function (p) {
+				return A2(_elm_lang$core$List$member, tech, p.technologies);
+			},
+			model.projects);
+		return _elm_lang$core$Native_Utils.update(
+			model,
+			{projects: newProjects});
+	});
 var _user$project$Main$filterByCategory = F2(
 	function (model, category) {
 		var newProjects = A2(
@@ -287,6 +299,15 @@ var _user$project$Main$uniqueHelp = F3(
 var _user$project$Main$unique = function (list) {
 	return A3(_user$project$Main$uniqueHelp, _elm_lang$core$Basics$identity, _elm_lang$core$Set$empty, list);
 };
+var _user$project$Main$getTechnologies = function (projects) {
+	return _elm_lang$core$List$concat(
+		A2(
+			_elm_lang$core$List$map,
+			function (p) {
+				return p.technologies;
+			},
+			projects));
+};
 var _user$project$Main$getCategories = function (projects) {
 	return _elm_lang$core$List$concat(
 		A2(
@@ -296,9 +317,9 @@ var _user$project$Main$getCategories = function (projects) {
 			},
 			projects));
 };
-var _user$project$Main$Model = F3(
-	function (a, b, c) {
-		return {bio: a, categories: b, projects: c};
+var _user$project$Main$Model = F4(
+	function (a, b, c, d) {
+		return {bio: a, categories: b, technologies: c, projects: d};
 	});
 var _user$project$Main$Result = F2(
 	function (a, b) {
@@ -371,18 +392,45 @@ var _user$project$Main$initialModel = function () {
 		bio: result.bio,
 		categories: _user$project$Main$unique(
 			_user$project$Main$getCategories(result.projects)),
+		technologies: _user$project$Main$unique(
+			_user$project$Main$getTechnologies(result.projects)),
 		projects: result.projects
 	};
 }();
 var _user$project$Main$update = F2(
 	function (msg, model) {
 		var _p5 = msg;
-		if (_p5.ctor === 'StatusFilter') {
-			return A2(_user$project$Main$filterByStatus, _user$project$Main$initialModel, _p5._0);
-		} else {
-			return A2(_user$project$Main$filterByCategory, _user$project$Main$initialModel, _p5._0);
+		switch (_p5.ctor) {
+			case 'StatusFilter':
+				return A2(_user$project$Main$filterByStatus, _user$project$Main$initialModel, _p5._0);
+			case 'CategoryFilter':
+				return A2(_user$project$Main$filterByCategory, _user$project$Main$initialModel, _p5._0);
+			default:
+				return A2(_user$project$Main$filterByTech, _user$project$Main$initialModel, _p5._0);
 		}
 	});
+var _user$project$Main$TechFilter = function (a) {
+	return {ctor: 'TechFilter', _0: a};
+};
+var _user$project$Main$techFilters = function (tech) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _user$project$Main$class(_user$project$StyleSheet$FilterBtn),
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$html$Html_Events$onClick(
+					_user$project$Main$TechFilter(tech)),
+				_1: {ctor: '[]'}
+			}
+		},
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html$text(tech),
+			_1: {ctor: '[]'}
+		});
+};
 var _user$project$Main$CategoryFilter = function (a) {
 	return {ctor: 'CategoryFilter', _0: a};
 };
@@ -618,29 +666,36 @@ var _user$project$Main$view = function (model) {
 							_1: {
 								ctor: '::',
 								_0: A2(
-									_elm_lang$html$Html$div,
-									{
-										ctor: '::',
-										_0: _user$project$Main$class(_user$project$StyleSheet$Content),
-										_1: {ctor: '[]'}
-									},
-									{
-										ctor: '::',
-										_0: A2(
-											_elm_lang$html$Html$div,
-											{ctor: '[]'},
-											A2(
-												_elm_lang$core$List$map,
-												_user$project$Main$viewProject,
+									_elm_lang$html$Html$p,
+									{ctor: '[]'},
+									A2(_elm_lang$core$List$map, _user$project$Main$techFilters, model.technologies)),
+								_1: {
+									ctor: '::',
+									_0: A2(
+										_elm_lang$html$Html$div,
+										{
+											ctor: '::',
+											_0: _user$project$Main$class(_user$project$StyleSheet$Content),
+											_1: {ctor: '[]'}
+										},
+										{
+											ctor: '::',
+											_0: A2(
+												_elm_lang$html$Html$div,
+												{ctor: '[]'},
 												A2(
-													_elm_lang$core$List$sortBy,
-													function (_) {
-														return _.status;
-													},
-													model.projects))),
-										_1: {ctor: '[]'}
-									}),
-								_1: {ctor: '[]'}
+													_elm_lang$core$List$map,
+													_user$project$Main$viewProject,
+													A2(
+														_elm_lang$core$List$sortBy,
+														function (_) {
+															return _.status;
+														},
+														model.projects))),
+											_1: {ctor: '[]'}
+										}),
+									_1: {ctor: '[]'}
+								}
 							}
 						}
 					}),

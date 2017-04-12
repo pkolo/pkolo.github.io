@@ -27,6 +27,7 @@ main =
 type alias Model =
     { bio : String
     , categories : List String
+    , technologies : List String
     , projects : List Project
     }
 
@@ -58,6 +59,7 @@ initialModel =
     in
         { bio = result.bio
         , categories = (unique (getCategories result.projects))
+        , technologies = (unique (getTechnologies result.projects))
         , projects = result.projects
         }
 
@@ -98,6 +100,11 @@ projectDecoder =
 getCategories : List Project -> List String
 getCategories projects =
     List.concat (List.map (\p -> p.categories) projects)
+
+
+getTechnologies : List Project -> List String
+getTechnologies projects =
+    List.concat (List.map (\p -> p.technologies) projects)
 
 
 unique : List comparable -> List comparable
@@ -177,6 +184,8 @@ view model =
                 ]
             , p []
                 (List.map categoryFilters model.categories)
+            , p []
+                (List.map techFilters model.technologies)
             , div [ class Content ]
                 [ div []
                     (List.map viewProject (List.sortBy .status model.projects))
@@ -212,6 +221,15 @@ categoryFilters category =
         , onClick (CategoryFilter category)
         ]
         [ text category ]
+
+
+techFilters : String -> Html Msg
+techFilters tech =
+    div
+        [ class FilterBtn
+        , onClick (TechFilter tech)
+        ]
+        [ text tech ]
 
 
 getStatus : Project -> Html Msg
@@ -269,6 +287,7 @@ separator =
 type Msg
     = StatusFilter Int
     | CategoryFilter String
+    | TechFilter String
 
 
 update : Msg -> Model -> Model
@@ -279,6 +298,9 @@ update msg model =
 
         CategoryFilter category ->
             filterByCategory initialModel category
+
+        TechFilter tech ->
+            filterByTech initialModel tech
 
 
 filterByStatus : Model -> Int -> Model
@@ -295,5 +317,14 @@ filterByCategory model category =
     let
         newProjects =
             List.filter (\p -> (List.member category p.categories)) model.projects
+    in
+        { model | projects = newProjects }
+
+
+filterByTech : Model -> String -> Model
+filterByTech model tech =
+    let
+        newProjects =
+            List.filter (\p -> (List.member tech p.technologies)) model.projects
     in
         { model | projects = newProjects }
