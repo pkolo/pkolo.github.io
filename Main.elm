@@ -56,7 +56,7 @@ initialModel =
             decodeResult Data.json
     in
         { bio = result.bio
-        , categories = []
+        , categories = (getCategories result.projects)
         , projects = result.projects
         }
 
@@ -92,6 +92,11 @@ projectDecoder =
         |> required "link" string
         |> required "src_link" string
         |> required "description" string
+
+
+getCategories : List Project -> List String
+getCategories projects =
+    [ "a", "b", "c" ]
 
 
 
@@ -145,6 +150,7 @@ view model =
                     ]
                     [ text "Inactive" ]
                 ]
+            , p [] [ text (toString model.categories) ]
             , div [ class Content ]
                 [ div []
                     (List.map viewProject (List.sortBy .status model.projects))
