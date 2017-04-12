@@ -116,10 +116,20 @@ view model =
                     ]
                 , div [ class Bio ] [ text model.bio ]
                 , div
-                    [ class Bio
-                    , onClick (GetActive 0)
+                    [ class FilterBtn
+                    , onClick (StatusFilter 0)
                     ]
                     [ text "Active" ]
+                , div
+                    [ class FilterBtn
+                    , onClick (StatusFilter 1)
+                    ]
+                    [ text "In Progress" ]
+                , div
+                    [ class FilterBtn
+                    , onClick (StatusFilter 2)
+                    ]
+                    [ text "Inactive" ]
                 ]
             , div [ class Content ]
                 [ div []
@@ -202,18 +212,18 @@ separator =
 
 
 type Msg
-    = GetActive Int
+    = StatusFilter Int
 
 
 update : Msg -> Model -> Model
 update msg model =
     case msg of
-        GetActive status ->
-            findActiveProjects model status
+        StatusFilter status ->
+            filterByStatus initialModel status
 
 
-findActiveProjects : Model -> Int -> Model
-findActiveProjects model status =
+filterByStatus : Model -> Int -> Model
+filterByStatus model status =
     let
         activeProjects =
             List.filter (\project -> project.status == status) model.projects
