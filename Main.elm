@@ -34,8 +34,8 @@ type alias Project =
     , name : String
     , timeline : String
     , status : Int
-    , categories : String
-    , technologies : String
+    , categories : List String
+    , technologies : List String
     , link : String
     , src_link : String
     , description : String
@@ -73,8 +73,8 @@ projectDecoder =
         |> required "name" string
         |> required "timeline" string
         |> required "status" int
-        |> required "categories" string
-        |> required "technologies" string
+        |> required "categories" (list string)
+        |> required "technologies" (list string)
         |> required "link" string
         |> required "src_link" string
         |> required "description" string
@@ -152,8 +152,8 @@ viewProject project =
         , div [ class ProjectDetails ]
             [ div [ class ProjectDetail ]
                 [ div [ class P ] [ text project.description ]
-                , div [ class P ] [ text ("Technologies used: " ++ project.technologies) ]
-                , div [ class P ] [ text ("File under: " ++ project.categories) ]
+                , div [ class P ] [ text ("Technologies used: " ++ (toString project.technologies)) ]
+                , div [ class P ] [ text ("File under: " ++ (toString project.categories)) ]
                 ]
             ]
         ]

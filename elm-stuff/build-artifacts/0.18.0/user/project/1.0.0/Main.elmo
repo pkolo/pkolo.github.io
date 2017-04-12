@@ -205,7 +205,10 @@ var _user$project$Main$viewProject = function (project) {
 										{
 											ctor: '::',
 											_0: _elm_lang$html$Html$text(
-												A2(_elm_lang$core$Basics_ops['++'], 'Technologies used: ', project.technologies)),
+												A2(
+													_elm_lang$core$Basics_ops['++'],
+													'Technologies used: ',
+													_elm_lang$core$Basics$toString(project.technologies))),
 											_1: {ctor: '[]'}
 										}),
 									_1: {
@@ -220,7 +223,10 @@ var _user$project$Main$viewProject = function (project) {
 											{
 												ctor: '::',
 												_0: _elm_lang$html$Html$text(
-													A2(_elm_lang$core$Basics_ops['++'], 'File under: ', project.categories)),
+													A2(
+														_elm_lang$core$Basics_ops['++'],
+														'File under: ',
+														_elm_lang$core$Basics$toString(project.categories))),
 												_1: {ctor: '[]'}
 											}),
 										_1: {ctor: '[]'}
@@ -256,11 +262,11 @@ var _user$project$Main$projectDecoder = A3(
 			A3(
 				_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
 				'technologies',
-				_elm_lang$core$Json_Decode$string,
+				_elm_lang$core$Json_Decode$list(_elm_lang$core$Json_Decode$string),
 				A3(
 					_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
 					'categories',
-					_elm_lang$core$Json_Decode$string,
+					_elm_lang$core$Json_Decode$list(_elm_lang$core$Json_Decode$string),
 					A3(
 						_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
 						'status',
