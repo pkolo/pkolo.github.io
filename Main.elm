@@ -28,6 +28,7 @@ type alias Model =
     { bio : String
     , categories : List String
     , technologies : List String
+    , statuses : List String
     , projects : List Project
     }
 
@@ -42,7 +43,7 @@ type alias Project =
     { id : Int
     , name : String
     , timeline : String
-    , status : Int
+    , status : String
     , categories : List String
     , technologies : List String
     , link : String
@@ -60,6 +61,7 @@ initialModel =
         { bio = result.bio
         , categories = (unique (getCategories result.projects))
         , technologies = (unique (getTechnologies result.projects))
+        , statuses = (unique (getStatuses result.projects))
         , projects = result.projects
         }
 
@@ -89,12 +91,17 @@ projectDecoder =
         |> required "id" int
         |> required "name" string
         |> required "timeline" string
-        |> required "status" int
+        |> required "status" string
         |> required "categories" (list string)
         |> required "technologies" (list string)
         |> required "link" string
         |> required "src_link" string
         |> required "description" string
+
+
+getStatuses : List Project -> List String
+getStatuses projects =
+    List.map (\p -> p.status) projects
 
 
 getCategories : List Project -> List String
@@ -164,24 +171,9 @@ view model =
                         [ text "linkedin" ]
                     ]
                 , div [ class Bio ] [ text model.bio ]
-                , p
-                    [ class FilterBtn
-                    , onClick (StatusFilter 0)
-                    ]
-                    [ text "Active" ]
-                , text separator
-                , div
-                    [ class FilterBtn
-                    , onClick (StatusFilter 1)
-                    ]
-                    [ text "In Progress" ]
-                , text separator
-                , div
-                    [ class FilterBtn
-                    , onClick (StatusFilter 2)
-                    ]
-                    [ text "Inactive" ]
                 ]
+            , p []
+                (List.map statusFilters model.statuses)
             , p []
                 (List.map categoryFilters model.categories)
             , p []
@@ -214,6 +206,17 @@ viewProject project =
         ]
 
 
+statusFilters : String -> Html Msg
+statusFilters status =
+    div
+        [ class FilterBtn
+        , onClick (StatusFilter status)
+        ]
+        [ text status
+        , text separator
+        ]
+
+
 categoryFilters : String -> Html Msg
 categoryFilters category =
     div
@@ -238,10 +241,10 @@ techFilters tech =
 
 getStatus : Project -> Html Msg
 getStatus project =
-    if project.status == 0 then
+    if project.status == "Active" then
         div [ class Active ]
             [ text "(active)" ]
-    else if project.status == 1 then
+    else if project.status == "In Progress" then
         div [ class InProgress ]
             [ text "(in progress)" ]
     else
@@ -289,7 +292,7 @@ separator =
 
 
 type Msg
-    = StatusFilter Int
+    = StatusFilter String
     | CategoryFilter String
     | TechFilter String
 
@@ -307,7 +310,7 @@ update msg model =
             filterByTech initialModel tech
 
 
-filterByStatus : Model -> Int -> Model
+filterByStatus : Model -> String -> Model
 filterByStatus model status =
     let
         newProjects =

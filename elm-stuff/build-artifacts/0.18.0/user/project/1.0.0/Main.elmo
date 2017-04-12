@@ -39,7 +39,7 @@ var _user$project$Main$_p0 = _user$project$StyleSheet$stylesheet;
 var _user$project$Main$class = _user$project$Main$_p0.$class;
 var _user$project$Main$classList = _user$project$Main$_p0.classList;
 var _user$project$Main$getStatus = function (project) {
-	return _elm_lang$core$Native_Utils.eq(project.status, 0) ? A2(
+	return _elm_lang$core$Native_Utils.eq(project.status, 'Active') ? A2(
 		_elm_lang$html$Html$div,
 		{
 			ctor: '::',
@@ -50,7 +50,7 @@ var _user$project$Main$getStatus = function (project) {
 			ctor: '::',
 			_0: _elm_lang$html$Html$text('(active)'),
 			_1: {ctor: '[]'}
-		}) : (_elm_lang$core$Native_Utils.eq(project.status, 1) ? A2(
+		}) : (_elm_lang$core$Native_Utils.eq(project.status, 'In Progress') ? A2(
 		_elm_lang$html$Html$div,
 		{
 			ctor: '::',
@@ -317,9 +317,17 @@ var _user$project$Main$getCategories = function (projects) {
 			},
 			projects));
 };
-var _user$project$Main$Model = F4(
-	function (a, b, c, d) {
-		return {bio: a, categories: b, technologies: c, projects: d};
+var _user$project$Main$getStatuses = function (projects) {
+	return A2(
+		_elm_lang$core$List$map,
+		function (p) {
+			return p.status;
+		},
+		projects);
+};
+var _user$project$Main$Model = F5(
+	function (a, b, c, d, e) {
+		return {bio: a, categories: b, technologies: c, statuses: d, projects: e};
 	});
 var _user$project$Main$Result = F2(
 	function (a, b) {
@@ -352,7 +360,7 @@ var _user$project$Main$projectDecoder = A3(
 					A3(
 						_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
 						'status',
-						_elm_lang$core$Json_Decode$int,
+						_elm_lang$core$Json_Decode$string,
 						A3(
 							_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
 							'timeline',
@@ -394,6 +402,8 @@ var _user$project$Main$initialModel = function () {
 			_user$project$Main$getCategories(result.projects)),
 		technologies: _user$project$Main$unique(
 			_user$project$Main$getTechnologies(result.projects)),
+		statuses: _user$project$Main$unique(
+			_user$project$Main$getStatuses(result.projects)),
 		projects: result.projects
 	};
 }();
@@ -463,6 +473,29 @@ var _user$project$Main$categoryFilters = function (category) {
 };
 var _user$project$Main$StatusFilter = function (a) {
 	return {ctor: 'StatusFilter', _0: a};
+};
+var _user$project$Main$statusFilters = function (status) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _user$project$Main$class(_user$project$StyleSheet$FilterBtn),
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$html$Html_Events$onClick(
+					_user$project$Main$StatusFilter(status)),
+				_1: {ctor: '[]'}
+			}
+		},
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html$text(status),
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$html$Html$text(_user$project$Main$separator),
+				_1: {ctor: '[]'}
+			}
+		});
 };
 var _user$project$Main$view = function (model) {
 	return A2(
@@ -593,75 +626,7 @@ var _user$project$Main$view = function (model) {
 												_0: _elm_lang$html$Html$text(model.bio),
 												_1: {ctor: '[]'}
 											}),
-										_1: {
-											ctor: '::',
-											_0: A2(
-												_elm_lang$html$Html$p,
-												{
-													ctor: '::',
-													_0: _user$project$Main$class(_user$project$StyleSheet$FilterBtn),
-													_1: {
-														ctor: '::',
-														_0: _elm_lang$html$Html_Events$onClick(
-															_user$project$Main$StatusFilter(0)),
-														_1: {ctor: '[]'}
-													}
-												},
-												{
-													ctor: '::',
-													_0: _elm_lang$html$Html$text('Active'),
-													_1: {ctor: '[]'}
-												}),
-											_1: {
-												ctor: '::',
-												_0: _elm_lang$html$Html$text(_user$project$Main$separator),
-												_1: {
-													ctor: '::',
-													_0: A2(
-														_elm_lang$html$Html$div,
-														{
-															ctor: '::',
-															_0: _user$project$Main$class(_user$project$StyleSheet$FilterBtn),
-															_1: {
-																ctor: '::',
-																_0: _elm_lang$html$Html_Events$onClick(
-																	_user$project$Main$StatusFilter(1)),
-																_1: {ctor: '[]'}
-															}
-														},
-														{
-															ctor: '::',
-															_0: _elm_lang$html$Html$text('In Progress'),
-															_1: {ctor: '[]'}
-														}),
-													_1: {
-														ctor: '::',
-														_0: _elm_lang$html$Html$text(_user$project$Main$separator),
-														_1: {
-															ctor: '::',
-															_0: A2(
-																_elm_lang$html$Html$div,
-																{
-																	ctor: '::',
-																	_0: _user$project$Main$class(_user$project$StyleSheet$FilterBtn),
-																	_1: {
-																		ctor: '::',
-																		_0: _elm_lang$html$Html_Events$onClick(
-																			_user$project$Main$StatusFilter(2)),
-																		_1: {ctor: '[]'}
-																	}
-																},
-																{
-																	ctor: '::',
-																	_0: _elm_lang$html$Html$text('Inactive'),
-																	_1: {ctor: '[]'}
-																}),
-															_1: {ctor: '[]'}
-														}
-													}
-												}
-											}
-										}
+										_1: {ctor: '[]'}
 									}
 								}
 							}),
@@ -670,39 +635,46 @@ var _user$project$Main$view = function (model) {
 							_0: A2(
 								_elm_lang$html$Html$p,
 								{ctor: '[]'},
-								A2(_elm_lang$core$List$map, _user$project$Main$categoryFilters, model.categories)),
+								A2(_elm_lang$core$List$map, _user$project$Main$statusFilters, model.statuses)),
 							_1: {
 								ctor: '::',
 								_0: A2(
 									_elm_lang$html$Html$p,
 									{ctor: '[]'},
-									A2(_elm_lang$core$List$map, _user$project$Main$techFilters, model.technologies)),
+									A2(_elm_lang$core$List$map, _user$project$Main$categoryFilters, model.categories)),
 								_1: {
 									ctor: '::',
 									_0: A2(
-										_elm_lang$html$Html$div,
-										{
-											ctor: '::',
-											_0: _user$project$Main$class(_user$project$StyleSheet$Content),
-											_1: {ctor: '[]'}
-										},
-										{
-											ctor: '::',
-											_0: A2(
-												_elm_lang$html$Html$div,
-												{ctor: '[]'},
-												A2(
-													_elm_lang$core$List$map,
-													_user$project$Main$viewProject,
+										_elm_lang$html$Html$p,
+										{ctor: '[]'},
+										A2(_elm_lang$core$List$map, _user$project$Main$techFilters, model.technologies)),
+									_1: {
+										ctor: '::',
+										_0: A2(
+											_elm_lang$html$Html$div,
+											{
+												ctor: '::',
+												_0: _user$project$Main$class(_user$project$StyleSheet$Content),
+												_1: {ctor: '[]'}
+											},
+											{
+												ctor: '::',
+												_0: A2(
+													_elm_lang$html$Html$div,
+													{ctor: '[]'},
 													A2(
-														_elm_lang$core$List$sortBy,
-														function (_) {
-															return _.status;
-														},
-														model.projects))),
-											_1: {ctor: '[]'}
-										}),
-									_1: {ctor: '[]'}
+														_elm_lang$core$List$map,
+														_user$project$Main$viewProject,
+														A2(
+															_elm_lang$core$List$sortBy,
+															function (_) {
+																return _.status;
+															},
+															model.projects))),
+												_1: {ctor: '[]'}
+											}),
+										_1: {ctor: '[]'}
+									}
 								}
 							}
 						}
