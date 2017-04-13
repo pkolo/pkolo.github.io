@@ -82,7 +82,7 @@ stylesheet =
             ]
         , class SidebarFoot
             [ padding (top 25)
-            , textColor (Color.rgb 200 200 200)
+            , textColor (Color.rgb 170 170 170)
             ]
         , class Title
             [ fontsize 52
