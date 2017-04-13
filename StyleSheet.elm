@@ -12,6 +12,7 @@ type Class
     | Bio
     | Container
     | Sidebar
+    | SidebarHead
     | FilterBar
     | FilterBtn
     | Content
@@ -61,8 +62,7 @@ stylesheet =
         , class FilterBar
             [ padding (bottom 10) ]
         , class FilterBtn
-            [ padding (right 5)
-            , hover
+            [ hover
                 [ textColor (Color.rgb 210 130 130)
                 , cursor "pointer"
                 ]
@@ -72,7 +72,11 @@ stylesheet =
             , maxWidth (px 960)
             ]
         , class Sidebar
-            [ maxWidth (px 200) ]
+            [ width (px 200) ]
+        , class SidebarHead
+            [ fontsize 20
+            , padding (bottom 5)
+            ]
         , class Title
             [ fontsize 52
             ]
