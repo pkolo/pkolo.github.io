@@ -13,6 +13,7 @@ type Class
     | Container
     | Sidebar
     | SidebarHead
+    | SidebarFoot
     | FilterBar
     | FilterBtn
     | Content
@@ -50,7 +51,7 @@ stylesheet =
             , inline
             ]
         , class Bio
-            [ padding (top 10) ]
+            [ padding (leftRightTopBottom 2 0 10 0) ]
         , class Container
             [ maxWidth (px 1200)
             , flowRight
@@ -72,10 +73,16 @@ stylesheet =
             , maxWidth (px 960)
             ]
         , class Sidebar
-            [ width (px 180) ]
+            [ width (px 180)
+            , padding (left 2)
+            ]
         , class SidebarHead
             [ fontsize 20
             , padding (bottom 5)
+            ]
+        , class SidebarFoot
+            [ padding (top 25)
+            , textColor (Color.rgb 200 200 200)
             ]
         , class Title
             [ fontsize 52

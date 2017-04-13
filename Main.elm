@@ -174,7 +174,7 @@ view model =
                 , div [ class Bio ] [ text model.bio ]
                 ]
             , div [ class Container ]
-                [ (filterBars model)
+                [ (getSidebar model)
                 , div [ class Content ]
                     [ div []
                         (List.map viewProject (List.sortBy .status model.projects))
@@ -184,8 +184,8 @@ view model =
         ]
 
 
-filterBars : Model -> Html Msg
-filterBars model =
+getSidebar : Model -> Html Msg
+getSidebar model =
     div [ class Sidebar ]
         [ div [ class SidebarHead ]
             [ text "Filter projects by" ]
@@ -202,6 +202,10 @@ filterBars model =
             (List.map categoryFilters model.categories)
         , div [ class FilterBar ]
             (List.map techFilters model.technologies)
+        , div [ class SidebarFoot ]
+            [ div [] [ text "© Patrick Kolodgy, 2017" ]
+            , div [] [ text "Written in Elm" ]
+            ]
         ]
 
 
