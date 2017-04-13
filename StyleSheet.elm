@@ -69,7 +69,9 @@ stylesheet =
                 ]
             ]
         , class Content
-            [ padding (left 2) ]
+            [ padding (left 2)
+            , maxWidth (px 960)
+            ]
         , class Sidebar
             [ maxWidth (px 200) ]
         , class Title
@@ -120,7 +122,7 @@ stylesheet =
             ]
         , class ProjectDetail
             [ padding (bottom 10)
-            , width (px 700)
+            , maxWidth (px 700)
             ]
         , class ProjectThumb
             [ width (px 120)

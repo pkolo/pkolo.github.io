@@ -1,5 +1,6 @@
 module Main exposing (..)
 
+import String exposing (join)
 import Html exposing (..)
 import Html.Attributes exposing (class, target, href, property, src)
 import Html.Events exposing (onClick)
@@ -208,8 +209,8 @@ viewProject project =
         , div [ class ProjectDetails ]
             [ div [ class ProjectDetail ]
                 [ div [ class P ] [ text project.description ]
-                , div [ class P ] [ text ("Technologies used: " ++ (toString project.technologies)) ]
-                , div [ class P ] [ text ("File under: " ++ (toString project.categories)) ]
+                , div [ class P ] [ text ("Technologies used: " ++ (join ", " project.technologies)) ]
+                , div [ class P ] [ text ("File under: " ++ (join ", " project.categories)) ]
                 ]
             ]
         ]

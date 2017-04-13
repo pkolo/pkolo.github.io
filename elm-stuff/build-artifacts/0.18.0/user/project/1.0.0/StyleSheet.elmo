@@ -157,7 +157,12 @@ var _user$project$StyleSheet$stylesheet = A2(
 												ctor: '::',
 												_0: _mdgriffith$style_elements$Style$padding(
 													_mdgriffith$style_elements$Style$left(2)),
-												_1: {ctor: '[]'}
+												_1: {
+													ctor: '::',
+													_0: _mdgriffith$style_elements$Style$maxWidth(
+														_mdgriffith$style_elements$Style$px(960)),
+													_1: {ctor: '[]'}
+												}
 											}),
 										_1: {
 											ctor: '::',
@@ -350,7 +355,7 @@ var _user$project$StyleSheet$stylesheet = A2(
 																											_mdgriffith$style_elements$Style$bottom(10)),
 																										_1: {
 																											ctor: '::',
-																											_0: _mdgriffith$style_elements$Style$width(
+																											_0: _mdgriffith$style_elements$Style$maxWidth(
 																												_mdgriffith$style_elements$Style$px(700)),
 																											_1: {ctor: '[]'}
 																										}
