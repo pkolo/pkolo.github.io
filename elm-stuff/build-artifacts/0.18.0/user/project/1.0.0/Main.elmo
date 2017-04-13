@@ -232,7 +232,10 @@ var _user$project$Main$viewProject = function (project) {
 												A2(
 													_elm_lang$core$Basics_ops['++'],
 													'Technologies used: ',
-													A2(_elm_lang$core$String$join, ', ', project.technologies))),
+													A2(
+														_elm_lang$core$String$join,
+														', ',
+														_elm_lang$core$List$sort(project.technologies)))),
 											_1: {ctor: '[]'}
 										}),
 									_1: {
@@ -250,7 +253,10 @@ var _user$project$Main$viewProject = function (project) {
 													A2(
 														_elm_lang$core$Basics_ops['++'],
 														'File under: ',
-														A2(_elm_lang$core$String$join, ', ', project.categories))),
+														A2(
+															_elm_lang$core$String$join,
+															', ',
+															_elm_lang$core$List$sort(project.categories)))),
 												_1: {ctor: '[]'}
 											}),
 										_1: {ctor: '[]'}
@@ -398,10 +404,12 @@ var _user$project$Main$initialModel = function () {
 	var result = _user$project$Main$decodeResult(_user$project$Data$json);
 	return {
 		bio: result.bio,
-		categories: _user$project$Main$unique(
-			_user$project$Main$getCategories(result.projects)),
-		technologies: _user$project$Main$unique(
-			_user$project$Main$getTechnologies(result.projects)),
+		categories: _elm_lang$core$List$sort(
+			_user$project$Main$unique(
+				_user$project$Main$getCategories(result.projects))),
+		technologies: _elm_lang$core$List$sort(
+			_user$project$Main$unique(
+				_user$project$Main$getTechnologies(result.projects))),
 		statuses: _user$project$Main$unique(
 			_user$project$Main$getStatuses(result.projects)),
 		projects: result.projects

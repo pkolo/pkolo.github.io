@@ -60,8 +60,8 @@ initialModel =
             decodeResult Data.json
     in
         { bio = result.bio
-        , categories = (unique (getCategories result.projects))
-        , technologies = (unique (getTechnologies result.projects))
+        , categories = List.sort (unique (getCategories result.projects))
+        , technologies = List.sort (unique (getTechnologies result.projects))
         , statuses = (unique (getStatuses result.projects))
         , projects = result.projects
         }
@@ -218,8 +218,8 @@ viewProject project =
         , div [ class ProjectDetails ]
             [ div [ class ProjectDetail ]
                 [ div [ class P ] [ text project.description ]
-                , div [ class P ] [ text ("Technologies used: " ++ (join ", " project.technologies)) ]
-                , div [ class P ] [ text ("File under: " ++ (join ", " project.categories)) ]
+                , div [ class P ] [ text ("Technologies used: " ++ (join ", " (List.sort project.technologies))) ]
+                , div [ class P ] [ text ("File under: " ++ (join ", " (List.sort project.categories))) ]
                 ]
             ]
         ]
