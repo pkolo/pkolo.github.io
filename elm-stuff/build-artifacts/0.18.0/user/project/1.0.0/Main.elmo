@@ -415,10 +415,13 @@ var _user$project$Main$update = F2(
 				return A2(_user$project$Main$filterByStatus, _user$project$Main$initialModel, _p5._0);
 			case 'CategoryFilter':
 				return A2(_user$project$Main$filterByCategory, _user$project$Main$initialModel, _p5._0);
-			default:
+			case 'TechFilter':
 				return A2(_user$project$Main$filterByTech, _user$project$Main$initialModel, _p5._0);
+			default:
+				return _user$project$Main$initialModel;
 		}
 	});
+var _user$project$Main$ResetModel = {ctor: 'ResetModel'};
 var _user$project$Main$TechFilter = function (a) {
 	return {ctor: 'TechFilter', _0: a};
 };
@@ -511,20 +514,36 @@ var _user$project$Main$filterBars = function (model) {
 				_elm_lang$html$Html$div,
 				{
 					ctor: '::',
-					_0: _user$project$Main$class(_user$project$StyleSheet$FilterBar),
+					_0: _user$project$Main$class(_user$project$StyleSheet$SidebarHead),
 					_1: {ctor: '[]'}
 				},
-				A2(_elm_lang$core$List$map, _user$project$Main$statusFilters, model.statuses)),
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text('Filter projects by'),
+					_1: {ctor: '[]'}
+				}),
 			_1: {
 				ctor: '::',
 				_0: A2(
 					_elm_lang$html$Html$div,
 					{
 						ctor: '::',
-						_0: _user$project$Main$class(_user$project$StyleSheet$FilterBar),
-						_1: {ctor: '[]'}
+						_0: _user$project$Main$class(_user$project$StyleSheet$FilterBtn),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$html$Html_Events$onClick(_user$project$Main$ResetModel),
+							_1: {ctor: '[]'}
+						}
 					},
-					A2(_elm_lang$core$List$map, _user$project$Main$categoryFilters, model.categories)),
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html$text(_user$project$Main$separator),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$html$Html$text('All'),
+							_1: {ctor: '[]'}
+						}
+					}),
 				_1: {
 					ctor: '::',
 					_0: A2(
@@ -534,8 +553,30 @@ var _user$project$Main$filterBars = function (model) {
 							_0: _user$project$Main$class(_user$project$StyleSheet$FilterBar),
 							_1: {ctor: '[]'}
 						},
-						A2(_elm_lang$core$List$map, _user$project$Main$techFilters, model.technologies)),
-					_1: {ctor: '[]'}
+						A2(_elm_lang$core$List$map, _user$project$Main$statusFilters, model.statuses)),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_elm_lang$html$Html$div,
+							{
+								ctor: '::',
+								_0: _user$project$Main$class(_user$project$StyleSheet$FilterBar),
+								_1: {ctor: '[]'}
+							},
+							A2(_elm_lang$core$List$map, _user$project$Main$categoryFilters, model.categories)),
+						_1: {
+							ctor: '::',
+							_0: A2(
+								_elm_lang$html$Html$div,
+								{
+									ctor: '::',
+									_0: _user$project$Main$class(_user$project$StyleSheet$FilterBar),
+									_1: {ctor: '[]'}
+								},
+								A2(_elm_lang$core$List$map, _user$project$Main$techFilters, model.technologies)),
+							_1: {ctor: '[]'}
+						}
+					}
 				}
 			}
 		});

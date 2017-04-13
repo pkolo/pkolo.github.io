@@ -187,7 +187,16 @@ view model =
 filterBars : Model -> Html Msg
 filterBars model =
     div [ class Sidebar ]
-        [ div [ class FilterBar ]
+        [ div [ class SidebarHead ]
+            [ text "Filter projects by" ]
+        , div
+            [ class FilterBtn
+            , onClick (ResetModel)
+            ]
+            [ text separator
+            , text "All"
+            ]
+        , div [ class FilterBar ]
             (List.map statusFilters model.statuses)
         , div [ class FilterBar ]
             (List.map categoryFilters model.categories)
@@ -305,6 +314,7 @@ type Msg
     = StatusFilter String
     | CategoryFilter String
     | TechFilter String
+    | ResetModel
 
 
 update : Msg -> Model -> Model
@@ -318,6 +328,9 @@ update msg model =
 
         TechFilter tech ->
             filterByTech initialModel tech
+
+        ResetModel ->
+            initialModel
 
 
 filterByStatus : Model -> String -> Model

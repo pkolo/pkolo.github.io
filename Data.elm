@@ -68,7 +68,7 @@ json =
           "timeline": "2015",
           "status": "Inactive",
           "categories": ["Podcasting", "Comedy", "Audio Engineering"],
-          "technologies": ["Reaper", "Abelton Live"],
+          "technologies": ["Reaper", "Ableton Live"],
           "link": "http://projectrealworld.com",
           "src_link": "",
           "description": "A 13-episode half-hour podcast based on the webseries that aired bi-weekly throughout 2015. Again, I performed in it, co-wrote, co-edited, co-produced, sound-designed, engineered etc, etc. Episodes include sketches, prank calls, documentary footage and field recordings, original music, call-ins, the works."
