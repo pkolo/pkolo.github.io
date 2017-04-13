@@ -72,7 +72,7 @@ stylesheet =
             , maxWidth (px 960)
             ]
         , class Sidebar
-            [ width (px 200) ]
+            [ width (px 180) ]
         , class SidebarHead
             [ fontsize 20
             , padding (bottom 5)
