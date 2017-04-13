@@ -171,11 +171,13 @@ view model =
                         [ text "linkedin" ]
                     ]
                 , div [ class Bio ] [ text model.bio ]
-                , (filterBars model)
                 ]
-            , div [ class Content ]
-                [ div []
-                    (List.map viewProject (List.sortBy .status model.projects))
+            , div [ class Container ]
+                [ (filterBars model)
+                , div [ class Content ]
+                    [ div []
+                        (List.map viewProject (List.sortBy .status model.projects))
+                    ]
                 ]
             ]
         ]
@@ -183,7 +185,7 @@ view model =
 
 filterBars : Model -> Html Msg
 filterBars model =
-    div [ class FilterBars ]
+    div [ class Sidebar ]
         [ div []
             (List.map statusFilters model.statuses)
         , div []
@@ -219,8 +221,8 @@ statusFilters status =
         [ class FilterBtn
         , onClick (StatusFilter status)
         ]
-        [ text status
-        , text separator
+        [ text separator
+        , text status
         ]
 
 
@@ -230,8 +232,8 @@ categoryFilters category =
         [ class FilterBtn
         , onClick (CategoryFilter category)
         ]
-        [ text category
-        , text separator
+        [ text separator
+        , text category
         ]
 
 
@@ -241,8 +243,8 @@ techFilters tech =
         [ class FilterBtn
         , onClick (TechFilter tech)
         ]
-        [ text tech
-        , text separator
+        [ text separator
+        , text tech
         ]
 
 

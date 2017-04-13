@@ -10,6 +10,8 @@ type Class
     | Nav
     | Link
     | Bio
+    | Container
+    | Sidebar
     | FilterBars
     | FilterBtn
     | Content
@@ -48,6 +50,14 @@ stylesheet =
             ]
         , class Bio
             [ padding (top 10) ]
+        , class Container
+            [ maxWidth (px 1200)
+            , flowRight
+                { wrap = True
+                , horizontal = alignLeft
+                , vertical = alignTop
+                }
+            ]
         , class FilterBars
             []
         , class FilterBtn
@@ -60,6 +70,8 @@ stylesheet =
             ]
         , class Content
             [ padding (left 2) ]
+        , class Sidebar
+            [ maxWidth (px 200) ]
         , class Title
             [ fontsize 52
             ]
