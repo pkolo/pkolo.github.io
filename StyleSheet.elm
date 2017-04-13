@@ -9,6 +9,11 @@ type Class
     | Header
     | Nav
     | Link
+    | Bio
+    | Container
+    | Sidebar
+    | FilterBar
+    | FilterBtn
     | Content
     | Title
     | Status
@@ -43,8 +48,31 @@ stylesheet =
             [ textColor (Color.rgb 130 130 210)
             , inline
             ]
+        , class Bio
+            [ padding (top 10) ]
+        , class Container
+            [ maxWidth (px 1200)
+            , flowRight
+                { wrap = True
+                , horizontal = alignLeft
+                , vertical = alignTop
+                }
+            ]
+        , class FilterBar
+            [ padding (bottom 10) ]
+        , class FilterBtn
+            [ padding (right 5)
+            , hover
+                [ textColor (Color.rgb 210 130 130)
+                , cursor "pointer"
+                ]
+            ]
         , class Content
-            [ padding (left 2) ]
+            [ padding (left 2)
+            , maxWidth (px 960)
+            ]
+        , class Sidebar
+            [ maxWidth (px 200) ]
         , class Title
             [ fontsize 52
             ]
@@ -93,7 +121,7 @@ stylesheet =
             ]
         , class ProjectDetail
             [ padding (bottom 10)
-            , width (px 700)
+            , maxWidth (px 700)
             ]
         , class ProjectThumb
             [ width (px 120)

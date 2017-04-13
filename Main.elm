@@ -1,11 +1,14 @@
 module Main exposing (..)
 
+import String exposing (join)
 import Html exposing (..)
 import Html.Attributes exposing (class, target, href, property, src)
+import Html.Events exposing (onClick)
 import Json.Decode exposing (..)
 import Json.Decode.Pipeline exposing (..)
 import StyleSheet exposing (Class(..))
 import Style exposing (all)
+import Set exposing (..)
 import Data
 
 
@@ -23,13 +26,17 @@ main =
 
 
 type alias Model =
-    { projects : List Project
+    { bio : String
+    , categories : List String
+    , technologies : List String
+    , statuses : List String
+    , projects : List Project
     }
 
 
-initialModel : Model
-initialModel =
-    { projects = decodeResults Data.json
+type alias Result =
+    { bio : String
+    , projects : List Project
     }
 
 
@@ -37,43 +44,97 @@ type alias Project =
     { id : Int
     , name : String
     , timeline : String
-    , status : Int
-    , categories : String
-    , technologies : String
+    , status : String
+    , categories : List String
+    , technologies : List String
     , link : String
     , src_link : String
     , description : String
     }
 
 
-responseDecoder : Decoder (List Project)
-responseDecoder =
-    Json.Decode.Pipeline.decode identity
-        |> required "projects" (list searchResultDecoder)
+initialModel : Model
+initialModel =
+    let
+        result =
+            decodeResult Data.json
+    in
+        { bio = result.bio
+        , categories = (unique (getCategories result.projects))
+        , technologies = (unique (getTechnologies result.projects))
+        , statuses = (unique (getStatuses result.projects))
+        , projects = result.projects
+        }
 
 
-searchResultDecoder : Decoder Project
-searchResultDecoder =
+decodeResult : String -> Result
+decodeResult json =
+    case Json.Decode.decodeString modelDecoder json of
+        Ok model ->
+            model
+
+        Err errorMessage ->
+            { bio = "Error"
+            , projects = []
+            }
+
+
+modelDecoder : Decoder Result
+modelDecoder =
+    Json.Decode.Pipeline.decode Result
+        |> required "bio" string
+        |> required "projects" (list projectDecoder)
+
+
+projectDecoder : Decoder Project
+projectDecoder =
     Json.Decode.Pipeline.decode Project
         |> required "id" int
         |> required "name" string
         |> required "timeline" string
-        |> required "status" int
-        |> required "categories" string
-        |> required "technologies" string
+        |> required "status" string
+        |> required "categories" (list string)
+        |> required "technologies" (list string)
         |> required "link" string
         |> required "src_link" string
         |> required "description" string
 
 
-decodeResults : String -> List Project
-decodeResults json =
-    case decodeString responseDecoder json of
-        Ok searchResults ->
-            searchResults
+getStatuses : List Project -> List String
+getStatuses projects =
+    List.map (\p -> p.status) projects
 
-        Err errorMessage ->
+
+getCategories : List Project -> List String
+getCategories projects =
+    List.concat (List.map (\p -> p.categories) projects)
+
+
+getTechnologies : List Project -> List String
+getTechnologies projects =
+    List.concat (List.map (\p -> p.technologies) projects)
+
+
+unique : List comparable -> List comparable
+unique list =
+    uniqueHelp identity Set.empty list
+
+
+uniqueHelp : (a -> comparable) -> Set comparable -> List a -> List a
+uniqueHelp f existing remaining =
+    case remaining of
+        [] ->
             []
+
+        first :: rest ->
+            let
+                computedFirst =
+                    f first
+            in
+                if Set.member computedFirst existing then
+                    uniqueHelp f existing rest
+                else
+                    first :: uniqueHelp f (Set.insert computedFirst existing) rest
 
 
 
@@ -110,12 +171,28 @@ view model =
                         ]
                         [ text "linkedin" ]
                     ]
+                , div [ class Bio ] [ text model.bio ]
                 ]
-            , div [ class Content ]
-                [ div []
-                    (List.map viewProject (List.sortBy .status model.projects))
+            , div [ class Container ]
+                [ (filterBars model)
+                , div [ class Content ]
+                    [ div []
+                        (List.map viewProject (List.sortBy .status model.projects))
+                    ]
                 ]
             ]
+        ]
+
+
+filterBars : Model -> Html Msg
+filterBars model =
+    div [ class Sidebar ]
+        [ div [ class FilterBar ]
+            (List.map statusFilters model.statuses)
+        , div [ class FilterBar ]
+            (List.map categoryFilters model.categories)
+        , div [ class FilterBar ]
+            (List.map techFilters model.technologies)
         ]
 
 
@@ -132,19 +209,52 @@ viewProject project =
         , div [ class ProjectDetails ]
             [ div [ class ProjectDetail ]
                 [ div [ class P ] [ text project.description ]
-                , div [ class P ] [ text ("Technologies used: " ++ project.technologies) ]
-                , div [ class P ] [ text ("File under: " ++ project.categories) ]
+                , div [ class P ] [ text ("Technologies used: " ++ (join ", " project.technologies)) ]
+                , div [ class P ] [ text ("File under: " ++ (join ", " project.categories)) ]
                 ]
             ]
         ]
 
 
+statusFilters : String -> Html Msg
+statusFilters status =
+    div
+        [ class FilterBtn
+        , onClick (StatusFilter status)
+        ]
+        [ text separator
+        , text status
+        ]
+
+
+categoryFilters : String -> Html Msg
+categoryFilters category =
+    div
+        [ class FilterBtn
+        , onClick (CategoryFilter category)
+        ]
+        [ text separator
+        , text category
+        ]
+
+
+techFilters : String -> Html Msg
+techFilters tech =
+    div
+        [ class FilterBtn
+        , onClick (TechFilter tech)
+        ]
+        [ text separator
+        , text tech
+        ]
+
+
 getStatus : Project -> Html Msg
 getStatus project =
-    if project.status == 0 then
+    if project.status == "Active" then
         div [ class Active ]
             [ text "(active)" ]
-    else if project.status == 1 then
+    else if project.status == "In Progress" then
         div [ class InProgress ]
             [ text "(in progress)" ]
     else
@@ -187,14 +297,51 @@ separator =
     " | "
 
 
-type Msg
-    = SetQuery String
-
-
 
 -- update
 
 
+type Msg
+    = StatusFilter String
+    | CategoryFilter String
+    | TechFilter String
+
+
 update : Msg -> Model -> Model
 update msg model =
-    initialModel
+    case msg of
+        StatusFilter status ->
+            filterByStatus initialModel status
+
+        CategoryFilter category ->
+            filterByCategory initialModel category
+
+        TechFilter tech ->
+            filterByTech initialModel tech
+
+
+filterByStatus : Model -> String -> Model
+filterByStatus model status =
+    let
+        newProjects =
+            List.filter (\p -> p.status == status) model.projects
+    in
+        { model | projects = newProjects }
+
+
+filterByCategory : Model -> String -> Model
+filterByCategory model category =
+    let
+        newProjects =
+            List.filter (\p -> (List.member category p.categories)) model.projects
+    in
+        { model | projects = newProjects }
+
+
+filterByTech : Model -> String -> Model
+filterByTech model tech =
+    let
+        newProjects =
+            List.filter (\p -> (List.member tech p.technologies)) model.projects
+    in
+        { model | projects = newProjects }
