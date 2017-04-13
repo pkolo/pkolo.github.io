@@ -187,11 +187,11 @@ view model =
 filterBars : Model -> Html Msg
 filterBars model =
     div [ class Sidebar ]
-        [ div []
+        [ div [ class FilterBar ]
             (List.map statusFilters model.statuses)
-        , div []
+        , div [ class FilterBar ]
             (List.map categoryFilters model.categories)
-        , div []
+        , div [ class FilterBar ]
             (List.map techFilters model.technologies)
         ]
 

@@ -509,19 +509,31 @@ var _user$project$Main$filterBars = function (model) {
 			ctor: '::',
 			_0: A2(
 				_elm_lang$html$Html$div,
-				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: _user$project$Main$class(_user$project$StyleSheet$FilterBar),
+					_1: {ctor: '[]'}
+				},
 				A2(_elm_lang$core$List$map, _user$project$Main$statusFilters, model.statuses)),
 			_1: {
 				ctor: '::',
 				_0: A2(
 					_elm_lang$html$Html$div,
-					{ctor: '[]'},
+					{
+						ctor: '::',
+						_0: _user$project$Main$class(_user$project$StyleSheet$FilterBar),
+						_1: {ctor: '[]'}
+					},
 					A2(_elm_lang$core$List$map, _user$project$Main$categoryFilters, model.categories)),
 				_1: {
 					ctor: '::',
 					_0: A2(
 						_elm_lang$html$Html$div,
-						{ctor: '[]'},
+						{
+							ctor: '::',
+							_0: _user$project$Main$class(_user$project$StyleSheet$FilterBar),
+							_1: {ctor: '[]'}
+						},
 						A2(_elm_lang$core$List$map, _user$project$Main$techFilters, model.technologies)),
 					_1: {ctor: '[]'}
 				}

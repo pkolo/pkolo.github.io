@@ -14,7 +14,7 @@ var _user$project$StyleSheet$Status = {ctor: 'Status'};
 var _user$project$StyleSheet$Title = {ctor: 'Title'};
 var _user$project$StyleSheet$Content = {ctor: 'Content'};
 var _user$project$StyleSheet$FilterBtn = {ctor: 'FilterBtn'};
-var _user$project$StyleSheet$FilterBars = {ctor: 'FilterBars'};
+var _user$project$StyleSheet$FilterBar = {ctor: 'FilterBar'};
 var _user$project$StyleSheet$Sidebar = {ctor: 'Sidebar'};
 var _user$project$StyleSheet$Container = {ctor: 'Container'};
 var _user$project$StyleSheet$Bio = {ctor: 'Bio'};
@@ -117,8 +117,13 @@ var _user$project$StyleSheet$stylesheet = A2(
 								ctor: '::',
 								_0: A2(
 									_mdgriffith$style_elements$Style$class,
-									_user$project$StyleSheet$FilterBars,
-									{ctor: '[]'}),
+									_user$project$StyleSheet$FilterBar,
+									{
+										ctor: '::',
+										_0: _mdgriffith$style_elements$Style$padding(
+											_mdgriffith$style_elements$Style$bottom(10)),
+										_1: {ctor: '[]'}
+									}),
 								_1: {
 									ctor: '::',
 									_0: A2(
@@ -126,26 +131,22 @@ var _user$project$StyleSheet$stylesheet = A2(
 										_user$project$StyleSheet$FilterBtn,
 										{
 											ctor: '::',
-											_0: _mdgriffith$style_elements$Style$inline,
+											_0: _mdgriffith$style_elements$Style$padding(
+												_mdgriffith$style_elements$Style$right(5)),
 											_1: {
 												ctor: '::',
-												_0: _mdgriffith$style_elements$Style$padding(
-													_mdgriffith$style_elements$Style$right(5)),
-												_1: {
-													ctor: '::',
-													_0: _mdgriffith$style_elements$Style$hover(
-														{
+												_0: _mdgriffith$style_elements$Style$hover(
+													{
+														ctor: '::',
+														_0: _mdgriffith$style_elements$Style$textColor(
+															A3(_elm_lang$core$Color$rgb, 210, 130, 130)),
+														_1: {
 															ctor: '::',
-															_0: _mdgriffith$style_elements$Style$textColor(
-																A3(_elm_lang$core$Color$rgb, 210, 130, 130)),
-															_1: {
-																ctor: '::',
-																_0: _mdgriffith$style_elements$Style$cursor('pointer'),
-																_1: {ctor: '[]'}
-															}
-														}),
-													_1: {ctor: '[]'}
-												}
+															_0: _mdgriffith$style_elements$Style$cursor('pointer'),
+															_1: {ctor: '[]'}
+														}
+													}),
+												_1: {ctor: '[]'}
 											}
 										}),
 									_1: {

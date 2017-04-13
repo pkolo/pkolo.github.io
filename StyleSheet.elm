@@ -12,7 +12,7 @@ type Class
     | Bio
     | Container
     | Sidebar
-    | FilterBars
+    | FilterBar
     | FilterBtn
     | Content
     | Title
@@ -58,11 +58,10 @@ stylesheet =
                 , vertical = alignTop
                 }
             ]
-        , class FilterBars
-            []
+        , class FilterBar
+            [ padding (bottom 10) ]
         , class FilterBtn
-            [ inline
-            , padding (right 5)
+            [ padding (right 5)
             , hover
                 [ textColor (Color.rgb 210 130 130)
                 , cursor "pointer"
