@@ -11037,6 +11037,120 @@ var _elm_lang$html$Html_Attributes$classList = function (list) {
 				A2(_elm_lang$core$List$filter, _elm_lang$core$Tuple$second, list))));
 };
 var _elm_lang$html$Html_Attributes$style = _elm_lang$virtual_dom$VirtualDom$style;
+var _elm_lang$html$Html_Events$keyCode = A2(_elm_lang$core$Json_Decode$field, 'keyCode', _elm_lang$core$Json_Decode$int);
+var _elm_lang$html$Html_Events$targetChecked = A2(
+	_elm_lang$core$Json_Decode$at,
+	{
+		ctor: '::',
+		_0: 'target',
+		_1: {
+			ctor: '::',
+			_0: 'checked',
+			_1: {ctor: '[]'}
+		}
+	},
+	_elm_lang$core$Json_Decode$bool);
+var _elm_lang$html$Html_Events$targetValue = A2(
+	_elm_lang$core$Json_Decode$at,
+	{
+		ctor: '::',
+		_0: 'target',
+		_1: {
+			ctor: '::',
+			_0: 'value',
+			_1: {ctor: '[]'}
+		}
+	},
+	_elm_lang$core$Json_Decode$string);
+var _elm_lang$html$Html_Events$defaultOptions = _elm_lang$virtual_dom$VirtualDom$defaultOptions;
+var _elm_lang$html$Html_Events$onWithOptions = _elm_lang$virtual_dom$VirtualDom$onWithOptions;
+var _elm_lang$html$Html_Events$on = _elm_lang$virtual_dom$VirtualDom$on;
+var _elm_lang$html$Html_Events$onFocus = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'focus',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onBlur = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'blur',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onSubmitOptions = _elm_lang$core$Native_Utils.update(
+	_elm_lang$html$Html_Events$defaultOptions,
+	{preventDefault: true});
+var _elm_lang$html$Html_Events$onSubmit = function (msg) {
+	return A3(
+		_elm_lang$html$Html_Events$onWithOptions,
+		'submit',
+		_elm_lang$html$Html_Events$onSubmitOptions,
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onCheck = function (tagger) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'change',
+		A2(_elm_lang$core$Json_Decode$map, tagger, _elm_lang$html$Html_Events$targetChecked));
+};
+var _elm_lang$html$Html_Events$onInput = function (tagger) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'input',
+		A2(_elm_lang$core$Json_Decode$map, tagger, _elm_lang$html$Html_Events$targetValue));
+};
+var _elm_lang$html$Html_Events$onMouseOut = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'mouseout',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onMouseOver = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'mouseover',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onMouseLeave = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'mouseleave',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onMouseEnter = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'mouseenter',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onMouseUp = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'mouseup',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onMouseDown = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'mousedown',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onDoubleClick = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'dblclick',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onClick = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'click',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$Options = F2(
+	function (a, b) {
+		return {stopPropagation: a, preventDefault: b};
+	});
 var _mdgriffith$style_elements$Style_Model$propertyName = function (prop) {
 	var _p0 = prop;
 	switch (_p0.ctor) {
@@ -13326,7 +13440,7 @@ var _mdgriffith$style_elements$Style$Import = function (a) {
 var _mdgriffith$style_elements$Style$importCSS = _mdgriffith$style_elements$Style$Import;
 var _mdgriffith$style_elements$Style$AutoImportGoogleFonts = {ctor: 'AutoImportGoogleFonts'};
 var _mdgriffith$style_elements$Style$autoImportGoogleFonts = _mdgriffith$style_elements$Style$AutoImportGoogleFonts;
-var _user$project$Data$json = '\n    {\n      \"projects\": [\n        {\n          \"id\": 4,\n          \"name\": \"Pie Finder\",\n          \"timeline\": \"Dec 2016\",\n          \"status\": 0,\n          \"categories\": \"Web Development\",\n          \"technologies\": \"Python, Flask, Javascript\",\n          \"link\": \"https://pie-finder.herokuapp.com/\",\n          \"src_link\": \"https://github.com/pkolo/raspberry-pi-challenge\",\n          \"description\": \"A single-page front-end app where users can enter an ingredient and get back several pie recipes that incorporate that ingredient. Built in a day or so, mostly to familiarize myself with Python and the Flask framework. It also uses the Recipepuppy API.\"\n        },\n        {\n          \"id\": 2,\n          \"name\": \"List-o-matic\",\n          \"timeline\": \"Jan 2017 - current\",\n          \"status\": 0,\n          \"categories\": \"Web Development, Music\",\n          \"technologies\": \"Rails, Ruby, React, Javascript, PostgreSQL\",\n          \"link\": \"https://list-o-matic.herokuapp.com/\",\n          \"src_link\": \"https://github.com/pkolo/list-o-matic-v2\",\n          \"description\": \"A web app that lets users log in and contribute to ranked lists of albums. Perfect for kinds of message boards where, for example, all the users want to make \'Top 50 Albums of the 90s\' lists and compile those lists into an overall board-wide list. Most people who post on message boards still do this sort of thing by hand, if you can believe it. I figured, \'There must be a better way!\' Built with Rails, React, PostgreSQL, and the Discogs API. Currently in use by my message board friends, but I\'m still adding features.\"\n        },\n        {\n          \"id\": 3,\n          \"name\": \"Friend Rock\",\n          \"timeline\": \"Apr 2017 - current\",\n          \"status\": 1,\n          \"categories\": \"Web Development, Music, Social Network\",\n          \"technologies\": \"Rails, Ruby\",\n          \"link\": \"\",\n          \"src_link\": \"https://github.com/pkolo/friend-rock\",\n          \"description\": \"An attempt to build a decent social network for bands. Most of the ones that exist are not very good at connecting bands with eachother. They want to connect bands to fans-- most bands have no fans, except other bands. This is a fact. This site will have a lot of good features for DIY and punk bands to use, I promise. So far it just uses Rails and PostgreSQL.\"\n        },\n        {\n          \"id\": 1,\n          \"name\": \"Sounds Park\",\n          \"timeline\": \"2015 - current\",\n          \"status\": 0,\n          \"categories\": \"Music Production, Audio Engineering\",\n          \"technologies\": \"Ableton Live, Reaper, 4-Track Cassette, 8-Track Cassette, 8-Track Reel-to-reel\",\n          \"link\": \"https://soundcloud.com/sounds-park\",\n          \"src_link\": \"\",\n          \"description\": \"The main repository for my musical output. Intermittently updated with songs and remixes of my creation. Everything I make is DIY, self-recorded, self-produced. \"\n        },\n        {\n          \"id\": 5,\n          \"name\": \"Project Real World - Webseries\",\n          \"timeline\": \"2013 - 2014\",\n          \"status\": 2,\n          \"categories\": \"Video Production, Audio Engineering, Comedy\",\n          \"technologies\": \"Adobe Premiere, Adobe After Effects, Reaper\",\n          \"link\": \"http://projectrealworld.com/webseries/\",\n          \"src_link\": \"\",\n          \"description\": \"A six-episode \'animated\' comedy webseries that I acted in,  co-wrote, co-engineered, co-edited, co-produced, co-directed, etc, etc. The story centers around Pad, a professional gamer with extreme social anxiety, and Mike Legg, a former insult comedian turned life coach. It\'s very funny, IMHO. Also, incidentally, this site is one of the first dynamic websites that I built myself using PHP and MySQL.\"\n        },\n        {\n          \"id\": 6,\n          \"name\": \"Project Real World - Podcast\",\n          \"timeline\": \"2015\",\n          \"status\": 2,\n          \"categories\": \"Podcasting, Comedy, Audio Engineering\",\n          \"technologies\": \"Reaper, Abelton Live\",\n          \"link\": \"http://projectrealworld.com\",\n          \"src_link\": \"\",\n          \"description\": \"A 13-episode half-hour podcast based on the webseries that aired bi-weekly throughout 2015. Again, I performed in it, co-wrote, co-edited, co-produced, sound-designed, engineered etc, etc. Episodes include sketches, prank calls, documentary footage and field recordings, original music, call-ins, the works.\"\n        },\n        {\n          \"id\": 7,\n          \"name\": \"Articulate\",\n          \"timeline\": \"Jan 2017 - current\",\n          \"status\": 1,\n          \"categories\": \"Web Development\",\n          \"technologies\": \"Rails, Ruby, React, Javascript, PostgreSQL\",\n          \"link\": \"https://articulately.herokuapp.com/\",\n          \"src_link\": \"https://github.com/AlexGio18/articulate-final-project\",\n          \"description\": \"A web app for practicing public speeches and presentations. A user can hit \'start\', perform their speech, and get immediate results on both their performance and content. We used the Web Speech API to parse speech to text in-browser, then sent that text to IBM Watson\'s Alchemy (RIP) and Tone Analyzer APIs to be analyzed. Once the data comes back from Watson, our server parses and interprets it into useful, human-readable feedback. Built by a team of four over the course of a week using Rails, React, and PostgreSQL. Unfortunately, do to the recent demise of the Alchemy API, service will be suspended until we adapt our server to the new Natural Language Understanding API.\"\n        },\n        {\n          \"id\": 8,\n          \"name\": \"Overnight Sensation\",\n          \"timeline\": \"2009 - 2016\",\n          \"status\": 2,\n          \"categories\": \"Music, Podcasting\",\n          \"technologies\": \"Garageband, Reaper\",\n          \"link\": \"http://www.btrtoday.com/listen/overnightsensation/\",\n          \"src_link\": \"\",\n          \"description\": \"A very long-running podcast that I produced and hosted on a weekly-basis for the BTRtoday (formerly Breakthru Radio) podcast network. I mostly played bands (punk, indiepop, lofi, hometaper, bedroom pop, DIY, and more production/distribution-based genres) that didn\'t have any records out and didn\'t have any fans and probably didn\'t expect too many people to hear their music. I typically found them by digging through online distribution channels like bandcamp and soundcloud and giving most anything a chance. I wish more people would do that, but they don\'t. Hopefully I will start up another version of this show soon.\"\n        }\n      ]\n    }\n    ';
+var _user$project$Data$json = '\n    {\n      \"bio\": \"Patrick is a web developer, audio engineer, musician, and podcaster.\",\n      \"projects\": [\n        {\n          \"id\": 4,\n          \"name\": \"Pie Finder\",\n          \"timeline\": \"Dec 2016\",\n          \"status\": \"Active\",\n          \"categories\": [\"Web Development\"],\n          \"technologies\": [\"Python\", \"Flask\", \"Javascript\"],\n          \"link\": \"https://pie-finder.herokuapp.com/\",\n          \"src_link\": \"https://github.com/pkolo/raspberry-pi-challenge\",\n          \"description\": \"A single-page front-end app where users can enter an ingredient and get back several pie recipes that incorporate that ingredient. Built in a day or so, mostly to familiarize myself with Python and the Flask framework. It also uses the Recipepuppy API.\"\n        },\n        {\n          \"id\": 2,\n          \"name\": \"List-o-matic\",\n          \"timeline\": \"Jan 2017 - current\",\n          \"status\": \"Active\",\n          \"categories\": [\"Web Development\", \"Music\"],\n          \"technologies\": [\"Rails\", \"Ruby\", \"React\", \"Javascript\"],\n          \"link\": \"https://list-o-matic.herokuapp.com/\",\n          \"src_link\": \"https://github.com/pkolo/list-o-matic-v2\",\n          \"description\": \"A web app that lets users log in and contribute to ranked lists of albums. Perfect for kinds of message boards where, for example, all the users want to make \'Top 50 Albums of the 90s\' lists and compile those lists into an overall board-wide list. Most people who post on message boards still do this sort of thing by hand, if you can believe it. I figured, \'There must be a better way!\' Built with Rails, React, PostgreSQL, and the Discogs API. Currently in use by my message board friends, but I\'m still adding features.\"\n        },\n        {\n          \"id\": 3,\n          \"name\": \"Friend Rock\",\n          \"timeline\": \"Apr 2017 - current\",\n          \"status\": \"In Progress\",\n          \"categories\": [\"Web Development\", \"Music\", \"Social Network\"],\n          \"technologies\": [\"Rails\", \"Ruby\"],\n          \"link\": \"\",\n          \"src_link\": \"https://github.com/pkolo/friend-rock\",\n          \"description\": \"An attempt to build a decent social network for bands. Most of the ones that exist are not very good at connecting bands with eachother. They want to connect bands to fans-- most bands have no fans, except other bands. This is a fact. This site will have a lot of good features for DIY and punk bands to use, I promise. So far it just uses Rails and PostgreSQL.\"\n        },\n        {\n          \"id\": 1,\n          \"name\": \"Sounds Park\",\n          \"timeline\": \"2015 - current\",\n          \"status\": \"Active\",\n          \"categories\": [\"Music\", \"Audio Engineering\"],\n          \"technologies\": [\"Ableton Live\", \"Reaper\"],\n          \"link\": \"https://soundcloud.com/sounds-park\",\n          \"src_link\": \"\",\n          \"description\": \"The main repository for my musical output. Intermittently updated with songs and remixes of my creation. Everything I make is DIY, self-recorded, self-produced. \"\n        },\n        {\n          \"id\": 5,\n          \"name\": \"Project Real World - Webseries\",\n          \"timeline\": \"2013 - 2014\",\n          \"status\": \"Inactive\",\n          \"categories\": [\"Video Production\", \"Audio Engineering\", \"Comedy\"],\n          \"technologies\": [\"Adobe Premiere\", \"Reaper\"],\n          \"link\": \"http://projectrealworld.com/webseries/\",\n          \"src_link\": \"\",\n          \"description\": \"A six-episode \'animated\' comedy webseries that I acted in,  co-wrote, co-engineered, co-edited, co-produced, co-directed, etc, etc. The story centers around Pad, a professional gamer with extreme social anxiety, and Mike Legg, a former insult comedian turned life coach. It\'s very funny, IMHO. Also, incidentally, this site is one of the first dynamic websites that I built myself using PHP and MySQL.\"\n        },\n        {\n          \"id\": 6,\n          \"name\": \"Project Real World - Podcast\",\n          \"timeline\": \"2015\",\n          \"status\": \"Inactive\",\n          \"categories\": [\"Podcasting\", \"Comedy\", \"Audio Engineering\"],\n          \"technologies\": [\"Reaper\", \"Abelton Live\"],\n          \"link\": \"http://projectrealworld.com\",\n          \"src_link\": \"\",\n          \"description\": \"A 13-episode half-hour podcast based on the webseries that aired bi-weekly throughout 2015. Again, I performed in it, co-wrote, co-edited, co-produced, sound-designed, engineered etc, etc. Episodes include sketches, prank calls, documentary footage and field recordings, original music, call-ins, the works.\"\n        },\n        {\n          \"id\": 7,\n          \"name\": \"Articulate\",\n          \"timeline\": \"Jan 2017 - current\",\n          \"status\": \"In Progress\",\n          \"categories\": [\"Web Development\"],\n          \"technologies\": [\"Rails\", \"Ruby\", \"React\", \"Javascript\"],\n          \"link\": \"https://articulately.herokuapp.com/\",\n          \"src_link\": \"https://github.com/AlexGio18/articulate-final-project\",\n          \"description\": \"A web app for practicing public speeches and presentations. A user can hit \'start\', perform their speech, and get immediate results on both their performance and content. We used the Web Speech API to parse speech to text in-browser, then sent that text to IBM Watson\'s Alchemy (RIP) and Tone Analyzer APIs to be analyzed. Once the data comes back from Watson, our server parses and interprets it into useful, human-readable feedback. Built by a team of four over the course of a week using Rails, React, and PostgreSQL. Unfortunately, do to the recent demise of the Alchemy API, service will be suspended until we adapt our server to the new Natural Language Understanding API.\"\n        },\n        {\n          \"id\": 8,\n          \"name\": \"Overnight Sensation\",\n          \"timeline\": \"2009 - 2016\",\n          \"status\": \"Inactive\",\n          \"categories\": [\"Music\", \"Podcasting\"],\n          \"technologies\": [\"Pro Tools\", \"Reaper\"],\n          \"link\": \"http://www.btrtoday.com/listen/overnightsensation/\",\n          \"src_link\": \"\",\n          \"description\": \"A very long-running podcast that I produced and hosted on a weekly-basis for the BTRtoday (formerly Breakthru Radio) podcast network. I mostly played bands (punk, indiepop, lofi, hometaper, bedroom pop, DIY, and more production/distribution-based genres) that didn\'t have any records out and didn\'t have any fans and probably didn\'t expect too many people to hear their music. I typically found them by digging through online distribution channels like bandcamp and soundcloud and giving most anything a chance. I wish more people would do that, but they don\'t. Hopefully I will start up another version of this show soon.\"\n        }\n      ]\n    }\n    ';
 var _user$project$StyleSheet$ProjectThumb = {ctor: 'ProjectThumb'};
 var _user$project$StyleSheet$ProjectDetail = {ctor: 'ProjectDetail'};
 var _user$project$StyleSheet$ProjectDetails = {ctor: 'ProjectDetails'};
@@ -13342,6 +13456,11 @@ var _user$project$StyleSheet$UL = {ctor: 'UL'};
 var _user$project$StyleSheet$Status = {ctor: 'Status'};
 var _user$project$StyleSheet$Title = {ctor: 'Title'};
 var _user$project$StyleSheet$Content = {ctor: 'Content'};
+var _user$project$StyleSheet$FilterBtn = {ctor: 'FilterBtn'};
+var _user$project$StyleSheet$FilterBar = {ctor: 'FilterBar'};
+var _user$project$StyleSheet$Sidebar = {ctor: 'Sidebar'};
+var _user$project$StyleSheet$Container = {ctor: 'Container'};
+var _user$project$StyleSheet$Bio = {ctor: 'Bio'};
 var _user$project$StyleSheet$Link = {ctor: 'Link'};
 var _user$project$StyleSheet$Nav = {ctor: 'Nav'};
 var _user$project$StyleSheet$Header = {ctor: 'Header'};
@@ -13414,219 +13533,303 @@ var _user$project$StyleSheet$stylesheet = A2(
 						ctor: '::',
 						_0: A2(
 							_mdgriffith$style_elements$Style$class,
-							_user$project$StyleSheet$Content,
+							_user$project$StyleSheet$Bio,
 							{
 								ctor: '::',
 								_0: _mdgriffith$style_elements$Style$padding(
-									_mdgriffith$style_elements$Style$left(2)),
+									_mdgriffith$style_elements$Style$top(10)),
 								_1: {ctor: '[]'}
 							}),
 						_1: {
 							ctor: '::',
 							_0: A2(
 								_mdgriffith$style_elements$Style$class,
-								_user$project$StyleSheet$Title,
+								_user$project$StyleSheet$Container,
 								{
 									ctor: '::',
-									_0: _mdgriffith$style_elements$Style$fontsize(52),
-									_1: {ctor: '[]'}
+									_0: _mdgriffith$style_elements$Style$maxWidth(
+										_mdgriffith$style_elements$Style$px(1200)),
+									_1: {
+										ctor: '::',
+										_0: _mdgriffith$style_elements$Style$flowRight(
+											{wrap: true, horizontal: _mdgriffith$style_elements$Style$alignLeft, vertical: _mdgriffith$style_elements$Style$alignTop}),
+										_1: {ctor: '[]'}
+									}
 								}),
 							_1: {
 								ctor: '::',
 								_0: A2(
 									_mdgriffith$style_elements$Style$class,
-									_user$project$StyleSheet$Status,
+									_user$project$StyleSheet$FilterBar,
 									{
 										ctor: '::',
-										_0: _mdgriffith$style_elements$Style$fontsize(25),
-										_1: {
-											ctor: '::',
-											_0: _mdgriffith$style_elements$Style$padding(
-												_mdgriffith$style_elements$Style$bottom(15)),
-											_1: {ctor: '[]'}
-										}
+										_0: _mdgriffith$style_elements$Style$padding(
+											_mdgriffith$style_elements$Style$bottom(10)),
+										_1: {ctor: '[]'}
 									}),
 								_1: {
 									ctor: '::',
 									_0: A2(
 										_mdgriffith$style_elements$Style$class,
-										_user$project$StyleSheet$UL,
+										_user$project$StyleSheet$FilterBtn,
 										{
 											ctor: '::',
-											_0: _mdgriffith$style_elements$Style$spacing(
-												_mdgriffith$style_elements$Style$top(10)),
-											_1: {ctor: '[]'}
+											_0: _mdgriffith$style_elements$Style$padding(
+												_mdgriffith$style_elements$Style$right(5)),
+											_1: {
+												ctor: '::',
+												_0: _mdgriffith$style_elements$Style$hover(
+													{
+														ctor: '::',
+														_0: _mdgriffith$style_elements$Style$textColor(
+															A3(_elm_lang$core$Color$rgb, 210, 130, 130)),
+														_1: {
+															ctor: '::',
+															_0: _mdgriffith$style_elements$Style$cursor('pointer'),
+															_1: {ctor: '[]'}
+														}
+													}),
+												_1: {ctor: '[]'}
+											}
 										}),
 									_1: {
 										ctor: '::',
 										_0: A2(
 											_mdgriffith$style_elements$Style$class,
-											_user$project$StyleSheet$P,
+											_user$project$StyleSheet$Content,
 											{
 												ctor: '::',
 												_0: _mdgriffith$style_elements$Style$padding(
-													_mdgriffith$style_elements$Style$bottom(5)),
-												_1: {ctor: '[]'}
+													_mdgriffith$style_elements$Style$left(2)),
+												_1: {
+													ctor: '::',
+													_0: _mdgriffith$style_elements$Style$maxWidth(
+														_mdgriffith$style_elements$Style$px(960)),
+													_1: {ctor: '[]'}
+												}
 											}),
 										_1: {
 											ctor: '::',
 											_0: A2(
 												_mdgriffith$style_elements$Style$class,
-												_user$project$StyleSheet$Active,
+												_user$project$StyleSheet$Sidebar,
 												{
 													ctor: '::',
-													_0: _mdgriffith$style_elements$Style$textColor(
-														A3(_elm_lang$core$Color$rgb, 50, 150, 50)),
-													_1: {
-														ctor: '::',
-														_0: _mdgriffith$style_elements$Style$inline,
-														_1: {
-															ctor: '::',
-															_0: _mdgriffith$style_elements$Style$padding(
-																_mdgriffith$style_elements$Style$left(5)),
-															_1: {ctor: '[]'}
-														}
-													}
+													_0: _mdgriffith$style_elements$Style$maxWidth(
+														_mdgriffith$style_elements$Style$px(200)),
+													_1: {ctor: '[]'}
 												}),
 											_1: {
 												ctor: '::',
 												_0: A2(
 													_mdgriffith$style_elements$Style$class,
-													_user$project$StyleSheet$InProgress,
+													_user$project$StyleSheet$Title,
 													{
 														ctor: '::',
-														_0: _mdgriffith$style_elements$Style$textColor(
-															A3(_elm_lang$core$Color$rgb, 150, 150, 50)),
-														_1: {
-															ctor: '::',
-															_0: _mdgriffith$style_elements$Style$inline,
-															_1: {
-																ctor: '::',
-																_0: _mdgriffith$style_elements$Style$padding(
-																	_mdgriffith$style_elements$Style$left(5)),
-																_1: {ctor: '[]'}
-															}
-														}
+														_0: _mdgriffith$style_elements$Style$fontsize(52),
+														_1: {ctor: '[]'}
 													}),
 												_1: {
 													ctor: '::',
 													_0: A2(
 														_mdgriffith$style_elements$Style$class,
-														_user$project$StyleSheet$Inactive,
+														_user$project$StyleSheet$Status,
 														{
 															ctor: '::',
-															_0: _mdgriffith$style_elements$Style$textColor(
-																A3(_elm_lang$core$Color$rgb, 150, 50, 50)),
+															_0: _mdgriffith$style_elements$Style$fontsize(25),
 															_1: {
 																ctor: '::',
-																_0: _mdgriffith$style_elements$Style$inline,
-																_1: {
-																	ctor: '::',
-																	_0: _mdgriffith$style_elements$Style$padding(
-																		_mdgriffith$style_elements$Style$left(5)),
-																	_1: {ctor: '[]'}
-																}
+																_0: _mdgriffith$style_elements$Style$padding(
+																	_mdgriffith$style_elements$Style$bottom(15)),
+																_1: {ctor: '[]'}
 															}
 														}),
 													_1: {
 														ctor: '::',
 														_0: A2(
 															_mdgriffith$style_elements$Style$class,
-															_user$project$StyleSheet$ProjectInfo,
+															_user$project$StyleSheet$UL,
 															{
 																ctor: '::',
-																_0: _mdgriffith$style_elements$Style$padding(
-																	A4(_mdgriffith$style_elements$Style$leftRightTopBottom, 20, 0, 0, 10)),
+																_0: _mdgriffith$style_elements$Style$spacing(
+																	_mdgriffith$style_elements$Style$top(10)),
 																_1: {ctor: '[]'}
 															}),
 														_1: {
 															ctor: '::',
 															_0: A2(
 																_mdgriffith$style_elements$Style$class,
-																_user$project$StyleSheet$ProjectHeader,
-																{ctor: '[]'}),
+																_user$project$StyleSheet$P,
+																{
+																	ctor: '::',
+																	_0: _mdgriffith$style_elements$Style$padding(
+																		_mdgriffith$style_elements$Style$bottom(5)),
+																	_1: {ctor: '[]'}
+																}),
 															_1: {
 																ctor: '::',
 																_0: A2(
 																	_mdgriffith$style_elements$Style$class,
-																	_user$project$StyleSheet$ProjectLink,
+																	_user$project$StyleSheet$Active,
 																	{
 																		ctor: '::',
-																		_0: _mdgriffith$style_elements$Style$inline,
+																		_0: _mdgriffith$style_elements$Style$textColor(
+																			A3(_elm_lang$core$Color$rgb, 50, 150, 50)),
 																		_1: {
 																			ctor: '::',
-																			_0: _mdgriffith$style_elements$Style$padding(
-																				_mdgriffith$style_elements$Style$leftRight(5)),
-																			_1: {ctor: '[]'}
+																			_0: _mdgriffith$style_elements$Style$inline,
+																			_1: {
+																				ctor: '::',
+																				_0: _mdgriffith$style_elements$Style$padding(
+																					_mdgriffith$style_elements$Style$left(5)),
+																				_1: {ctor: '[]'}
+																			}
 																		}
 																	}),
 																_1: {
 																	ctor: '::',
 																	_0: A2(
 																		_mdgriffith$style_elements$Style$class,
-																		_user$project$StyleSheet$ProjectName,
+																		_user$project$StyleSheet$InProgress,
 																		{
 																			ctor: '::',
-																			_0: _mdgriffith$style_elements$Style$fontsize(22),
+																			_0: _mdgriffith$style_elements$Style$textColor(
+																				A3(_elm_lang$core$Color$rgb, 150, 150, 50)),
 																			_1: {
 																				ctor: '::',
 																				_0: _mdgriffith$style_elements$Style$inline,
-																				_1: {ctor: '[]'}
+																				_1: {
+																					ctor: '::',
+																					_0: _mdgriffith$style_elements$Style$padding(
+																						_mdgriffith$style_elements$Style$left(5)),
+																					_1: {ctor: '[]'}
+																				}
 																			}
 																		}),
 																	_1: {
 																		ctor: '::',
 																		_0: A2(
 																			_mdgriffith$style_elements$Style$class,
-																			_user$project$StyleSheet$ProjectDetails,
+																			_user$project$StyleSheet$Inactive,
 																			{
 																				ctor: '::',
-																				_0: _mdgriffith$style_elements$Style$maxWidth(
-																					_mdgriffith$style_elements$Style$px(825)),
+																				_0: _mdgriffith$style_elements$Style$textColor(
+																					A3(_elm_lang$core$Color$rgb, 150, 50, 50)),
 																				_1: {
 																					ctor: '::',
-																					_0: _mdgriffith$style_elements$Style$flowLeft(
-																						{wrap: true, horizontal: _mdgriffith$style_elements$Style$alignRight, vertical: _mdgriffith$style_elements$Style$alignTop}),
-																					_1: {ctor: '[]'}
+																					_0: _mdgriffith$style_elements$Style$inline,
+																					_1: {
+																						ctor: '::',
+																						_0: _mdgriffith$style_elements$Style$padding(
+																							_mdgriffith$style_elements$Style$left(5)),
+																						_1: {ctor: '[]'}
+																					}
 																				}
 																			}),
 																		_1: {
 																			ctor: '::',
 																			_0: A2(
 																				_mdgriffith$style_elements$Style$class,
-																				_user$project$StyleSheet$ProjectDetail,
+																				_user$project$StyleSheet$ProjectInfo,
 																				{
 																					ctor: '::',
 																					_0: _mdgriffith$style_elements$Style$padding(
-																						_mdgriffith$style_elements$Style$bottom(10)),
-																					_1: {
-																						ctor: '::',
-																						_0: _mdgriffith$style_elements$Style$width(
-																							_mdgriffith$style_elements$Style$px(700)),
-																						_1: {ctor: '[]'}
-																					}
+																						A4(_mdgriffith$style_elements$Style$leftRightTopBottom, 20, 0, 0, 10)),
+																					_1: {ctor: '[]'}
 																				}),
 																			_1: {
 																				ctor: '::',
 																				_0: A2(
 																					_mdgriffith$style_elements$Style$class,
-																					_user$project$StyleSheet$ProjectThumb,
-																					{
-																						ctor: '::',
-																						_0: _mdgriffith$style_elements$Style$width(
-																							_mdgriffith$style_elements$Style$px(120)),
-																						_1: {
+																					_user$project$StyleSheet$ProjectHeader,
+																					{ctor: '[]'}),
+																				_1: {
+																					ctor: '::',
+																					_0: A2(
+																						_mdgriffith$style_elements$Style$class,
+																						_user$project$StyleSheet$ProjectLink,
+																						{
 																							ctor: '::',
-																							_0: _mdgriffith$style_elements$Style$floatLeft,
+																							_0: _mdgriffith$style_elements$Style$inline,
 																							_1: {
 																								ctor: '::',
 																								_0: _mdgriffith$style_elements$Style$padding(
-																									_mdgriffith$style_elements$Style$allButLeft(5)),
+																									_mdgriffith$style_elements$Style$leftRight(5)),
 																								_1: {ctor: '[]'}
 																							}
+																						}),
+																					_1: {
+																						ctor: '::',
+																						_0: A2(
+																							_mdgriffith$style_elements$Style$class,
+																							_user$project$StyleSheet$ProjectName,
+																							{
+																								ctor: '::',
+																								_0: _mdgriffith$style_elements$Style$fontsize(22),
+																								_1: {
+																									ctor: '::',
+																									_0: _mdgriffith$style_elements$Style$inline,
+																									_1: {ctor: '[]'}
+																								}
+																							}),
+																						_1: {
+																							ctor: '::',
+																							_0: A2(
+																								_mdgriffith$style_elements$Style$class,
+																								_user$project$StyleSheet$ProjectDetails,
+																								{
+																									ctor: '::',
+																									_0: _mdgriffith$style_elements$Style$maxWidth(
+																										_mdgriffith$style_elements$Style$px(825)),
+																									_1: {
+																										ctor: '::',
+																										_0: _mdgriffith$style_elements$Style$flowLeft(
+																											{wrap: true, horizontal: _mdgriffith$style_elements$Style$alignRight, vertical: _mdgriffith$style_elements$Style$alignTop}),
+																										_1: {ctor: '[]'}
+																									}
+																								}),
+																							_1: {
+																								ctor: '::',
+																								_0: A2(
+																									_mdgriffith$style_elements$Style$class,
+																									_user$project$StyleSheet$ProjectDetail,
+																									{
+																										ctor: '::',
+																										_0: _mdgriffith$style_elements$Style$padding(
+																											_mdgriffith$style_elements$Style$bottom(10)),
+																										_1: {
+																											ctor: '::',
+																											_0: _mdgriffith$style_elements$Style$maxWidth(
+																												_mdgriffith$style_elements$Style$px(700)),
+																											_1: {ctor: '[]'}
+																										}
+																									}),
+																								_1: {
+																									ctor: '::',
+																									_0: A2(
+																										_mdgriffith$style_elements$Style$class,
+																										_user$project$StyleSheet$ProjectThumb,
+																										{
+																											ctor: '::',
+																											_0: _mdgriffith$style_elements$Style$width(
+																												_mdgriffith$style_elements$Style$px(120)),
+																											_1: {
+																												ctor: '::',
+																												_0: _mdgriffith$style_elements$Style$floatLeft,
+																												_1: {
+																													ctor: '::',
+																													_0: _mdgriffith$style_elements$Style$padding(
+																														_mdgriffith$style_elements$Style$allButLeft(5)),
+																													_1: {ctor: '[]'}
+																												}
+																											}
+																										}),
+																									_1: {ctor: '[]'}
+																								}
+																							}
 																						}
-																					}),
-																				_1: {ctor: '[]'}
+																					}
+																				}
 																			}
 																		}
 																	}
@@ -13646,12 +13849,48 @@ var _user$project$StyleSheet$stylesheet = A2(
 			}
 		}
 	});
+var _user$project$Main$filterByTech = F2(
+	function (model, tech) {
+		var newProjects = A2(
+			_elm_lang$core$List$filter,
+			function (p) {
+				return A2(_elm_lang$core$List$member, tech, p.technologies);
+			},
+			model.projects);
+		return _elm_lang$core$Native_Utils.update(
+			model,
+			{projects: newProjects});
+	});
+var _user$project$Main$filterByCategory = F2(
+	function (model, category) {
+		var newProjects = A2(
+			_elm_lang$core$List$filter,
+			function (p) {
+				return A2(_elm_lang$core$List$member, category, p.categories);
+			},
+			model.projects);
+		return _elm_lang$core$Native_Utils.update(
+			model,
+			{projects: newProjects});
+	});
+var _user$project$Main$filterByStatus = F2(
+	function (model, status) {
+		var newProjects = A2(
+			_elm_lang$core$List$filter,
+			function (p) {
+				return _elm_lang$core$Native_Utils.eq(p.status, status);
+			},
+			model.projects);
+		return _elm_lang$core$Native_Utils.update(
+			model,
+			{projects: newProjects});
+	});
 var _user$project$Main$separator = ' | ';
 var _user$project$Main$_p0 = _user$project$StyleSheet$stylesheet;
 var _user$project$Main$class = _user$project$Main$_p0.$class;
 var _user$project$Main$classList = _user$project$Main$_p0.classList;
 var _user$project$Main$getStatus = function (project) {
-	return _elm_lang$core$Native_Utils.eq(project.status, 0) ? A2(
+	return _elm_lang$core$Native_Utils.eq(project.status, 'Active') ? A2(
 		_elm_lang$html$Html$div,
 		{
 			ctor: '::',
@@ -13662,7 +13901,7 @@ var _user$project$Main$getStatus = function (project) {
 			ctor: '::',
 			_0: _elm_lang$html$Html$text('(active)'),
 			_1: {ctor: '[]'}
-		}) : (_elm_lang$core$Native_Utils.eq(project.status, 1) ? A2(
+		}) : (_elm_lang$core$Native_Utils.eq(project.status, 'In Progress') ? A2(
 		_elm_lang$html$Html$div,
 		{
 			ctor: '::',
@@ -13841,7 +14080,10 @@ var _user$project$Main$viewProject = function (project) {
 										{
 											ctor: '::',
 											_0: _elm_lang$html$Html$text(
-												A2(_elm_lang$core$Basics_ops['++'], 'Technologies used: ', project.technologies)),
+												A2(
+													_elm_lang$core$Basics_ops['++'],
+													'Technologies used: ',
+													A2(_elm_lang$core$String$join, ', ', project.technologies))),
 											_1: {ctor: '[]'}
 										}),
 									_1: {
@@ -13856,7 +14098,10 @@ var _user$project$Main$viewProject = function (project) {
 											{
 												ctor: '::',
 												_0: _elm_lang$html$Html$text(
-													A2(_elm_lang$core$Basics_ops['++'], 'File under: ', project.categories)),
+													A2(
+														_elm_lang$core$Basics_ops['++'],
+														'File under: ',
+														A2(_elm_lang$core$String$join, ', ', project.categories))),
 												_1: {ctor: '[]'}
 											}),
 										_1: {ctor: '[]'}
@@ -13866,6 +14111,283 @@ var _user$project$Main$viewProject = function (project) {
 						_1: {ctor: '[]'}
 					}),
 				_1: {ctor: '[]'}
+			}
+		});
+};
+var _user$project$Main$uniqueHelp = F3(
+	function (f, existing, remaining) {
+		uniqueHelp:
+		while (true) {
+			var _p1 = remaining;
+			if (_p1.ctor === '[]') {
+				return {ctor: '[]'};
+			} else {
+				var _p3 = _p1._1;
+				var _p2 = _p1._0;
+				var computedFirst = f(_p2);
+				if (A2(_elm_lang$core$Set$member, computedFirst, existing)) {
+					var _v1 = f,
+						_v2 = existing,
+						_v3 = _p3;
+					f = _v1;
+					existing = _v2;
+					remaining = _v3;
+					continue uniqueHelp;
+				} else {
+					return {
+						ctor: '::',
+						_0: _p2,
+						_1: A3(
+							_user$project$Main$uniqueHelp,
+							f,
+							A2(_elm_lang$core$Set$insert, computedFirst, existing),
+							_p3)
+					};
+				}
+			}
+		}
+	});
+var _user$project$Main$unique = function (list) {
+	return A3(_user$project$Main$uniqueHelp, _elm_lang$core$Basics$identity, _elm_lang$core$Set$empty, list);
+};
+var _user$project$Main$getTechnologies = function (projects) {
+	return _elm_lang$core$List$concat(
+		A2(
+			_elm_lang$core$List$map,
+			function (p) {
+				return p.technologies;
+			},
+			projects));
+};
+var _user$project$Main$getCategories = function (projects) {
+	return _elm_lang$core$List$concat(
+		A2(
+			_elm_lang$core$List$map,
+			function (p) {
+				return p.categories;
+			},
+			projects));
+};
+var _user$project$Main$getStatuses = function (projects) {
+	return A2(
+		_elm_lang$core$List$map,
+		function (p) {
+			return p.status;
+		},
+		projects);
+};
+var _user$project$Main$Model = F5(
+	function (a, b, c, d, e) {
+		return {bio: a, categories: b, technologies: c, statuses: d, projects: e};
+	});
+var _user$project$Main$Result = F2(
+	function (a, b) {
+		return {bio: a, projects: b};
+	});
+var _user$project$Main$Project = F9(
+	function (a, b, c, d, e, f, g, h, i) {
+		return {id: a, name: b, timeline: c, status: d, categories: e, technologies: f, link: g, src_link: h, description: i};
+	});
+var _user$project$Main$projectDecoder = A3(
+	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+	'description',
+	_elm_lang$core$Json_Decode$string,
+	A3(
+		_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+		'src_link',
+		_elm_lang$core$Json_Decode$string,
+		A3(
+			_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+			'link',
+			_elm_lang$core$Json_Decode$string,
+			A3(
+				_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+				'technologies',
+				_elm_lang$core$Json_Decode$list(_elm_lang$core$Json_Decode$string),
+				A3(
+					_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+					'categories',
+					_elm_lang$core$Json_Decode$list(_elm_lang$core$Json_Decode$string),
+					A3(
+						_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+						'status',
+						_elm_lang$core$Json_Decode$string,
+						A3(
+							_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+							'timeline',
+							_elm_lang$core$Json_Decode$string,
+							A3(
+								_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+								'name',
+								_elm_lang$core$Json_Decode$string,
+								A3(
+									_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+									'id',
+									_elm_lang$core$Json_Decode$int,
+									_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$Main$Project))))))))));
+var _user$project$Main$modelDecoder = A3(
+	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+	'projects',
+	_elm_lang$core$Json_Decode$list(_user$project$Main$projectDecoder),
+	A3(
+		_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+		'bio',
+		_elm_lang$core$Json_Decode$string,
+		_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$Main$Result)));
+var _user$project$Main$decodeResult = function (json) {
+	var _p4 = A2(_elm_lang$core$Json_Decode$decodeString, _user$project$Main$modelDecoder, json);
+	if (_p4.ctor === 'Ok') {
+		return _p4._0;
+	} else {
+		return {
+			bio: 'Error',
+			projects: {ctor: '[]'}
+		};
+	}
+};
+var _user$project$Main$initialModel = function () {
+	var result = _user$project$Main$decodeResult(_user$project$Data$json);
+	return {
+		bio: result.bio,
+		categories: _user$project$Main$unique(
+			_user$project$Main$getCategories(result.projects)),
+		technologies: _user$project$Main$unique(
+			_user$project$Main$getTechnologies(result.projects)),
+		statuses: _user$project$Main$unique(
+			_user$project$Main$getStatuses(result.projects)),
+		projects: result.projects
+	};
+}();
+var _user$project$Main$update = F2(
+	function (msg, model) {
+		var _p5 = msg;
+		switch (_p5.ctor) {
+			case 'StatusFilter':
+				return A2(_user$project$Main$filterByStatus, _user$project$Main$initialModel, _p5._0);
+			case 'CategoryFilter':
+				return A2(_user$project$Main$filterByCategory, _user$project$Main$initialModel, _p5._0);
+			default:
+				return A2(_user$project$Main$filterByTech, _user$project$Main$initialModel, _p5._0);
+		}
+	});
+var _user$project$Main$TechFilter = function (a) {
+	return {ctor: 'TechFilter', _0: a};
+};
+var _user$project$Main$techFilters = function (tech) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _user$project$Main$class(_user$project$StyleSheet$FilterBtn),
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$html$Html_Events$onClick(
+					_user$project$Main$TechFilter(tech)),
+				_1: {ctor: '[]'}
+			}
+		},
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html$text(_user$project$Main$separator),
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$html$Html$text(tech),
+				_1: {ctor: '[]'}
+			}
+		});
+};
+var _user$project$Main$CategoryFilter = function (a) {
+	return {ctor: 'CategoryFilter', _0: a};
+};
+var _user$project$Main$categoryFilters = function (category) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _user$project$Main$class(_user$project$StyleSheet$FilterBtn),
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$html$Html_Events$onClick(
+					_user$project$Main$CategoryFilter(category)),
+				_1: {ctor: '[]'}
+			}
+		},
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html$text(_user$project$Main$separator),
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$html$Html$text(category),
+				_1: {ctor: '[]'}
+			}
+		});
+};
+var _user$project$Main$StatusFilter = function (a) {
+	return {ctor: 'StatusFilter', _0: a};
+};
+var _user$project$Main$statusFilters = function (status) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _user$project$Main$class(_user$project$StyleSheet$FilterBtn),
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$html$Html_Events$onClick(
+					_user$project$Main$StatusFilter(status)),
+				_1: {ctor: '[]'}
+			}
+		},
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html$text(_user$project$Main$separator),
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$html$Html$text(status),
+				_1: {ctor: '[]'}
+			}
+		});
+};
+var _user$project$Main$filterBars = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _user$project$Main$class(_user$project$StyleSheet$Sidebar),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$div,
+				{
+					ctor: '::',
+					_0: _user$project$Main$class(_user$project$StyleSheet$FilterBar),
+					_1: {ctor: '[]'}
+				},
+				A2(_elm_lang$core$List$map, _user$project$Main$statusFilters, model.statuses)),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$div,
+					{
+						ctor: '::',
+						_0: _user$project$Main$class(_user$project$StyleSheet$FilterBar),
+						_1: {ctor: '[]'}
+					},
+					A2(_elm_lang$core$List$map, _user$project$Main$categoryFilters, model.categories)),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$div,
+						{
+							ctor: '::',
+							_0: _user$project$Main$class(_user$project$StyleSheet$FilterBar),
+							_1: {ctor: '[]'}
+						},
+						A2(_elm_lang$core$List$map, _user$project$Main$techFilters, model.technologies)),
+					_1: {ctor: '[]'}
+				}
 			}
 		});
 };
@@ -13984,7 +14506,22 @@ var _user$project$Main$view = function (model) {
 												}
 											}
 										}),
-									_1: {ctor: '[]'}
+									_1: {
+										ctor: '::',
+										_0: A2(
+											_elm_lang$html$Html$div,
+											{
+												ctor: '::',
+												_0: _user$project$Main$class(_user$project$StyleSheet$Bio),
+												_1: {ctor: '[]'}
+											},
+											{
+												ctor: '::',
+												_0: _elm_lang$html$Html$text(model.bio),
+												_1: {ctor: '[]'}
+											}),
+										_1: {ctor: '[]'}
+									}
 								}
 							}),
 						_1: {
@@ -13993,24 +14530,39 @@ var _user$project$Main$view = function (model) {
 								_elm_lang$html$Html$div,
 								{
 									ctor: '::',
-									_0: _user$project$Main$class(_user$project$StyleSheet$Content),
+									_0: _user$project$Main$class(_user$project$StyleSheet$Container),
 									_1: {ctor: '[]'}
 								},
 								{
 									ctor: '::',
-									_0: A2(
-										_elm_lang$html$Html$div,
-										{ctor: '[]'},
-										A2(
-											_elm_lang$core$List$map,
-											_user$project$Main$viewProject,
-											A2(
-												_elm_lang$core$List$sortBy,
-												function (_) {
-													return _.status;
-												},
-												model.projects))),
-									_1: {ctor: '[]'}
+									_0: _user$project$Main$filterBars(model),
+									_1: {
+										ctor: '::',
+										_0: A2(
+											_elm_lang$html$Html$div,
+											{
+												ctor: '::',
+												_0: _user$project$Main$class(_user$project$StyleSheet$Content),
+												_1: {ctor: '[]'}
+											},
+											{
+												ctor: '::',
+												_0: A2(
+													_elm_lang$html$Html$div,
+													{ctor: '[]'},
+													A2(
+														_elm_lang$core$List$map,
+														_user$project$Main$viewProject,
+														A2(
+															_elm_lang$core$List$sortBy,
+															function (_) {
+																return _.status;
+															},
+															model.projects))),
+												_1: {ctor: '[]'}
+											}),
+										_1: {ctor: '[]'}
+									}
 								}),
 							_1: {ctor: '[]'}
 						}
@@ -14019,75 +14571,8 @@ var _user$project$Main$view = function (model) {
 			}
 		});
 };
-var _user$project$Main$Model = function (a) {
-	return {projects: a};
-};
-var _user$project$Main$Project = F9(
-	function (a, b, c, d, e, f, g, h, i) {
-		return {id: a, name: b, timeline: c, status: d, categories: e, technologies: f, link: g, src_link: h, description: i};
-	});
-var _user$project$Main$searchResultDecoder = A3(
-	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-	'description',
-	_elm_lang$core$Json_Decode$string,
-	A3(
-		_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-		'src_link',
-		_elm_lang$core$Json_Decode$string,
-		A3(
-			_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-			'link',
-			_elm_lang$core$Json_Decode$string,
-			A3(
-				_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-				'technologies',
-				_elm_lang$core$Json_Decode$string,
-				A3(
-					_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-					'categories',
-					_elm_lang$core$Json_Decode$string,
-					A3(
-						_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-						'status',
-						_elm_lang$core$Json_Decode$int,
-						A3(
-							_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-							'timeline',
-							_elm_lang$core$Json_Decode$string,
-							A3(
-								_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-								'name',
-								_elm_lang$core$Json_Decode$string,
-								A3(
-									_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-									'id',
-									_elm_lang$core$Json_Decode$int,
-									_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$Main$Project))))))))));
-var _user$project$Main$responseDecoder = A3(
-	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-	'projects',
-	_elm_lang$core$Json_Decode$list(_user$project$Main$searchResultDecoder),
-	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_elm_lang$core$Basics$identity));
-var _user$project$Main$decodeResults = function (json) {
-	var _p1 = A2(_elm_lang$core$Json_Decode$decodeString, _user$project$Main$responseDecoder, json);
-	if (_p1.ctor === 'Ok') {
-		return _p1._0;
-	} else {
-		return {ctor: '[]'};
-	}
-};
-var _user$project$Main$initialModel = {
-	projects: _user$project$Main$decodeResults(_user$project$Data$json)
-};
-var _user$project$Main$update = F2(
-	function (msg, model) {
-		return _user$project$Main$initialModel;
-	});
 var _user$project$Main$main = _elm_lang$html$Html$beginnerProgram(
 	{view: _user$project$Main$view, model: _user$project$Main$initialModel, update: _user$project$Main$update})();
-var _user$project$Main$SetQuery = function (a) {
-	return {ctor: 'SetQuery', _0: a};
-};
 var Elm = {};
 Elm['Main'] = Elm['Main'] || {};
 if (typeof _user$project$Main$main !== 'undefined') {
