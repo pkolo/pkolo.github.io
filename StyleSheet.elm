@@ -75,6 +75,7 @@ stylesheet =
         , class Sidebar
             [ width (px 180)
             , padding (left 2)
+            , textColor (Color.rgb 80 80 80)
             ]
         , class SidebarHead
             [ fontsize 20
@@ -82,7 +83,6 @@ stylesheet =
             ]
         , class SidebarFoot
             [ padding (top 25)
-            , textColor (Color.rgb 170 170 170)
             ]
         , class Title
             [ fontsize 52

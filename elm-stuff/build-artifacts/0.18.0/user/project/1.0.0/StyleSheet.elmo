@@ -175,7 +175,12 @@ var _user$project$StyleSheet$stylesheet = A2(
 														ctor: '::',
 														_0: _mdgriffith$style_elements$Style$padding(
 															_mdgriffith$style_elements$Style$left(2)),
-														_1: {ctor: '[]'}
+														_1: {
+															ctor: '::',
+															_0: _mdgriffith$style_elements$Style$textColor(
+																A3(_elm_lang$core$Color$rgb, 80, 80, 80)),
+															_1: {ctor: '[]'}
+														}
 													}
 												}),
 											_1: {
@@ -202,12 +207,7 @@ var _user$project$StyleSheet$stylesheet = A2(
 															ctor: '::',
 															_0: _mdgriffith$style_elements$Style$padding(
 																_mdgriffith$style_elements$Style$top(25)),
-															_1: {
-																ctor: '::',
-																_0: _mdgriffith$style_elements$Style$textColor(
-																	A3(_elm_lang$core$Color$rgb, 170, 170, 170)),
-																_1: {ctor: '[]'}
-															}
+															_1: {ctor: '[]'}
 														}),
 													_1: {
 														ctor: '::',
