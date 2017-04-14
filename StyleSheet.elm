@@ -31,6 +31,7 @@ type Class
     | ProjectDetails
     | ProjectDetail
     | ProjectThumb
+    | Test
 
 
 stylesheet : StyleSheet Class msg
@@ -139,4 +140,6 @@ stylesheet =
             , Style.floatLeft
             , padding (allButLeft 5)
             ]
+        , class Test
+            [ textColor (Color.rgb 210 130 130) ]
         ]

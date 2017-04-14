@@ -1,3 +1,4 @@
+var _user$project$StyleSheet$Test = {ctor: 'Test'};
 var _user$project$StyleSheet$ProjectThumb = {ctor: 'ProjectThumb'};
 var _user$project$StyleSheet$ProjectDetail = {ctor: 'ProjectDetail'};
 var _user$project$StyleSheet$ProjectDetails = {ctor: 'ProjectDetails'};
@@ -414,7 +415,19 @@ var _user$project$StyleSheet$stylesheet = A2(
 																														}
 																													}
 																												}),
-																											_1: {ctor: '[]'}
+																											_1: {
+																												ctor: '::',
+																												_0: A2(
+																													_mdgriffith$style_elements$Style$class,
+																													_user$project$StyleSheet$Test,
+																													{
+																														ctor: '::',
+																														_0: _mdgriffith$style_elements$Style$textColor(
+																															A3(_elm_lang$core$Color$rgb, 210, 130, 130)),
+																														_1: {ctor: '[]'}
+																													}),
+																												_1: {ctor: '[]'}
+																											}
 																										}
 																									}
 																								}

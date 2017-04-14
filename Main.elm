@@ -14,10 +14,11 @@ import Data
 
 main : Program Never Model Msg
 main =
-    Html.beginnerProgram
-        { view = view
-        , model = initialModel
+    program
+        { init = init
+        , view = view
         , update = update
+        , subscriptions = subscriptions
         }
 
 
@@ -51,6 +52,11 @@ type alias Project =
     , src_link : String
     , description : String
     }
+
+
+init : ( Model, Cmd Msg )
+init =
+    ( initialModel, Cmd.none )
 
 
 initialModel : Model
@@ -321,20 +327,20 @@ type Msg
     | ResetModel
 
 
-update : Msg -> Model -> Model
+update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         StatusFilter status ->
-            filterByStatus initialModel status
+            ( filterByStatus initialModel status, Cmd.none )
 
         CategoryFilter category ->
-            filterByCategory initialModel category
+            ( filterByCategory initialModel category, Cmd.none )
 
         TechFilter tech ->
-            filterByTech initialModel tech
+            ( filterByTech initialModel tech, Cmd.none )
 
         ResetModel ->
-            initialModel
+            ( initialModel, Cmd.none )
 
 
 filterByStatus : Model -> String -> Model
@@ -362,3 +368,12 @@ filterByTech model tech =
             List.filter (\p -> (List.member tech p.technologies)) model.projects
     in
         { model | projects = newProjects }
+
+
+
+-- Subscriptions
+
+
+subscriptions : Model -> Sub Msg
+subscriptions model =
+    Sub.none
