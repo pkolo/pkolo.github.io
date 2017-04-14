@@ -14,10 +14,11 @@ import Data
 
 main : Program Never Model Msg
 main =
-    Html.beginnerProgram
-        { view = view
-        , model = initialModel
+    program
+        { init = init
+        , view = view
         , update = update
+        , subscriptions = subscriptions
         }
 
 
@@ -53,6 +54,11 @@ type alias Project =
     }
 
 
+init : ( Model, Cmd Msg )
+init =
+    ( initialModel, Cmd.none )
+
+
 initialModel : Model
 initialModel =
     let
@@ -60,8 +66,8 @@ initialModel =
             decodeResult Data.json
     in
         { bio = result.bio
-        , categories = (unique (getCategories result.projects))
-        , technologies = (unique (getTechnologies result.projects))
+        , categories = List.sort (unique (getCategories result.projects))
+        , technologies = List.sort (unique (getTechnologies result.projects))
         , statuses = (unique (getStatuses result.projects))
         , projects = result.projects
         }
@@ -174,7 +180,7 @@ view model =
                 , div [ class Bio ] [ text model.bio ]
                 ]
             , div [ class Container ]
-                [ (filterBars model)
+                [ (getSidebar model)
                 , div [ class Content ]
                     [ div []
                         (List.map viewProject (List.sortBy .status model.projects))
@@ -184,8 +190,8 @@ view model =
         ]
 
 
-filterBars : Model -> Html Msg
-filterBars model =
+getSidebar : Model -> Html Msg
+getSidebar model =
     div [ class Sidebar ]
         [ div [ class SidebarHead ]
             [ text "Filter projects by" ]
@@ -202,6 +208,10 @@ filterBars model =
             (List.map categoryFilters model.categories)
         , div [ class FilterBar ]
             (List.map techFilters model.technologies)
+        , div [ class SidebarFoot ]
+            [ div [] [ text "© Patrick Kolodgy, 2017" ]
+            , div [] [ text "Written in Elm" ]
+            ]
         ]
 
 
@@ -218,8 +228,8 @@ viewProject project =
         , div [ class ProjectDetails ]
             [ div [ class ProjectDetail ]
                 [ div [ class P ] [ text project.description ]
-                , div [ class P ] [ text ("Technologies used: " ++ (join ", " project.technologies)) ]
-                , div [ class P ] [ text ("File under: " ++ (join ", " project.categories)) ]
+                , div [ class P ] [ text ("Technologies used: " ++ (join ", " (List.sort project.technologies))) ]
+                , div [ class P ] [ text ("File under: " ++ (join ", " (List.sort project.categories))) ]
                 ]
             ]
         ]
@@ -317,20 +327,20 @@ type Msg
     | ResetModel
 
 
-update : Msg -> Model -> Model
+update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         StatusFilter status ->
-            filterByStatus initialModel status
+            ( filterByStatus initialModel status, Cmd.none )
 
         CategoryFilter category ->
-            filterByCategory initialModel category
+            ( filterByCategory initialModel category, Cmd.none )
 
         TechFilter tech ->
-            filterByTech initialModel tech
+            ( filterByTech initialModel tech, Cmd.none )
 
         ResetModel ->
-            initialModel
+            ( initialModel, Cmd.none )
 
 
 filterByStatus : Model -> String -> Model
@@ -358,3 +368,12 @@ filterByTech model tech =
             List.filter (\p -> (List.member tech p.technologies)) model.projects
     in
         { model | projects = newProjects }
+
+
+
+-- Subscriptions
+
+
+subscriptions : Model -> Sub Msg
+subscriptions model =
+    Sub.none

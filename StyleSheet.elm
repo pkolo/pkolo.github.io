@@ -13,6 +13,7 @@ type Class
     | Container
     | Sidebar
     | SidebarHead
+    | SidebarFoot
     | FilterBar
     | FilterBtn
     | Content
@@ -30,6 +31,7 @@ type Class
     | ProjectDetails
     | ProjectDetail
     | ProjectThumb
+    | Test
 
 
 stylesheet : StyleSheet Class msg
@@ -50,7 +52,7 @@ stylesheet =
             , inline
             ]
         , class Bio
-            [ padding (top 10) ]
+            [ padding (leftRightTopBottom 2 0 10 0) ]
         , class Container
             [ maxWidth (px 1200)
             , flowRight
@@ -72,10 +74,16 @@ stylesheet =
             , maxWidth (px 960)
             ]
         , class Sidebar
-            [ width (px 180) ]
+            [ width (px 180)
+            , padding (left 2)
+            , textColor (Color.rgb 80 80 80)
+            ]
         , class SidebarHead
             [ fontsize 20
             , padding (bottom 5)
+            ]
+        , class SidebarFoot
+            [ padding (top 25)
             ]
         , class Title
             [ fontsize 52
@@ -132,4 +140,6 @@ stylesheet =
             , Style.floatLeft
             , padding (allButLeft 5)
             ]
+        , class Test
+            [ textColor (Color.rgb 210 130 130) ]
         ]
