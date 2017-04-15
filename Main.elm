@@ -210,7 +210,16 @@ getSidebar model =
             (List.map techFilters model.technologies)
         , div [ class SidebarFoot ]
             [ div [] [ text "© Patrick Kolodgy, 2017" ]
-            , div [] [ text "Written in Elm" ]
+            , div []
+                [ text "Written in Elm"
+                , text separator
+                , a
+                    [ href "https://github.com/pkolo/pkolo.github.io"
+                    , target "_blank"
+                    , class Link
+                    ]
+                    [ text "src" ]
+                ]
             ]
         ]
 
