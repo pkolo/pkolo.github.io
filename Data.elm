@@ -30,6 +30,28 @@ json =
           "description": "A web app that lets users log in and contribute to ranked lists of albums. Perfect for kinds of message boards where, for example, all the users want to make 'Top 50 Albums of the 90s' lists and compile those lists into an overall board-wide list. Most people who post on message boards still do this sort of thing by hand, if you can believe it. I figured, 'There must be a better way!' Built with Rails, React, PostgreSQL, and the Discogs API. Currently in use by my message board friends, but I'm still adding features."
         },
         {
+          "id": 9,
+          "name": "ihgbot",
+          "timeline": "Apr 2017 - current",
+          "status": "Active",
+          "categories": ["Web"],
+          "technologies": ["Python", "Flask"],
+          "link": "http://ihgbot.herokuapp.com/random",
+          "src_link": "https://github.com/pkolo/ihgbot",
+          "description": "An API for a Slackbot. Generates mutant Markov chain Slack posts based on a corpus of message board posts made by my message board friends. Responds to many slash commands, sometimes posts by itself. Built using Python, Flask, and Scrapy. Note: the opinions expressed by slackbot do not reflect those of its creator."
+        },
+        {
+          "id": 10,
+          "name": "Yacht or Nyacht?",
+          "timeline": "Apr 2017 - current",
+          "status": "In Progress",
+          "categories": ["Web", "Music"],
+          "technologies": ["Sinatra", "Ruby", "Javascript"],
+          "link": "",
+          "src_link": "https://github.com/pkolo/yacht-or-nyacht",
+          "description": "A web-app version of the Yachtski Scale, used by the hosts of the Beyond Yacht Rock podcast to determine whether a given song is yacht rock or nyacht. Given a song and score, the app can also produce relevant album and personnel data (pulled from Discogs using their API).  Built with Ruby on Sinatra with PostgreSQL and Active Record, and using data from the Wateracre Calculator / Jay Gradient."
+        },
+        {
           "id": 3,
           "name": "Friend Rock",
           "timeline": "Apr 2017 - current",
