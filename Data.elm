@@ -38,7 +38,7 @@ json =
           "technologies": ["Python", "Flask"],
           "link": "http://ihgbot.herokuapp.com/random",
           "src_link": "https://github.com/pkolo/ihgbot",
-          "description": "An API for a Slackbot. Generates mutant Markov chain Slack posts based on a corpus of message board posts made by my message board friends. Responds to many slash commands, sometimes posts by itself. Built using Python, Flask, and Scrapy. Note: the opinions expressed by slackbot do not reflect those of its creator."
+          "description": "An API for a Slackbot. Generates mutant Markov chain Slack posts based on a corpus of message board posts made by my message board friends. Responds to many slash commands, sometimes posts by itself. Built using Python, Flask, and Scrapy. Note: the opinions expressed by ihgbot do not reflect those of its creator."
         },
         {
           "id": 10,
