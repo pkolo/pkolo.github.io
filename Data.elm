@@ -8,6 +8,17 @@ json =
       "bio": "Patrick is a web developer, audio engineer, musician, and podcaster.",
       "projects": [
         {
+          "id": 10,
+          "name": "Yacht or Nyacht?",
+          "timeline": "Apr 2017 - current",
+          "status": "Active",
+          "categories": ["Web", "Music"],
+          "technologies": ["Sinatra", "Ruby", "Javascript"],
+          "link": "http://www.yachtornyacht.com/",
+          "src_link": "https://github.com/pkolo/yacht-or-nyacht",
+          "description": "A web-app version of the Yachtski Scale, used by the hosts of the Beyond Yacht Rock podcast to determine whether a given song is yacht rock or nyacht. Given a song and score, the app can also produce relevant album and personnel data (pulled from Discogs and YouTube). Adapted from the Wateracre Calculator / Jay Gradient. Built with Ruby on Sinatra with PostgreSQL and Active Record."
+        },
+        {
           "id": 4,
           "name": "Pie Finder",
           "timeline": "Dec 2016",
@@ -39,17 +50,6 @@ json =
           "link": "http://ihgbot.herokuapp.com/random",
           "src_link": "https://github.com/pkolo/ihgbot",
           "description": "An API for a Slackbot. Generates mutant Markov chain Slack posts based on a corpus of message board posts made by my message board friends. Responds to many slash commands, sometimes posts by itself. Built using Python, Flask, and Scrapy. Note: the opinions expressed by slackbot do not reflect those of its creator."
-        },
-        {
-          "id": 10,
-          "name": "Yacht or Nyacht?",
-          "timeline": "Apr 2017 - current",
-          "status": "In Progress",
-          "categories": ["Web", "Music"],
-          "technologies": ["Sinatra", "Ruby", "Javascript"],
-          "link": "",
-          "src_link": "https://github.com/pkolo/yacht-or-nyacht",
-          "description": "A web-app version of the Yachtski Scale, used by the hosts of the Beyond Yacht Rock podcast to determine whether a given song is yacht rock or nyacht. Given a song and score, the app can also produce relevant album and personnel data (pulled from Discogs using their API).  Built with Ruby on Sinatra with PostgreSQL and Active Record, and using data from the Wateracre Calculator / Jay Gradient."
         },
         {
           "id": 3,
