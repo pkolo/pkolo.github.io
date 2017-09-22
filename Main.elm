@@ -183,7 +183,7 @@ view model =
                 [ (getSidebar model)
                 , div [ class Content ]
                     [ div []
-                        (List.map viewProject (List.sortBy .status model.projects))
+                        (List.map viewProject (List.sortBy .id model.projects))
                     ]
                 ]
             ]
