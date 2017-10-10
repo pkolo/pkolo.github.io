@@ -3,13 +3,16 @@ module Main exposing (..)
 import Html exposing (..)
 import Json.Decode exposing (..)
 import Json.Decode.Pipeline exposing (..)
+import Element exposing (..)
+import NewStyle exposing (..)
 import Data
 
 
-main : Program Model
+main : Program Never Model Msg
 main =
     program
         { init = init
+        , update = update
         , view = view
         , subscriptions = \_ -> Sub.none
         }
@@ -91,3 +94,28 @@ initialModel =
 init : ( Model, Cmd Msg )
 init =
     ( initialModel, Cmd.none )
+
+
+
+-- UPDATE
+
+
+type Msg
+    = Clear
+
+
+update : Msg -> Model -> ( Model, Cmd Msg )
+update msg model =
+    case msg of
+        Clear ->
+            ( initialModel, Cmd.none )
+
+
+
+-- VIEW
+
+
+view : Model -> Html msg
+view model =
+    Element.layout stylesheet <|
+        el SiteWide [] (Element.text "hello")
