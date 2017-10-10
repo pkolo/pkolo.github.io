@@ -1,10 +1,12 @@
 module Main exposing (..)
 
+import String exposing (join)
 import Html exposing (..)
 import Json.Decode exposing (..)
 import Json.Decode.Pipeline exposing (..)
 import Element exposing (..)
 import Element.Attributes exposing (..)
+import Element.Events exposing (onClick)
 import NewStyle exposing (..)
 import Data
 
@@ -26,6 +28,7 @@ main =
 type alias Model =
     { bio : String
     , projects : List Project
+    , filterBy : String
     }
 
 
@@ -89,6 +92,7 @@ initialModel =
     in
         { bio = result.bio
         , projects = result.projects
+        , filterBy = ""
         }
 
 
@@ -103,6 +107,7 @@ init =
 
 type Msg
     = Clear
+    | UpdateFilter String
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -111,18 +116,21 @@ update msg model =
         Clear ->
             ( initialModel, Cmd.none )
 
+        UpdateFilter newFilter ->
+            ( { model | filterBy = newFilter }, Cmd.none )
+
 
 
 -- VIEW
 
 
-view : Model -> Html msg
+view : Model -> Html Msg
 view model =
     Element.layout stylesheet <|
         column Main
             []
             [ header
-            , content model.projects
+            , content model
             ]
 
 
@@ -139,16 +147,56 @@ navBar =
         [ spacing 15 ]
         [ el None [] (Element.text "Brooklyn, NY")
         , el None [] (Element.text "pkolodgy at gmail")
-        , el None [] (Element.text "github")
+        , newTab "http://github.com/pkolo" <| el None [] (Element.text "github")
         , el None [] (Element.text "linkedin")
         ]
 
 
-content projects =
+content model =
+    row None
+        [ spacing 40 ]
+        [ sideBar model
+        , projectList model.projects
+        ]
+
+
+sideBar model =
     column None
-        [ spacing 20 ]
+        [ width (px 180) ]
+        [ el None [] (Element.text model.filterBy) ]
+
+
+projectList projects =
+    column None
+        [ spacing 25 ]
         (List.map project projects)
 
 
 project p =
-    el None [] (Element.text p.name)
+    column None
+        []
+        [ projectMeta p
+        , el None [] (Element.text p.description)
+        , projectTagList "Technologies" p.technologies
+        , projectTagList "Categories" p.categories
+        ]
+
+
+projectMeta p =
+    row None
+        [ spacing 20 ]
+        [ el None [] (Element.text p.name)
+        , el None [] (Element.text p.status)
+        , el None [] (Element.text "link")
+        , el None [] (Element.text "src")
+        ]
+
+
+projectTagList title tagList =
+    row None
+        [ spacing 10 ]
+        (List.map tagLink tagList)
+
+
+tagLink tag =
+    el None [ onClick (UpdateFilter tag) ] (Element.text tag)
