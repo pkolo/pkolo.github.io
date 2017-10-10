@@ -4,6 +4,7 @@ import Html exposing (..)
 import Json.Decode exposing (..)
 import Json.Decode.Pipeline exposing (..)
 import Element exposing (..)
+import Element.Attributes exposing (..)
 import NewStyle exposing (..)
 import Data
 
@@ -118,4 +119,36 @@ update msg model =
 view : Model -> Html msg
 view model =
     Element.layout stylesheet <|
-        el SiteWide [] (Element.text "hello")
+        column Main
+            []
+            [ header
+            , content model.projects
+            ]
+
+
+header =
+    column None
+        [ padding 20 ]
+        [ el Title [] (Element.text "Patrick Kolodgy")
+        , navBar
+        ]
+
+
+navBar =
+    row None
+        [ spacing 15 ]
+        [ el None [] (Element.text "Brooklyn, NY")
+        , el None [] (Element.text "pkolodgy at gmail")
+        , el None [] (Element.text "github")
+        , el None [] (Element.text "linkedin")
+        ]
+
+
+content projects =
+    column None
+        [ spacing 20 ]
+        (List.map project projects)
+
+
+project p =
+    el None [] (Element.text p.name)
