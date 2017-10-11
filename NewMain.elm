@@ -107,7 +107,7 @@ init =
 
 type Msg
     = Clear
-    | UpdateFilter String
+    | UpdateFilter String String
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -116,8 +116,30 @@ update msg model =
         Clear ->
             ( initialModel, Cmd.none )
 
-        UpdateFilter newFilter ->
-            ( { model | filterBy = newFilter }, Cmd.none )
+        UpdateFilter title newFilter ->
+            ( filterProjects initialModel title newFilter, Cmd.none )
+
+
+filterProjects : Model -> String -> String -> Model
+filterProjects model title newFilter =
+    if title == "categories" then
+        let
+            newProjects =
+                List.filter (\p -> (List.member newFilter p.categories)) model.projects
+        in
+            { model
+                | filterBy = newFilter
+                , projects = newProjects
+            }
+    else
+        let
+            newProjects =
+                List.filter (\p -> (List.member newFilter p.technologies)) model.projects
+        in
+            { model
+                | filterBy = newFilter
+                , projects = newProjects
+            }
 
 
 
@@ -129,16 +151,17 @@ view model =
     Element.layout stylesheet <|
         column Main
             []
-            [ header
+            [ header model.bio
             , content model
             ]
 
 
-header =
+header bio =
     column None
         [ padding 20 ]
         [ el Title [] (Element.text "Patrick Kolodgy")
         , navBar
+        , el None [] (Element.text bio)
         ]
 
 
@@ -177,8 +200,8 @@ project p =
         []
         [ projectMeta p
         , el None [] (Element.text p.description)
-        , projectTagList "Technologies" p.technologies
-        , projectTagList "Categories" p.categories
+        , projectTagList "technologies" p.technologies
+        , projectTagList "categories" p.categories
         ]
 
 
@@ -195,8 +218,9 @@ projectMeta p =
 projectTagList title tagList =
     row None
         [ spacing 10 ]
-        (List.map tagLink tagList)
+        (List.map (tagLink title) tagList)
 
 
-tagLink tag =
-    el None [ onClick (UpdateFilter tag) ] (Element.text tag)
+tagLink : String -> String -> Element NewStyle variation Msg
+tagLink title tag =
+    el None [ onClick (UpdateFilter title tag) ] (Element.text tag)
