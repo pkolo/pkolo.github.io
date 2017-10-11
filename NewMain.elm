@@ -107,7 +107,7 @@ init =
 
 type Msg
     = Clear
-    | UpdateFilter String String
+    | UpdateFilter String
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -116,39 +116,29 @@ update msg model =
         Clear ->
             ( initialModel, Cmd.none )
 
-        UpdateFilter title newFilter ->
-            ( filterProjects initialModel title newFilter, Cmd.none )
+        UpdateFilter newFilter ->
+            ( filterProjects initialModel newFilter, Cmd.none )
 
 
-filterProjects : Model -> String -> String -> Model
-filterProjects model title newFilter =
-    if title == "categories" then
-        let
-            newProjects =
-                List.filter (\p -> (List.member newFilter p.categories)) model.projects
-        in
-            { model
-                | filterBy = newFilter
-                , projects = newProjects
-            }
-    else if title == "technologies" then
-        let
-            newProjects =
-                List.filter (\p -> (List.member newFilter p.technologies)) model.projects
-        in
-            { model
-                | filterBy = newFilter
-                , projects = newProjects
-            }
-    else
-        let
-            newProjects =
-                List.filter (\p -> (newFilter == p.status)) model.projects
-        in
-            { model
-                | filterBy = newFilter
-                , projects = newProjects
-            }
+filterProjects : Model -> String -> Model
+filterProjects model newFilter =
+    let
+        newProjects =
+            List.filter (\p -> (List.member newFilter (flattenTags p))) model.projects
+    in
+        { model
+            | filterBy = newFilter
+            , projects = newProjects
+        }
+
+
+flattenTags : Project -> List String
+flattenTags project =
+    let
+        newProject =
+            project
+    in
+        newProject.categories ++ newProject.technologies ++ [ newProject.status ]
 
 
 
@@ -180,7 +170,7 @@ navBar =
         [ el None [] (Element.text "Brooklyn, NY")
         , el None [] (Element.text "pkolodgy at gmail")
         , newTab "http://github.com/pkolo" <| el None [] (Element.text "github")
-        , el None [] (Element.text "linkedin")
+        , newTab "https://www.linkedin.com/in/pkolodgy/" <| el None [] (Element.text "linkedin")
         ]
 
 
@@ -209,8 +199,8 @@ project p =
         []
         [ projectMeta p
         , el None [] (Element.text p.description)
-        , projectTagList "technologies" p.technologies
-        , projectTagList "categories" p.categories
+        , projectTagList p.technologies
+        , projectTagList p.categories
         ]
 
 
@@ -218,18 +208,18 @@ projectMeta p =
     row None
         [ spacing 20 ]
         [ el None [] (Element.text p.name)
-        , tagLink "status" p.status
+        , tagLink p.status
         , el None [] (Element.text "link")
         , el None [] (Element.text "src")
         ]
 
 
-projectTagList title tagList =
+projectTagList tagList =
     row None
         [ spacing 10 ]
-        (List.map (tagLink title) tagList)
+        (List.map (tagLink) tagList)
 
 
-tagLink : String -> String -> Element NewStyle variation Msg
-tagLink title tag =
-    el None [ onClick (UpdateFilter title tag) ] (Element.text tag)
+tagLink : String -> Element NewStyle variation Msg
+tagLink tag =
+    el None [ onClick (UpdateFilter tag) ] (Element.text tag)
