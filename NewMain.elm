@@ -131,10 +131,19 @@ filterProjects model title newFilter =
                 | filterBy = newFilter
                 , projects = newProjects
             }
-    else
+    else if title == "technologies" then
         let
             newProjects =
                 List.filter (\p -> (List.member newFilter p.technologies)) model.projects
+        in
+            { model
+                | filterBy = newFilter
+                , projects = newProjects
+            }
+    else
+        let
+            newProjects =
+                List.filter (\p -> (newFilter == p.status)) model.projects
         in
             { model
                 | filterBy = newFilter
@@ -209,7 +218,7 @@ projectMeta p =
     row None
         [ spacing 20 ]
         [ el None [] (Element.text p.name)
-        , el None [] (Element.text p.status)
+        , tagLink "status" p.status
         , el None [] (Element.text "link")
         , el None [] (Element.text "src")
         ]
