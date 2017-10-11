@@ -1,6 +1,5 @@
 module Main exposing (..)
 
-import String exposing (join)
 import Html exposing (..)
 import Json.Decode exposing (..)
 import Json.Decode.Pipeline exposing (..)
@@ -8,6 +7,7 @@ import Element exposing (..)
 import Element.Attributes exposing (..)
 import Element.Events exposing (onClick)
 import NewStyle exposing (..)
+import Set exposing (empty, member, insert)
 import Data
 
 
@@ -28,6 +28,9 @@ main =
 type alias Model =
     { bio : String
     , projects : List Project
+    , statuses : List String
+    , technologies : List String
+    , categories : List String
     , filterBy : String
     }
 
@@ -84,6 +87,28 @@ projectDecoder =
         |> required "description" string
 
 
+unique : List comparable -> List comparable
+unique list =
+    uniqueHelp identity Set.empty list
+
+
+uniqueHelp : (a -> comparable) -> Set.Set comparable -> List a -> List a
+uniqueHelp f existing remaining =
+    case remaining of
+        [] ->
+            []
+
+        first :: rest ->
+            let
+                computedFirst =
+                    f first
+            in
+                if Set.member computedFirst existing then
+                    uniqueHelp f existing rest
+                else
+                    first :: uniqueHelp f (Set.insert computedFirst existing) rest
+
+
 initialModel : Model
 initialModel =
     let
@@ -93,6 +118,9 @@ initialModel =
         { bio = result.bio
         , projects = result.projects
         , filterBy = ""
+        , statuses = unique (List.concat (List.map (\p -> [ p.status ]) result.projects))
+        , technologies = unique (List.concat (List.map (\p -> p.technologies) result.projects))
+        , categories = unique (List.concat (List.map (\p -> p.categories) result.projects))
         }
 
 
@@ -185,7 +213,18 @@ content model =
 sideBar model =
     column None
         [ width (px 180) ]
-        [ el None [] (Element.text model.filterBy) ]
+        [ filterWidget "Status" model.statuses
+        , filterWidget "Technologies" model.technologies
+        , filterWidget "Categories" model.categories
+        ]
+
+
+filterWidget title tagList =
+    column None
+        [ padding 20 ]
+        ([ el None [] (Element.text title) ]
+            ++ (List.map (tagLink) tagList)
+        )
 
 
 projectList projects =
