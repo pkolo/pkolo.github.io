@@ -55,6 +55,7 @@ type alias Project =
     , link : String
     , src_link : String
     , description : String
+    , visibility : Bool
     }
 
 
@@ -89,6 +90,7 @@ projectDecoder =
         |> required "link" string
         |> required "src_link" string
         |> required "description" string
+        |> hardcoded True
 
 
 unique : List comparable -> List comparable
@@ -150,10 +152,10 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         Clear ->
-            ( initialModel, Cmd.none )
+            init
 
         UpdateFilter newFilter ->
-            ( filterProjects initialModel newFilter, Cmd.none )
+            ( filterProjects model newFilter, Cmd.none )
 
         Resize newSize ->
             ( { model | windowSize = newSize }, Cmd.none )
@@ -163,12 +165,20 @@ filterProjects : Model -> String -> Model
 filterProjects model newFilter =
     let
         newProjects =
-            List.filter (\p -> (List.member newFilter (flattenTags p))) model.projects
+            List.map (\p -> setProjectVisibility p newFilter) model.projects
     in
         { model
             | filterBy = newFilter
             , projects = newProjects
         }
+
+
+setProjectVisibility p newFilter =
+    let
+        newVisibility =
+            List.member newFilter (flattenTags p)
+    in
+        { p | visibility = newVisibility }
 
 
 flattenTags : Project -> List String
@@ -289,15 +299,22 @@ projectList projects =
 
 
 project p =
-    column None
-        [ spacing 5 ]
-        [ projectMeta p
-        , paragraph ProjectDescription
-            []
-            [ (Element.text p.description) ]
-        , projectTagList "Technologies" p.technologies
-        , projectTagList "Categories" p.categories
-        ]
+    let
+        responsiveStyle style attrs children =
+            if not p.visibility then
+                column style (hidden :: attrs) children
+            else
+                column style (attrs) children
+    in
+        responsiveStyle None
+            [ spacing 5 ]
+            [ projectMeta p
+            , paragraph ProjectDescription
+                []
+                [ (Element.text p.description) ]
+            , projectTagList "Technologies" p.technologies
+            , projectTagList "Categories" p.categories
+            ]
 
 
 projectMeta p =
