@@ -1,5 +1,6 @@
 module Main exposing (..)
 
+import String exposing (toLower)
 import Html exposing (..)
 import Json.Decode exposing (..)
 import Json.Decode.Pipeline exposing (..)
@@ -177,54 +178,68 @@ view : Model -> Html Msg
 view model =
     Element.layout stylesheet <|
         column Main
-            []
+            [ paddingLeft 17, paddingTop 3, width (px 900) ]
             [ header model.bio
             , content model
             ]
 
 
 header bio =
-    column None
-        [ padding 20 ]
-        [ el Title [] (Element.text "Patrick Kolodgy")
+    column Header
+        [ paddingBottom 25 ]
+        [ el Title [ moveLeft 2 ] (Element.text "Patrick Kolodgy")
         , navBar
-        , el None [] (Element.text bio)
+        , el None [ paddingTop 12 ] (Element.text bio)
         ]
 
 
 navBar =
-    row None
-        [ spacing 15 ]
+    row Nav
+        [ spacing 10, paddingTop 4 ]
         [ el None [] (Element.text "Brooklyn, NY")
         , el None [] (Element.text "pkolodgy at gmail")
-        , newTab "http://github.com/pkolo" <| el None [] (Element.text "github")
-        , newTab "https://www.linkedin.com/in/pkolodgy/" <| el None [] (Element.text "linkedin")
+        , newTab "http://github.com/pkolo" <| el Link [] (Element.text "github")
+        , newTab "https://www.linkedin.com/in/pkolodgy/" <| el Link [] (Element.text "linkedin")
         ]
 
 
 content model =
     row None
-        [ spacing 40 ]
+        [ spacing 20, paddingTop 2 ]
         [ sideBar model
         , projectList model.projects
         ]
 
 
 sideBar model =
-    column None
-        [ width (px 180) ]
-        [ filterWidget "Status" model.statuses
+    column SideBar
+        [ width (px 180), spacing 10 ]
+        [ el SideBarTitle [] (Element.text "Filter projects by")
+        , el Tag [ onClick Clear ] (Element.text "All")
+        , filterWidget "Status" model.statuses
         , filterWidget "Technologies" model.technologies
         , filterWidget "Categories" model.categories
+        , footer
+        ]
+
+
+footer =
+    column None
+        [ paddingTop 30 ]
+        [ el None [] (Element.text "© Patrick Kolodgy, 2017")
+        , row None
+            []
+            [ el None [] (Element.text "Written in Elm")
+            , el None [] (Element.text " | ")
+            , newTab "https://github.com/pkolo/pkolo.github.io" <| el Link [] (Element.text "src")
+            ]
         ]
 
 
 filterWidget title tagList =
     column None
-        [ padding 20 ]
-        ([ el None [] (Element.text title) ]
-            ++ (List.map (tagLink) tagList)
-        )
+        []
+        (List.map (tagLink) tagList)
 
 
 projectList projects =
@@ -235,30 +250,49 @@ projectList projects =
 
 project p =
     column None
-        []
+        [ spacing 5 ]
         [ projectMeta p
-        , el None [] (Element.text p.description)
-        , projectTagList p.technologies
-        , projectTagList p.categories
+        , paragraph ProjectDescription
+            []
+            [ (Element.text p.description) ]
+        , projectTagList "Technologies" p.technologies
+        , projectTagList "Categories" p.categories
         ]
 
 
 projectMeta p =
     row None
-        [ spacing 20 ]
-        [ el None [] (Element.text p.name)
-        , tagLink p.status
-        , el None [] (Element.text "link")
-        , el None [] (Element.text "src")
+        [ spacing 7 ]
+        [ el ProjectTitle [ alignBottom ] (Element.text p.name)
+        , el (statusStyle p.status) [ alignBottom ] (Element.text ("(" ++ (toLower p.status) ++ ")"))
+        , newTab p.link <| el Link [ alignBottom ] (Element.text "link")
+        , newTab p.src_link <| el Link [ alignBottom ] (Element.text "src")
         ]
 
 
-projectTagList tagList =
+projectTagList title tagList =
     row None
         [ spacing 10 ]
-        (List.map (tagLink) tagList)
+        ([ el None [] (Element.text (title ++ ":")) ]
+            ++ (List.map (tagLink) tagList)
+        )
 
 
 tagLink : String -> Element NewStyle variation Msg
 tagLink tag =
-    el None [ onClick (UpdateFilter tag) ] (Element.text tag)
+    el Tag [ onClick (UpdateFilter tag) ] (Element.text tag)
+
+
+statusStyle status =
+    case status of
+        "Active" ->
+            NewStyle.Active
+
+        "Inactive" ->
+            NewStyle.Inactive
+
+        "In Progress" ->
+            NewStyle.InProgress
+
+        _ ->
+            NewStyle.Inactive
