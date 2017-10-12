@@ -195,12 +195,19 @@ subscriptions model =
 
 view : Model -> Html Msg
 view model =
-    Element.layout stylesheet <|
-        column Main
-            [ paddingLeft 17, paddingTop 3, Element.Attributes.width (px 900) ]
-            [ header model.bio
-            , content model
-            ]
+    let
+        responsiveStyle style attrs children =
+            if model.windowSize.width > 920 then
+                column style (Element.Attributes.width (px 900) :: attrs) children
+            else
+                column style (Element.Attributes.width (percent 100) :: attrs) children
+    in
+        Element.layout stylesheet <|
+            responsiveStyle Main
+                [ paddingLeft 17, paddingTop 3 ]
+                [ header model.bio
+                , content model
+                ]
 
 
 header bio =
@@ -223,11 +230,18 @@ navBar =
 
 
 content model =
-    row None
-        [ spacing 20, paddingTop 2 ]
-        [ sideBar model
-        , projectList model.projects
-        ]
+    let
+        responsiveStyle =
+            if model.windowSize.width > 920 then
+                row
+            else
+                column
+    in
+        responsiveStyle None
+            [ spacing 20, paddingTop 2 ]
+            [ sideBar model
+            , projectList model.projects
+            ]
 
 
 sideBar model =
@@ -235,9 +249,9 @@ sideBar model =
         [ Element.Attributes.width (px 180), spacing 10 ]
         [ el SideBarTitle [] (Element.text "Filter projects by")
         , el Tag [ onClick Clear ] (Element.text "All")
-        , filterWidget "Status" model.statuses
-        , filterWidget "Technologies" model.technologies
-        , filterWidget "Categories" model.categories
+        , filterWidget "Status" model.statuses model.windowSize
+        , filterWidget "Technologies" model.technologies model.windowSize
+        , filterWidget "Categories" model.categories model.windowSize
         , footer
         ]
 
@@ -255,10 +269,17 @@ footer =
         ]
 
 
-filterWidget title tagList =
-    column None
-        []
-        (List.map (tagLink) tagList)
+filterWidget title tagList windowSize =
+    let
+        responsiveStyle =
+            if windowSize.width > 920 then
+                column
+            else
+                row
+    in
+        responsiveStyle None
+            []
+            (List.map (tagLink) tagList)
 
 
 projectList projects =

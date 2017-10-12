@@ -444,10 +444,11 @@ var _user$project$Main$tagLink = function (tag) {
 		},
 		_mdgriffith$style_elements$Element$text(tag));
 };
-var _user$project$Main$filterWidget = F2(
-	function (title, tagList) {
+var _user$project$Main$filterWidget = F3(
+	function (title, tagList, windowSize) {
+		var responsiveStyle = (_elm_lang$core$Native_Utils.cmp(windowSize.width, 920) > 0) ? _mdgriffith$style_elements$Element$column : _mdgriffith$style_elements$Element$row;
 		return A3(
-			_mdgriffith$style_elements$Element$column,
+			responsiveStyle,
 			_user$project$NewStyle$None,
 			{ctor: '[]'},
 			A2(_elm_lang$core$List$map, _user$project$Main$tagLink, tagList));
@@ -557,13 +558,13 @@ var _user$project$Main$sideBar = function (model) {
 					_mdgriffith$style_elements$Element$text('All')),
 				_1: {
 					ctor: '::',
-					_0: A2(_user$project$Main$filterWidget, 'Status', model.statuses),
+					_0: A3(_user$project$Main$filterWidget, 'Status', model.statuses, model.windowSize),
 					_1: {
 						ctor: '::',
-						_0: A2(_user$project$Main$filterWidget, 'Technologies', model.technologies),
+						_0: A3(_user$project$Main$filterWidget, 'Technologies', model.technologies, model.windowSize),
 						_1: {
 							ctor: '::',
-							_0: A2(_user$project$Main$filterWidget, 'Categories', model.categories),
+							_0: A3(_user$project$Main$filterWidget, 'Categories', model.categories, model.windowSize),
 							_1: {
 								ctor: '::',
 								_0: _user$project$Main$footer,
@@ -576,8 +577,9 @@ var _user$project$Main$sideBar = function (model) {
 		});
 };
 var _user$project$Main$content = function (model) {
+	var responsiveStyle = (_elm_lang$core$Native_Utils.cmp(model.windowSize.width, 920) > 0) ? _mdgriffith$style_elements$Element$row : _mdgriffith$style_elements$Element$column;
 	return A3(
-		_mdgriffith$style_elements$Element$row,
+		responsiveStyle,
 		_user$project$NewStyle$None,
 		{
 			ctor: '::',
@@ -599,11 +601,33 @@ var _user$project$Main$content = function (model) {
 		});
 };
 var _user$project$Main$view = function (model) {
+	var responsiveStyle = F3(
+		function (style, attrs, children) {
+			return (_elm_lang$core$Native_Utils.cmp(model.windowSize.width, 920) > 0) ? A3(
+				_mdgriffith$style_elements$Element$column,
+				style,
+				{
+					ctor: '::',
+					_0: _mdgriffith$style_elements$Element_Attributes$width(
+						_mdgriffith$style_elements$Element_Attributes$px(900)),
+					_1: attrs
+				},
+				children) : A3(
+				_mdgriffith$style_elements$Element$column,
+				style,
+				{
+					ctor: '::',
+					_0: _mdgriffith$style_elements$Element_Attributes$width(
+						_mdgriffith$style_elements$Element_Attributes$percent(100)),
+					_1: attrs
+				},
+				children);
+		});
 	return A2(
 		_mdgriffith$style_elements$Element$layout,
 		_user$project$NewStyle$stylesheet,
 		A3(
-			_mdgriffith$style_elements$Element$column,
+			responsiveStyle,
 			_user$project$NewStyle$Main,
 			{
 				ctor: '::',
@@ -611,12 +635,7 @@ var _user$project$Main$view = function (model) {
 				_1: {
 					ctor: '::',
 					_0: _mdgriffith$style_elements$Element_Attributes$paddingTop(3),
-					_1: {
-						ctor: '::',
-						_0: _mdgriffith$style_elements$Element_Attributes$width(
-							_mdgriffith$style_elements$Element_Attributes$px(900)),
-						_1: {ctor: '[]'}
-					}
+					_1: {ctor: '[]'}
 				}
 			},
 			{
