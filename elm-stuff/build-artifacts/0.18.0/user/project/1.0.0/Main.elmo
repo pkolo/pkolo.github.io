@@ -239,15 +239,22 @@ var _user$project$Main$flattenTags = function (project) {
 				_1: {ctor: '[]'}
 			}));
 };
+var _user$project$Main$setProjectVisibility = F2(
+	function (p, newFilter) {
+		var newVisibility = A2(
+			_elm_lang$core$List$member,
+			newFilter,
+			_user$project$Main$flattenTags(p));
+		return _elm_lang$core$Native_Utils.update(
+			p,
+			{visibility: newVisibility});
+	});
 var _user$project$Main$filterProjects = F2(
 	function (model, newFilter) {
 		var newProjects = A2(
-			_elm_lang$core$List$filter,
+			_elm_lang$core$List$map,
 			function (p) {
-				return A2(
-					_elm_lang$core$List$member,
-					newFilter,
-					_user$project$Main$flattenTags(p));
+				return A2(_user$project$Main$setProjectVisibility, p, newFilter);
 			},
 			model.projects);
 		return _elm_lang$core$Native_Utils.update(
@@ -298,47 +305,67 @@ var _user$project$Main$Result = F2(
 	function (a, b) {
 		return {bio: a, projects: b};
 	});
-var _user$project$Main$Project = F9(
-	function (a, b, c, d, e, f, g, h, i) {
-		return {id: a, name: b, timeline: c, status: d, categories: e, technologies: f, link: g, src_link: h, description: i};
-	});
-var _user$project$Main$projectDecoder = A3(
-	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-	'description',
-	_elm_lang$core$Json_Decode$string,
+var _user$project$Main$Project = function (a) {
+	return function (b) {
+		return function (c) {
+			return function (d) {
+				return function (e) {
+					return function (f) {
+						return function (g) {
+							return function (h) {
+								return function (i) {
+									return function (j) {
+										return {id: a, name: b, timeline: c, status: d, categories: e, technologies: f, link: g, src_link: h, description: i, visibility: j};
+									};
+								};
+							};
+						};
+					};
+				};
+			};
+		};
+	};
+};
+var _user$project$Main$projectDecoder = A2(
+	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$hardcoded,
+	true,
 	A3(
 		_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-		'src_link',
+		'description',
 		_elm_lang$core$Json_Decode$string,
 		A3(
 			_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-			'link',
+			'src_link',
 			_elm_lang$core$Json_Decode$string,
 			A3(
 				_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-				'technologies',
-				_elm_lang$core$Json_Decode$list(_elm_lang$core$Json_Decode$string),
+				'link',
+				_elm_lang$core$Json_Decode$string,
 				A3(
 					_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-					'categories',
+					'technologies',
 					_elm_lang$core$Json_Decode$list(_elm_lang$core$Json_Decode$string),
 					A3(
 						_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-						'status',
-						_elm_lang$core$Json_Decode$string,
+						'categories',
+						_elm_lang$core$Json_Decode$list(_elm_lang$core$Json_Decode$string),
 						A3(
 							_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-							'timeline',
+							'status',
 							_elm_lang$core$Json_Decode$string,
 							A3(
 								_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-								'name',
+								'timeline',
 								_elm_lang$core$Json_Decode$string,
 								A3(
 									_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
-									'id',
-									_elm_lang$core$Json_Decode$int,
-									_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$Main$Project))))))))));
+									'name',
+									_elm_lang$core$Json_Decode$string,
+									A3(
+										_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
+										'id',
+										_elm_lang$core$Json_Decode$int,
+										_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$decode(_user$project$Main$Project)))))))))));
 var _user$project$Main$modelDecoder = A3(
 	_NoRedInk$elm_decode_pipeline$Json_Decode_Pipeline$required,
 	'projects',
@@ -396,16 +423,24 @@ var _user$project$Main$initialModel = function () {
 		windowSize: A2(_elm_lang$window$Window$Size, 0, 0)
 	};
 }();
+var _user$project$Main$Resize = function (a) {
+	return {ctor: 'Resize', _0: a};
+};
+var _user$project$Main$init = {
+	ctor: '_Tuple2',
+	_0: _user$project$Main$initialModel,
+	_1: A2(_elm_lang$core$Task$perform, _user$project$Main$Resize, _elm_lang$window$Window$size)
+};
 var _user$project$Main$update = F2(
 	function (msg, model) {
 		var _p5 = msg;
 		switch (_p5.ctor) {
 			case 'Clear':
-				return {ctor: '_Tuple2', _0: _user$project$Main$initialModel, _1: _elm_lang$core$Platform_Cmd$none};
+				return _user$project$Main$init;
 			case 'UpdateFilter':
 				return {
 					ctor: '_Tuple2',
-					_0: A2(_user$project$Main$filterProjects, _user$project$Main$initialModel, _p5._0),
+					_0: A2(_user$project$Main$filterProjects, model, _p5._0),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
 			default:
@@ -418,14 +453,6 @@ var _user$project$Main$update = F2(
 				};
 		}
 	});
-var _user$project$Main$Resize = function (a) {
-	return {ctor: 'Resize', _0: a};
-};
-var _user$project$Main$init = {
-	ctor: '_Tuple2',
-	_0: _user$project$Main$initialModel,
-	_1: A2(_elm_lang$core$Task$perform, _user$project$Main$Resize, _elm_lang$window$Window$size)
-};
 var _user$project$Main$subscriptions = function (model) {
 	return _elm_lang$window$Window$resizes(_user$project$Main$Resize);
 };
@@ -477,8 +504,16 @@ var _user$project$Main$projectTagList = F2(
 				A2(_elm_lang$core$List$map, _user$project$Main$tagLink, tagList)));
 	});
 var _user$project$Main$project = function (p) {
+	var responsiveStyle = F3(
+		function (style, attrs, children) {
+			return (!p.visibility) ? A3(
+				_mdgriffith$style_elements$Element$column,
+				style,
+				{ctor: '::', _0: _mdgriffith$style_elements$Element_Attributes$hidden, _1: attrs},
+				children) : A3(_mdgriffith$style_elements$Element$column, style, attrs, children);
+		});
 	return A3(
-		_mdgriffith$style_elements$Element$column,
+		responsiveStyle,
 		_user$project$NewStyle$None,
 		{
 			ctor: '::',
