@@ -1,277 +1,259 @@
-var _user$project$Main$subscriptions = function (model) {
-	return _elm_lang$core$Platform_Sub$none;
+var _user$project$Main$statusStyle = function (status) {
+	var _p0 = status;
+	switch (_p0) {
+		case 'Active':
+			return _user$project$NewStyle$Active;
+		case 'Inactive':
+			return _user$project$NewStyle$Inactive;
+		case 'In Progress':
+			return _user$project$NewStyle$InProgress;
+		default:
+			return _user$project$NewStyle$Inactive;
+	}
 };
-var _user$project$Main$filterByTech = F2(
-	function (model, tech) {
-		var newProjects = A2(
-			_elm_lang$core$List$filter,
-			function (p) {
-				return A2(_elm_lang$core$List$member, tech, p.technologies);
-			},
-			model.projects);
-		return _elm_lang$core$Native_Utils.update(
-			model,
-			{projects: newProjects});
-	});
-var _user$project$Main$filterByCategory = F2(
-	function (model, category) {
-		var newProjects = A2(
-			_elm_lang$core$List$filter,
-			function (p) {
-				return A2(_elm_lang$core$List$member, category, p.categories);
-			},
-			model.projects);
-		return _elm_lang$core$Native_Utils.update(
-			model,
-			{projects: newProjects});
-	});
-var _user$project$Main$filterByStatus = F2(
-	function (model, status) {
-		var newProjects = A2(
-			_elm_lang$core$List$filter,
-			function (p) {
-				return _elm_lang$core$Native_Utils.eq(p.status, status);
-			},
-			model.projects);
-		return _elm_lang$core$Native_Utils.update(
-			model,
-			{projects: newProjects});
-	});
-var _user$project$Main$separator = ' | ';
-var _user$project$Main$_p0 = _user$project$StyleSheet$stylesheet;
-var _user$project$Main$class = _user$project$Main$_p0.$class;
-var _user$project$Main$classList = _user$project$Main$_p0.classList;
-var _user$project$Main$getStatus = function (project) {
-	return _elm_lang$core$Native_Utils.eq(project.status, 'Active') ? A2(
-		_elm_lang$html$Html$div,
+var _user$project$Main$projectMeta = function (p) {
+	return A3(
+		_mdgriffith$style_elements$Element$row,
+		_user$project$NewStyle$None,
 		{
 			ctor: '::',
-			_0: _user$project$Main$class(_user$project$StyleSheet$Active),
+			_0: _mdgriffith$style_elements$Element_Attributes$spacing(7),
 			_1: {ctor: '[]'}
 		},
 		{
 			ctor: '::',
-			_0: _elm_lang$html$Html$text('(active)'),
-			_1: {ctor: '[]'}
-		}) : (_elm_lang$core$Native_Utils.eq(project.status, 'In Progress') ? A2(
-		_elm_lang$html$Html$div,
-		{
-			ctor: '::',
-			_0: _user$project$Main$class(_user$project$StyleSheet$InProgress),
-			_1: {ctor: '[]'}
-		},
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html$text('(in progress)'),
-			_1: {ctor: '[]'}
-		}) : A2(
-		_elm_lang$html$Html$div,
-		{
-			ctor: '::',
-			_0: _user$project$Main$class(_user$project$StyleSheet$Inactive),
-			_1: {ctor: '[]'}
-		},
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html$text('(inactive)'),
-			_1: {ctor: '[]'}
-		}));
-};
-var _user$project$Main$getLink = function (project) {
-	return (!_elm_lang$core$Native_Utils.eq(project.link, '')) ? A2(
-		_elm_lang$html$Html$span,
-		{
-			ctor: '::',
-			_0: _user$project$Main$class(_user$project$StyleSheet$ProjectLink),
-			_1: {ctor: '[]'}
-		},
-		{
-			ctor: '::',
-			_0: A2(
-				_elm_lang$html$Html$a,
+			_0: A3(
+				_mdgriffith$style_elements$Element$el,
+				_user$project$NewStyle$ProjectTitle,
 				{
 					ctor: '::',
-					_0: _elm_lang$html$Html_Attributes$href(project.link),
-					_1: {
-						ctor: '::',
-						_0: _elm_lang$html$Html_Attributes$target('_blank'),
-						_1: {
-							ctor: '::',
-							_0: _user$project$Main$class(_user$project$StyleSheet$Link),
-							_1: {ctor: '[]'}
-						}
-					}
-				},
-				{
-					ctor: '::',
-					_0: _elm_lang$html$Html$text('link'),
-					_1: {ctor: '[]'}
-				}),
-			_1: {ctor: '[]'}
-		}) : _elm_lang$html$Html$text('');
-};
-var _user$project$Main$getSrc = function (project) {
-	return (!_elm_lang$core$Native_Utils.eq(project.src_link, '')) ? A2(
-		_elm_lang$html$Html$span,
-		{
-			ctor: '::',
-			_0: _user$project$Main$class(_user$project$StyleSheet$ProjectLink),
-			_1: {ctor: '[]'}
-		},
-		{
-			ctor: '::',
-			_0: A2(
-				_elm_lang$html$Html$a,
-				{
-					ctor: '::',
-					_0: _elm_lang$html$Html_Attributes$href(project.src_link),
-					_1: {
-						ctor: '::',
-						_0: _elm_lang$html$Html_Attributes$target('_blank'),
-						_1: {
-							ctor: '::',
-							_0: _user$project$Main$class(_user$project$StyleSheet$Link),
-							_1: {ctor: '[]'}
-						}
-					}
-				},
-				{
-					ctor: '::',
-					_0: _elm_lang$html$Html$text('src'),
-					_1: {ctor: '[]'}
-				}),
-			_1: {ctor: '[]'}
-		}) : _elm_lang$html$Html$text('');
-};
-var _user$project$Main$viewProject = function (project) {
-	return A2(
-		_elm_lang$html$Html$div,
-		{
-			ctor: '::',
-			_0: _user$project$Main$class(_user$project$StyleSheet$ProjectInfo),
-			_1: {ctor: '[]'}
-		},
-		{
-			ctor: '::',
-			_0: A2(
-				_elm_lang$html$Html$div,
-				{
-					ctor: '::',
-					_0: _user$project$Main$class(_user$project$StyleSheet$ProjectHeader),
+					_0: _mdgriffith$style_elements$Element_Attributes$alignBottom,
 					_1: {ctor: '[]'}
 				},
-				{
-					ctor: '::',
-					_0: A2(
-						_elm_lang$html$Html$span,
-						{
-							ctor: '::',
-							_0: _user$project$Main$class(_user$project$StyleSheet$ProjectName),
-							_1: {ctor: '[]'}
-						},
-						{
-							ctor: '::',
-							_0: _elm_lang$html$Html$text(project.name),
-							_1: {ctor: '[]'}
-						}),
-					_1: {
-						ctor: '::',
-						_0: _user$project$Main$getStatus(project),
-						_1: {
-							ctor: '::',
-							_0: _user$project$Main$getLink(project),
-							_1: {
-								ctor: '::',
-								_0: _user$project$Main$getSrc(project),
-								_1: {ctor: '[]'}
-							}
-						}
-					}
-				}),
+				_mdgriffith$style_elements$Element$text(p.name)),
 			_1: {
 				ctor: '::',
-				_0: A2(
-					_elm_lang$html$Html$div,
+				_0: A3(
+					_mdgriffith$style_elements$Element$el,
+					_user$project$Main$statusStyle(p.status),
 					{
 						ctor: '::',
-						_0: _user$project$Main$class(_user$project$StyleSheet$ProjectDetails),
+						_0: _mdgriffith$style_elements$Element_Attributes$alignBottom,
 						_1: {ctor: '[]'}
 					},
-					{
-						ctor: '::',
-						_0: A2(
-							_elm_lang$html$Html$div,
+					_mdgriffith$style_elements$Element$text(
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							'(',
+							A2(
+								_elm_lang$core$Basics_ops['++'],
+								_elm_lang$core$String$toLower(p.status),
+								')')))),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_mdgriffith$style_elements$Element$newTab,
+						p.link,
+						A3(
+							_mdgriffith$style_elements$Element$el,
+							_user$project$NewStyle$Link,
 							{
 								ctor: '::',
-								_0: _user$project$Main$class(_user$project$StyleSheet$ProjectDetail),
+								_0: _mdgriffith$style_elements$Element_Attributes$alignBottom,
 								_1: {ctor: '[]'}
 							},
-							{
-								ctor: '::',
-								_0: A2(
-									_elm_lang$html$Html$div,
-									{
-										ctor: '::',
-										_0: _user$project$Main$class(_user$project$StyleSheet$P),
-										_1: {ctor: '[]'}
-									},
-									{
-										ctor: '::',
-										_0: _elm_lang$html$Html$text(project.description),
-										_1: {ctor: '[]'}
-									}),
-								_1: {
+							_mdgriffith$style_elements$Element$text('link'))),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_mdgriffith$style_elements$Element$newTab,
+							p.src_link,
+							A3(
+								_mdgriffith$style_elements$Element$el,
+								_user$project$NewStyle$Link,
+								{
 									ctor: '::',
-									_0: A2(
-										_elm_lang$html$Html$div,
-										{
-											ctor: '::',
-											_0: _user$project$Main$class(_user$project$StyleSheet$P),
-											_1: {ctor: '[]'}
-										},
-										{
-											ctor: '::',
-											_0: _elm_lang$html$Html$text(
-												A2(
-													_elm_lang$core$Basics_ops['++'],
-													'Technologies used: ',
-													A2(
-														_elm_lang$core$String$join,
-														', ',
-														_elm_lang$core$List$sort(project.technologies)))),
-											_1: {ctor: '[]'}
-										}),
-									_1: {
-										ctor: '::',
-										_0: A2(
-											_elm_lang$html$Html$div,
-											{
-												ctor: '::',
-												_0: _user$project$Main$class(_user$project$StyleSheet$P),
-												_1: {ctor: '[]'}
-											},
-											{
-												ctor: '::',
-												_0: _elm_lang$html$Html$text(
-													A2(
-														_elm_lang$core$Basics_ops['++'],
-														'File under: ',
-														A2(
-															_elm_lang$core$String$join,
-															', ',
-															_elm_lang$core$List$sort(project.categories)))),
-												_1: {ctor: '[]'}
-											}),
-										_1: {ctor: '[]'}
-									}
-								}
-							}),
+									_0: _mdgriffith$style_elements$Element_Attributes$alignBottom,
+									_1: {ctor: '[]'}
+								},
+								_mdgriffith$style_elements$Element$text('src'))),
 						_1: {ctor: '[]'}
-					}),
-				_1: {ctor: '[]'}
+					}
+				}
 			}
 		});
 };
+var _user$project$Main$footer = A3(
+	_mdgriffith$style_elements$Element$column,
+	_user$project$NewStyle$None,
+	{
+		ctor: '::',
+		_0: _mdgriffith$style_elements$Element_Attributes$paddingTop(30),
+		_1: {ctor: '[]'}
+	},
+	{
+		ctor: '::',
+		_0: A3(
+			_mdgriffith$style_elements$Element$el,
+			_user$project$NewStyle$None,
+			{ctor: '[]'},
+			_mdgriffith$style_elements$Element$text('© Patrick Kolodgy, 2017')),
+		_1: {
+			ctor: '::',
+			_0: A3(
+				_mdgriffith$style_elements$Element$row,
+				_user$project$NewStyle$None,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: A3(
+						_mdgriffith$style_elements$Element$el,
+						_user$project$NewStyle$None,
+						{ctor: '[]'},
+						_mdgriffith$style_elements$Element$text('Written in Elm')),
+					_1: {
+						ctor: '::',
+						_0: A3(
+							_mdgriffith$style_elements$Element$el,
+							_user$project$NewStyle$None,
+							{ctor: '[]'},
+							_mdgriffith$style_elements$Element$text(' | ')),
+						_1: {
+							ctor: '::',
+							_0: A2(
+								_mdgriffith$style_elements$Element$newTab,
+								'https://github.com/pkolo/pkolo.github.io',
+								A3(
+									_mdgriffith$style_elements$Element$el,
+									_user$project$NewStyle$Link,
+									{ctor: '[]'},
+									_mdgriffith$style_elements$Element$text('src'))),
+							_1: {ctor: '[]'}
+						}
+					}
+				}),
+			_1: {ctor: '[]'}
+		}
+	});
+var _user$project$Main$navBar = A3(
+	_mdgriffith$style_elements$Element$row,
+	_user$project$NewStyle$Nav,
+	{
+		ctor: '::',
+		_0: _mdgriffith$style_elements$Element_Attributes$spacing(10),
+		_1: {
+			ctor: '::',
+			_0: _mdgriffith$style_elements$Element_Attributes$paddingTop(4),
+			_1: {ctor: '[]'}
+		}
+	},
+	{
+		ctor: '::',
+		_0: A3(
+			_mdgriffith$style_elements$Element$el,
+			_user$project$NewStyle$None,
+			{ctor: '[]'},
+			_mdgriffith$style_elements$Element$text('Brooklyn, NY')),
+		_1: {
+			ctor: '::',
+			_0: A3(
+				_mdgriffith$style_elements$Element$el,
+				_user$project$NewStyle$None,
+				{ctor: '[]'},
+				_mdgriffith$style_elements$Element$text('pkolodgy at gmail')),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_mdgriffith$style_elements$Element$newTab,
+					'http://github.com/pkolo',
+					A3(
+						_mdgriffith$style_elements$Element$el,
+						_user$project$NewStyle$Link,
+						{ctor: '[]'},
+						_mdgriffith$style_elements$Element$text('github'))),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_mdgriffith$style_elements$Element$newTab,
+						'https://www.linkedin.com/in/pkolodgy/',
+						A3(
+							_mdgriffith$style_elements$Element$el,
+							_user$project$NewStyle$Link,
+							{ctor: '[]'},
+							_mdgriffith$style_elements$Element$text('linkedin'))),
+					_1: {ctor: '[]'}
+				}
+			}
+		}
+	});
+var _user$project$Main$header = function (bio) {
+	return A3(
+		_mdgriffith$style_elements$Element$column,
+		_user$project$NewStyle$Header,
+		{
+			ctor: '::',
+			_0: _mdgriffith$style_elements$Element_Attributes$paddingBottom(25),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: A3(
+				_mdgriffith$style_elements$Element$el,
+				_user$project$NewStyle$Title,
+				{
+					ctor: '::',
+					_0: _mdgriffith$style_elements$Element_Attributes$moveLeft(2),
+					_1: {ctor: '[]'}
+				},
+				_mdgriffith$style_elements$Element$text('Patrick Kolodgy')),
+			_1: {
+				ctor: '::',
+				_0: _user$project$Main$navBar,
+				_1: {
+					ctor: '::',
+					_0: A3(
+						_mdgriffith$style_elements$Element$el,
+						_user$project$NewStyle$None,
+						{
+							ctor: '::',
+							_0: _mdgriffith$style_elements$Element_Attributes$paddingTop(12),
+							_1: {ctor: '[]'}
+						},
+						_mdgriffith$style_elements$Element$text(bio)),
+					_1: {ctor: '[]'}
+				}
+			}
+		});
+};
+var _user$project$Main$flattenTags = function (project) {
+	var newProject = project;
+	return A2(
+		_elm_lang$core$Basics_ops['++'],
+		newProject.categories,
+		A2(
+			_elm_lang$core$Basics_ops['++'],
+			newProject.technologies,
+			{
+				ctor: '::',
+				_0: newProject.status,
+				_1: {ctor: '[]'}
+			}));
+};
+var _user$project$Main$filterProjects = F2(
+	function (model, newFilter) {
+		var newProjects = A2(
+			_elm_lang$core$List$filter,
+			function (p) {
+				return A2(
+					_elm_lang$core$List$member,
+					newFilter,
+					_user$project$Main$flattenTags(p));
+			},
+			model.projects);
+		return _elm_lang$core$Native_Utils.update(
+			model,
+			{filterBy: newFilter, projects: newProjects});
+	});
 var _user$project$Main$uniqueHelp = F3(
 	function (f, existing, remaining) {
 		uniqueHelp:
@@ -284,12 +266,12 @@ var _user$project$Main$uniqueHelp = F3(
 				var _p2 = _p1._0;
 				var computedFirst = f(_p2);
 				if (A2(_elm_lang$core$Set$member, computedFirst, existing)) {
-					var _v1 = f,
-						_v2 = existing,
-						_v3 = _p3;
-					f = _v1;
-					existing = _v2;
-					remaining = _v3;
+					var _v2 = f,
+						_v3 = existing,
+						_v4 = _p3;
+					f = _v2;
+					existing = _v3;
+					remaining = _v4;
 					continue uniqueHelp;
 				} else {
 					return {
@@ -308,35 +290,9 @@ var _user$project$Main$uniqueHelp = F3(
 var _user$project$Main$unique = function (list) {
 	return A3(_user$project$Main$uniqueHelp, _elm_lang$core$Basics$identity, _elm_lang$core$Set$empty, list);
 };
-var _user$project$Main$getTechnologies = function (projects) {
-	return _elm_lang$core$List$concat(
-		A2(
-			_elm_lang$core$List$map,
-			function (p) {
-				return p.technologies;
-			},
-			projects));
-};
-var _user$project$Main$getCategories = function (projects) {
-	return _elm_lang$core$List$concat(
-		A2(
-			_elm_lang$core$List$map,
-			function (p) {
-				return p.categories;
-			},
-			projects));
-};
-var _user$project$Main$getStatuses = function (projects) {
-	return A2(
-		_elm_lang$core$List$map,
-		function (p) {
-			return p.status;
-		},
-		projects);
-};
-var _user$project$Main$Model = F5(
-	function (a, b, c, d, e) {
-		return {bio: a, categories: b, technologies: c, statuses: d, projects: e};
+var _user$project$Main$Model = F6(
+	function (a, b, c, d, e, f) {
+		return {bio: a, projects: b, statuses: c, technologies: d, categories: e, filterBy: f};
 	});
 var _user$project$Main$Result = F2(
 	function (a, b) {
@@ -407,256 +363,190 @@ var _user$project$Main$initialModel = function () {
 	var result = _user$project$Main$decodeResult(_user$project$Data$json);
 	return {
 		bio: result.bio,
-		categories: _elm_lang$core$List$sort(
-			_user$project$Main$unique(
-				_user$project$Main$getCategories(result.projects))),
-		technologies: _elm_lang$core$List$sort(
-			_user$project$Main$unique(
-				_user$project$Main$getTechnologies(result.projects))),
+		projects: result.projects,
+		filterBy: '',
 		statuses: _user$project$Main$unique(
-			_user$project$Main$getStatuses(result.projects)),
-		projects: result.projects
+			_elm_lang$core$List$concat(
+				A2(
+					_elm_lang$core$List$map,
+					function (p) {
+						return {
+							ctor: '::',
+							_0: p.status,
+							_1: {ctor: '[]'}
+						};
+					},
+					result.projects))),
+		technologies: _user$project$Main$unique(
+			_elm_lang$core$List$concat(
+				A2(
+					_elm_lang$core$List$map,
+					function (p) {
+						return p.technologies;
+					},
+					result.projects))),
+		categories: _user$project$Main$unique(
+			_elm_lang$core$List$concat(
+				A2(
+					_elm_lang$core$List$map,
+					function (p) {
+						return p.categories;
+					},
+					result.projects)))
 	};
 }();
 var _user$project$Main$init = {ctor: '_Tuple2', _0: _user$project$Main$initialModel, _1: _elm_lang$core$Platform_Cmd$none};
 var _user$project$Main$update = F2(
 	function (msg, model) {
 		var _p5 = msg;
-		switch (_p5.ctor) {
-			case 'StatusFilter':
-				return {
-					ctor: '_Tuple2',
-					_0: A2(_user$project$Main$filterByStatus, _user$project$Main$initialModel, _p5._0),
-					_1: _elm_lang$core$Platform_Cmd$none
-				};
-			case 'CategoryFilter':
-				return {
-					ctor: '_Tuple2',
-					_0: A2(_user$project$Main$filterByCategory, _user$project$Main$initialModel, _p5._0),
-					_1: _elm_lang$core$Platform_Cmd$none
-				};
-			case 'TechFilter':
-				return {
-					ctor: '_Tuple2',
-					_0: A2(_user$project$Main$filterByTech, _user$project$Main$initialModel, _p5._0),
-					_1: _elm_lang$core$Platform_Cmd$none
-				};
-			default:
-				return {ctor: '_Tuple2', _0: _user$project$Main$initialModel, _1: _elm_lang$core$Platform_Cmd$none};
+		if (_p5.ctor === 'Clear') {
+			return {ctor: '_Tuple2', _0: _user$project$Main$initialModel, _1: _elm_lang$core$Platform_Cmd$none};
+		} else {
+			return {
+				ctor: '_Tuple2',
+				_0: A2(_user$project$Main$filterProjects, _user$project$Main$initialModel, _p5._0),
+				_1: _elm_lang$core$Platform_Cmd$none
+			};
 		}
 	});
-var _user$project$Main$ResetModel = {ctor: 'ResetModel'};
-var _user$project$Main$TechFilter = function (a) {
-	return {ctor: 'TechFilter', _0: a};
+var _user$project$Main$UpdateFilter = function (a) {
+	return {ctor: 'UpdateFilter', _0: a};
 };
-var _user$project$Main$techFilters = function (tech) {
-	return A2(
-		_elm_lang$html$Html$div,
+var _user$project$Main$tagLink = function (tag) {
+	return A3(
+		_mdgriffith$style_elements$Element$el,
+		_user$project$NewStyle$Tag,
 		{
 			ctor: '::',
-			_0: _user$project$Main$class(_user$project$StyleSheet$FilterBtn),
-			_1: {
-				ctor: '::',
-				_0: _elm_lang$html$Html_Events$onClick(
-					_user$project$Main$TechFilter(tech)),
-				_1: {ctor: '[]'}
-			}
+			_0: _mdgriffith$style_elements$Element_Events$onClick(
+				_user$project$Main$UpdateFilter(tag)),
+			_1: {ctor: '[]'}
 		},
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html$text(_user$project$Main$separator),
-			_1: {
-				ctor: '::',
-				_0: _elm_lang$html$Html$text(tech),
-				_1: {ctor: '[]'}
-			}
-		});
+		_mdgriffith$style_elements$Element$text(tag));
 };
-var _user$project$Main$CategoryFilter = function (a) {
-	return {ctor: 'CategoryFilter', _0: a};
-};
-var _user$project$Main$categoryFilters = function (category) {
-	return A2(
-		_elm_lang$html$Html$div,
-		{
-			ctor: '::',
-			_0: _user$project$Main$class(_user$project$StyleSheet$FilterBtn),
-			_1: {
+var _user$project$Main$filterWidget = F2(
+	function (title, tagList) {
+		return A3(
+			_mdgriffith$style_elements$Element$column,
+			_user$project$NewStyle$None,
+			{ctor: '[]'},
+			A2(_elm_lang$core$List$map, _user$project$Main$tagLink, tagList));
+	});
+var _user$project$Main$projectTagList = F2(
+	function (title, tagList) {
+		return A3(
+			_mdgriffith$style_elements$Element$row,
+			_user$project$NewStyle$None,
+			{
 				ctor: '::',
-				_0: _elm_lang$html$Html_Events$onClick(
-					_user$project$Main$CategoryFilter(category)),
+				_0: _mdgriffith$style_elements$Element_Attributes$spacing(10),
 				_1: {ctor: '[]'}
-			}
-		},
+			},
+			A2(
+				_elm_lang$core$Basics_ops['++'],
+				{
+					ctor: '::',
+					_0: A3(
+						_mdgriffith$style_elements$Element$el,
+						_user$project$NewStyle$None,
+						{ctor: '[]'},
+						_mdgriffith$style_elements$Element$text(
+							A2(_elm_lang$core$Basics_ops['++'], title, ':'))),
+					_1: {ctor: '[]'}
+				},
+				A2(_elm_lang$core$List$map, _user$project$Main$tagLink, tagList)));
+	});
+var _user$project$Main$project = function (p) {
+	return A3(
+		_mdgriffith$style_elements$Element$column,
+		_user$project$NewStyle$None,
 		{
 			ctor: '::',
-			_0: _elm_lang$html$Html$text(_user$project$Main$separator),
-			_1: {
-				ctor: '::',
-				_0: _elm_lang$html$Html$text(category),
-				_1: {ctor: '[]'}
-			}
-		});
-};
-var _user$project$Main$StatusFilter = function (a) {
-	return {ctor: 'StatusFilter', _0: a};
-};
-var _user$project$Main$statusFilters = function (status) {
-	return A2(
-		_elm_lang$html$Html$div,
-		{
-			ctor: '::',
-			_0: _user$project$Main$class(_user$project$StyleSheet$FilterBtn),
-			_1: {
-				ctor: '::',
-				_0: _elm_lang$html$Html_Events$onClick(
-					_user$project$Main$StatusFilter(status)),
-				_1: {ctor: '[]'}
-			}
-		},
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html$text(_user$project$Main$separator),
-			_1: {
-				ctor: '::',
-				_0: _elm_lang$html$Html$text(status),
-				_1: {ctor: '[]'}
-			}
-		});
-};
-var _user$project$Main$getSidebar = function (model) {
-	return A2(
-		_elm_lang$html$Html$div,
-		{
-			ctor: '::',
-			_0: _user$project$Main$class(_user$project$StyleSheet$Sidebar),
+			_0: _mdgriffith$style_elements$Element_Attributes$spacing(5),
 			_1: {ctor: '[]'}
 		},
 		{
 			ctor: '::',
-			_0: A2(
-				_elm_lang$html$Html$div,
-				{
-					ctor: '::',
-					_0: _user$project$Main$class(_user$project$StyleSheet$SidebarHead),
-					_1: {ctor: '[]'}
-				},
-				{
-					ctor: '::',
-					_0: _elm_lang$html$Html$text('Filter projects by'),
-					_1: {ctor: '[]'}
-				}),
+			_0: _user$project$Main$projectMeta(p),
 			_1: {
 				ctor: '::',
-				_0: A2(
-					_elm_lang$html$Html$div,
+				_0: A3(
+					_mdgriffith$style_elements$Element$paragraph,
+					_user$project$NewStyle$ProjectDescription,
+					{ctor: '[]'},
 					{
 						ctor: '::',
-						_0: _user$project$Main$class(_user$project$StyleSheet$FilterBtn),
-						_1: {
-							ctor: '::',
-							_0: _elm_lang$html$Html_Events$onClick(_user$project$Main$ResetModel),
-							_1: {ctor: '[]'}
-						}
-					},
-					{
-						ctor: '::',
-						_0: _elm_lang$html$Html$text(_user$project$Main$separator),
-						_1: {
-							ctor: '::',
-							_0: _elm_lang$html$Html$text('All'),
-							_1: {ctor: '[]'}
-						}
+						_0: _mdgriffith$style_elements$Element$text(p.description),
+						_1: {ctor: '[]'}
 					}),
 				_1: {
 					ctor: '::',
-					_0: A2(
-						_elm_lang$html$Html$div,
-						{
-							ctor: '::',
-							_0: _user$project$Main$class(_user$project$StyleSheet$FilterBar),
-							_1: {ctor: '[]'}
-						},
-						A2(_elm_lang$core$List$map, _user$project$Main$statusFilters, model.statuses)),
+					_0: A2(_user$project$Main$projectTagList, 'Technologies', p.technologies),
 					_1: {
 						ctor: '::',
-						_0: A2(
-							_elm_lang$html$Html$div,
-							{
-								ctor: '::',
-								_0: _user$project$Main$class(_user$project$StyleSheet$FilterBar),
-								_1: {ctor: '[]'}
-							},
-							A2(_elm_lang$core$List$map, _user$project$Main$categoryFilters, model.categories)),
+						_0: A2(_user$project$Main$projectTagList, 'Categories', p.categories),
+						_1: {ctor: '[]'}
+					}
+				}
+			}
+		});
+};
+var _user$project$Main$projectList = function (projects) {
+	return A3(
+		_mdgriffith$style_elements$Element$column,
+		_user$project$NewStyle$None,
+		{
+			ctor: '::',
+			_0: _mdgriffith$style_elements$Element_Attributes$spacing(25),
+			_1: {ctor: '[]'}
+		},
+		A2(_elm_lang$core$List$map, _user$project$Main$project, projects));
+};
+var _user$project$Main$Clear = {ctor: 'Clear'};
+var _user$project$Main$sideBar = function (model) {
+	return A3(
+		_mdgriffith$style_elements$Element$column,
+		_user$project$NewStyle$SideBar,
+		{
+			ctor: '::',
+			_0: _mdgriffith$style_elements$Element_Attributes$width(
+				_mdgriffith$style_elements$Element_Attributes$px(180)),
+			_1: {
+				ctor: '::',
+				_0: _mdgriffith$style_elements$Element_Attributes$spacing(10),
+				_1: {ctor: '[]'}
+			}
+		},
+		{
+			ctor: '::',
+			_0: A3(
+				_mdgriffith$style_elements$Element$el,
+				_user$project$NewStyle$SideBarTitle,
+				{ctor: '[]'},
+				_mdgriffith$style_elements$Element$text('Filter projects by')),
+			_1: {
+				ctor: '::',
+				_0: A3(
+					_mdgriffith$style_elements$Element$el,
+					_user$project$NewStyle$Tag,
+					{
+						ctor: '::',
+						_0: _mdgriffith$style_elements$Element_Events$onClick(_user$project$Main$Clear),
+						_1: {ctor: '[]'}
+					},
+					_mdgriffith$style_elements$Element$text('All')),
+				_1: {
+					ctor: '::',
+					_0: A2(_user$project$Main$filterWidget, 'Status', model.statuses),
+					_1: {
+						ctor: '::',
+						_0: A2(_user$project$Main$filterWidget, 'Technologies', model.technologies),
 						_1: {
 							ctor: '::',
-							_0: A2(
-								_elm_lang$html$Html$div,
-								{
-									ctor: '::',
-									_0: _user$project$Main$class(_user$project$StyleSheet$FilterBar),
-									_1: {ctor: '[]'}
-								},
-								A2(_elm_lang$core$List$map, _user$project$Main$techFilters, model.technologies)),
+							_0: A2(_user$project$Main$filterWidget, 'Categories', model.categories),
 							_1: {
 								ctor: '::',
-								_0: A2(
-									_elm_lang$html$Html$div,
-									{
-										ctor: '::',
-										_0: _user$project$Main$class(_user$project$StyleSheet$SidebarFoot),
-										_1: {ctor: '[]'}
-									},
-									{
-										ctor: '::',
-										_0: A2(
-											_elm_lang$html$Html$div,
-											{ctor: '[]'},
-											{
-												ctor: '::',
-												_0: _elm_lang$html$Html$text('© Patrick Kolodgy, 2017'),
-												_1: {ctor: '[]'}
-											}),
-										_1: {
-											ctor: '::',
-											_0: A2(
-												_elm_lang$html$Html$div,
-												{ctor: '[]'},
-												{
-													ctor: '::',
-													_0: _elm_lang$html$Html$text('Written in Elm'),
-													_1: {
-														ctor: '::',
-														_0: _elm_lang$html$Html$text(_user$project$Main$separator),
-														_1: {
-															ctor: '::',
-															_0: A2(
-																_elm_lang$html$Html$a,
-																{
-																	ctor: '::',
-																	_0: _elm_lang$html$Html_Attributes$href('https://github.com/pkolo/pkolo.github.io'),
-																	_1: {
-																		ctor: '::',
-																		_0: _elm_lang$html$Html_Attributes$target('_blank'),
-																		_1: {
-																			ctor: '::',
-																			_0: _user$project$Main$class(_user$project$StyleSheet$Link),
-																			_1: {ctor: '[]'}
-																		}
-																	}
-																},
-																{
-																	ctor: '::',
-																	_0: _elm_lang$html$Html$text('src'),
-																	_1: {ctor: '[]'}
-																}),
-															_1: {ctor: '[]'}
-														}
-													}
-												}),
-											_1: {ctor: '[]'}
-										}
-									}),
+								_0: _user$project$Main$footer,
 								_1: {ctor: '[]'}
 							}
 						}
@@ -665,185 +555,66 @@ var _user$project$Main$getSidebar = function (model) {
 			}
 		});
 };
-var _user$project$Main$view = function (model) {
-	return A2(
-		_elm_lang$html$Html$div,
-		{ctor: '[]'},
+var _user$project$Main$content = function (model) {
+	return A3(
+		_mdgriffith$style_elements$Element$row,
+		_user$project$NewStyle$None,
 		{
 			ctor: '::',
-			_0: _mdgriffith$style_elements$Style$embed(_user$project$StyleSheet$stylesheet),
+			_0: _mdgriffith$style_elements$Element_Attributes$spacing(20),
 			_1: {
 				ctor: '::',
-				_0: A2(
-					_elm_lang$html$Html$div,
-					{
-						ctor: '::',
-						_0: _user$project$Main$class(_user$project$StyleSheet$Body),
-						_1: {ctor: '[]'}
-					},
-					{
-						ctor: '::',
-						_0: A2(
-							_elm_lang$html$Html$header,
-							{
-								ctor: '::',
-								_0: _user$project$Main$class(_user$project$StyleSheet$Header),
-								_1: {ctor: '[]'}
-							},
-							{
-								ctor: '::',
-								_0: A2(
-									_elm_lang$html$Html$div,
-									{
-										ctor: '::',
-										_0: _user$project$Main$class(_user$project$StyleSheet$Title),
-										_1: {ctor: '[]'}
-									},
-									{
-										ctor: '::',
-										_0: _elm_lang$html$Html$text('Patrick Kolodgy'),
-										_1: {ctor: '[]'}
-									}),
-								_1: {
-									ctor: '::',
-									_0: A2(
-										_elm_lang$html$Html$nav,
-										{
-											ctor: '::',
-											_0: _user$project$Main$class(_user$project$StyleSheet$Nav),
-											_1: {ctor: '[]'}
-										},
-										{
-											ctor: '::',
-											_0: _elm_lang$html$Html$text('Brooklyn, NY'),
-											_1: {
-												ctor: '::',
-												_0: _elm_lang$html$Html$text(_user$project$Main$separator),
-												_1: {
-													ctor: '::',
-													_0: _elm_lang$html$Html$text('pkolodgy at gmail'),
-													_1: {
-														ctor: '::',
-														_0: _elm_lang$html$Html$text(_user$project$Main$separator),
-														_1: {
-															ctor: '::',
-															_0: A2(
-																_elm_lang$html$Html$a,
-																{
-																	ctor: '::',
-																	_0: _elm_lang$html$Html_Attributes$href('https://github.com/pkolo'),
-																	_1: {
-																		ctor: '::',
-																		_0: _elm_lang$html$Html_Attributes$target('_blank'),
-																		_1: {
-																			ctor: '::',
-																			_0: _user$project$Main$class(_user$project$StyleSheet$Link),
-																			_1: {ctor: '[]'}
-																		}
-																	}
-																},
-																{
-																	ctor: '::',
-																	_0: _elm_lang$html$Html$text('github'),
-																	_1: {ctor: '[]'}
-																}),
-															_1: {
-																ctor: '::',
-																_0: _elm_lang$html$Html$text(_user$project$Main$separator),
-																_1: {
-																	ctor: '::',
-																	_0: A2(
-																		_elm_lang$html$Html$a,
-																		{
-																			ctor: '::',
-																			_0: _elm_lang$html$Html_Attributes$href('https://www.linkedin.com/in/pkolodgy/'),
-																			_1: {
-																				ctor: '::',
-																				_0: _elm_lang$html$Html_Attributes$target('_blank'),
-																				_1: {
-																					ctor: '::',
-																					_0: _user$project$Main$class(_user$project$StyleSheet$Link),
-																					_1: {ctor: '[]'}
-																				}
-																			}
-																		},
-																		{
-																			ctor: '::',
-																			_0: _elm_lang$html$Html$text('linkedin'),
-																			_1: {ctor: '[]'}
-																		}),
-																	_1: {ctor: '[]'}
-																}
-															}
-														}
-													}
-												}
-											}
-										}),
-									_1: {
-										ctor: '::',
-										_0: A2(
-											_elm_lang$html$Html$div,
-											{
-												ctor: '::',
-												_0: _user$project$Main$class(_user$project$StyleSheet$Bio),
-												_1: {ctor: '[]'}
-											},
-											{
-												ctor: '::',
-												_0: _elm_lang$html$Html$text(model.bio),
-												_1: {ctor: '[]'}
-											}),
-										_1: {ctor: '[]'}
-									}
-								}
-							}),
-						_1: {
-							ctor: '::',
-							_0: A2(
-								_elm_lang$html$Html$div,
-								{
-									ctor: '::',
-									_0: _user$project$Main$class(_user$project$StyleSheet$Container),
-									_1: {ctor: '[]'}
-								},
-								{
-									ctor: '::',
-									_0: _user$project$Main$getSidebar(model),
-									_1: {
-										ctor: '::',
-										_0: A2(
-											_elm_lang$html$Html$div,
-											{
-												ctor: '::',
-												_0: _user$project$Main$class(_user$project$StyleSheet$Content),
-												_1: {ctor: '[]'}
-											},
-											{
-												ctor: '::',
-												_0: A2(
-													_elm_lang$html$Html$div,
-													{ctor: '[]'},
-													A2(
-														_elm_lang$core$List$map,
-														_user$project$Main$viewProject,
-														A2(
-															_elm_lang$core$List$sortBy,
-															function (_) {
-																return _.id;
-															},
-															model.projects))),
-												_1: {ctor: '[]'}
-											}),
-										_1: {ctor: '[]'}
-									}
-								}),
-							_1: {ctor: '[]'}
-						}
-					}),
+				_0: _mdgriffith$style_elements$Element_Attributes$paddingTop(2),
+				_1: {ctor: '[]'}
+			}
+		},
+		{
+			ctor: '::',
+			_0: _user$project$Main$sideBar(model),
+			_1: {
+				ctor: '::',
+				_0: _user$project$Main$projectList(model.projects),
 				_1: {ctor: '[]'}
 			}
 		});
 };
+var _user$project$Main$view = function (model) {
+	return A2(
+		_mdgriffith$style_elements$Element$layout,
+		_user$project$NewStyle$stylesheet,
+		A3(
+			_mdgriffith$style_elements$Element$column,
+			_user$project$NewStyle$Main,
+			{
+				ctor: '::',
+				_0: _mdgriffith$style_elements$Element_Attributes$paddingLeft(17),
+				_1: {
+					ctor: '::',
+					_0: _mdgriffith$style_elements$Element_Attributes$paddingTop(3),
+					_1: {
+						ctor: '::',
+						_0: _mdgriffith$style_elements$Element_Attributes$width(
+							_mdgriffith$style_elements$Element_Attributes$px(900)),
+						_1: {ctor: '[]'}
+					}
+				}
+			},
+			{
+				ctor: '::',
+				_0: _user$project$Main$header(model.bio),
+				_1: {
+					ctor: '::',
+					_0: _user$project$Main$content(model),
+					_1: {ctor: '[]'}
+				}
+			}));
+};
 var _user$project$Main$main = _elm_lang$html$Html$program(
-	{init: _user$project$Main$init, view: _user$project$Main$view, update: _user$project$Main$update, subscriptions: _user$project$Main$subscriptions})();
+	{
+		init: _user$project$Main$init,
+		update: _user$project$Main$update,
+		view: _user$project$Main$view,
+		subscriptions: function (_p6) {
+			return _elm_lang$core$Platform_Sub$none;
+		}
+	})();

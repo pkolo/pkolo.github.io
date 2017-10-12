@@ -18,7 +18,7 @@ main =
         { init = init
         , view = view
         , update = update
-        , subscriptions = subscriptions
+        , subscriptions = \_ -> Sub.none
         }
 
 
@@ -377,12 +377,3 @@ filterByTech model tech =
             List.filter (\p -> (List.member tech p.technologies)) model.projects
     in
         { model | projects = newProjects }
-
-
-
--- Subscriptions
-
-
-subscriptions : Model -> Sub Msg
-subscriptions model =
-    Sub.none
