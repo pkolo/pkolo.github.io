@@ -245,15 +245,22 @@ content model =
 
 
 sideBar model =
-    column SideBar
-        [ Element.Attributes.width (px 180), spacing 10 ]
-        [ el SideBarTitle [] (Element.text "Filter projects by")
-        , el Tag [ onClick Clear ] (Element.text "All")
-        , filterWidget "Status" model.statuses model.windowSize
-        , filterWidget "Technologies" model.technologies model.windowSize
-        , filterWidget "Categories" model.categories model.windowSize
-        , footer
-        ]
+    let
+        responsiveStyle style attrs children =
+            if model.windowSize.width < 920 then
+                column style (hidden :: attrs) children
+            else
+                column style (attrs) children
+    in
+        responsiveStyle SideBar
+            [ Element.Attributes.width (px 180), spacing 10 ]
+            [ el SideBarTitle [] (Element.text "Filter projects by")
+            , el Tag [ onClick Clear ] (Element.text "All")
+            , filterWidget "Status" model.statuses model.windowSize
+            , filterWidget "Technologies" model.technologies model.windowSize
+            , filterWidget "Categories" model.categories model.windowSize
+            , footer
+            ]
 
 
 footer =
@@ -270,16 +277,9 @@ footer =
 
 
 filterWidget title tagList windowSize =
-    let
-        responsiveStyle =
-            if windowSize.width > 920 then
-                column
-            else
-                row
-    in
-        responsiveStyle None
-            []
-            (List.map (tagLink) tagList)
+    column None
+        []
+        (List.map (tagLink) tagList)
 
 
 projectList projects =

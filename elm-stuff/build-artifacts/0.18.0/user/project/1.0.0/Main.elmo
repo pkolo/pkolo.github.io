@@ -446,9 +446,8 @@ var _user$project$Main$tagLink = function (tag) {
 };
 var _user$project$Main$filterWidget = F3(
 	function (title, tagList, windowSize) {
-		var responsiveStyle = (_elm_lang$core$Native_Utils.cmp(windowSize.width, 920) > 0) ? _mdgriffith$style_elements$Element$column : _mdgriffith$style_elements$Element$row;
 		return A3(
-			responsiveStyle,
+			_mdgriffith$style_elements$Element$column,
 			_user$project$NewStyle$None,
 			{ctor: '[]'},
 			A2(_elm_lang$core$List$map, _user$project$Main$tagLink, tagList));
@@ -525,8 +524,16 @@ var _user$project$Main$projectList = function (projects) {
 };
 var _user$project$Main$Clear = {ctor: 'Clear'};
 var _user$project$Main$sideBar = function (model) {
+	var responsiveStyle = F3(
+		function (style, attrs, children) {
+			return (_elm_lang$core$Native_Utils.cmp(model.windowSize.width, 920) < 0) ? A3(
+				_mdgriffith$style_elements$Element$column,
+				style,
+				{ctor: '::', _0: _mdgriffith$style_elements$Element_Attributes$hidden, _1: attrs},
+				children) : A3(_mdgriffith$style_elements$Element$column, style, attrs, children);
+		});
 	return A3(
-		_mdgriffith$style_elements$Element$column,
+		responsiveStyle,
 		_user$project$NewStyle$SideBar,
 		{
 			ctor: '::',
