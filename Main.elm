@@ -1,14 +1,16 @@
 module Main exposing (..)
 
-import String exposing (join)
+import String exposing (toLower)
 import Html exposing (..)
-import Html.Attributes exposing (class, target, href, property, src)
-import Html.Events exposing (onClick)
+import Window exposing (..)
+import Task
 import Json.Decode exposing (..)
 import Json.Decode.Pipeline exposing (..)
-import StyleSheet exposing (Class(..))
-import Style exposing (all)
-import Set exposing (..)
+import Element exposing (..)
+import Element.Attributes exposing (..)
+import Element.Events exposing (onClick)
+import NewStyle exposing (..)
+import Set exposing (empty, member, insert)
 import Data
 
 
@@ -16,8 +18,8 @@ main : Program Never Model Msg
 main =
     program
         { init = init
-        , view = view
         , update = update
+        , view = view
         , subscriptions = subscriptions
         }
 
@@ -28,10 +30,12 @@ main =
 
 type alias Model =
     { bio : String
-    , categories : List String
-    , technologies : List String
-    , statuses : List String
     , projects : List Project
+    , statuses : List String
+    , technologies : List String
+    , categories : List String
+    , filterBy : String
+    , windowSize : Window.Size
     }
 
 
@@ -52,25 +56,6 @@ type alias Project =
     , src_link : String
     , description : String
     }
-
-
-init : ( Model, Cmd Msg )
-init =
-    ( initialModel, Cmd.none )
-
-
-initialModel : Model
-initialModel =
-    let
-        result =
-            decodeResult Data.json
-    in
-        { bio = result.bio
-        , categories = List.sort (unique (getCategories result.projects))
-        , technologies = List.sort (unique (getTechnologies result.projects))
-        , statuses = (unique (getStatuses result.projects))
-        , projects = result.projects
-        }
 
 
 decodeResult : String -> Result
@@ -106,27 +91,12 @@ projectDecoder =
         |> required "description" string
 
 
-getStatuses : List Project -> List String
-getStatuses projects =
-    List.map (\p -> p.status) projects
-
-
-getCategories : List Project -> List String
-getCategories projects =
-    List.concat (List.map (\p -> p.categories) projects)
-
-
-getTechnologies : List Project -> List String
-getTechnologies projects =
-    List.concat (List.map (\p -> p.technologies) projects)
-
-
 unique : List comparable -> List comparable
 unique list =
     uniqueHelp identity Set.empty list
 
 
-uniqueHelp : (a -> comparable) -> Set comparable -> List a -> List a
+uniqueHelp : (a -> comparable) -> Set.Set comparable -> List a -> List a
 uniqueHelp f existing remaining =
     case remaining of
         [] ->
@@ -143,246 +113,226 @@ uniqueHelp f existing remaining =
                     first :: uniqueHelp f (Set.insert computedFirst existing) rest
 
 
-
--- view
-
-
-{ class, classList } =
-    StyleSheet.stylesheet
-
-
-view : Model -> Html Msg
-view model =
-    div []
-        [ Style.embed StyleSheet.stylesheet
-        , div [ class Body ]
-            [ header [ class Header ]
-                [ div [ class Title ] [ text "Patrick Kolodgy" ]
-                , nav [ class Nav ]
-                    [ text "Brooklyn, NY"
-                    , text separator
-                    , text "pkolodgy at gmail"
-                    , text separator
-                    , a
-                        [ href "https://github.com/pkolo"
-                        , target "_blank"
-                        , class Link
-                        ]
-                        [ text "github" ]
-                    , text separator
-                    , a
-                        [ href "https://www.linkedin.com/in/pkolodgy/"
-                        , target "_blank"
-                        , class Link
-                        ]
-                        [ text "linkedin" ]
-                    ]
-                , div [ class Bio ] [ text model.bio ]
-                ]
-            , div [ class Container ]
-                [ (getSidebar model)
-                , div [ class Content ]
-                    [ div []
-                        (List.map viewProject (List.sortBy .id model.projects))
-                    ]
-                ]
-            ]
-        ]
+initialModel : Model
+initialModel =
+    let
+        result =
+            decodeResult Data.json
+    in
+        { bio = result.bio
+        , projects = result.projects
+        , filterBy = ""
+        , statuses = unique (List.concat (List.map (\p -> [ p.status ]) result.projects))
+        , technologies = unique (List.concat (List.map (\p -> p.technologies) result.projects))
+        , categories = unique (List.concat (List.map (\p -> p.categories) result.projects))
+        , windowSize = Window.Size 0 0
+        }
 
 
-getSidebar : Model -> Html Msg
-getSidebar model =
-    div [ class Sidebar ]
-        [ div [ class SidebarHead ]
-            [ text "Filter projects by" ]
-        , div
-            [ class FilterBtn
-            , onClick (ResetModel)
-            ]
-            [ text separator
-            , text "All"
-            ]
-        , div [ class FilterBar ]
-            (List.map statusFilters model.statuses)
-        , div [ class FilterBar ]
-            (List.map categoryFilters model.categories)
-        , div [ class FilterBar ]
-            (List.map techFilters model.technologies)
-        , div [ class SidebarFoot ]
-            [ div [] [ text "© Patrick Kolodgy, 2017" ]
-            , div []
-                [ text "Written in Elm"
-                , text separator
-                , a
-                    [ href "https://github.com/pkolo/pkolo.github.io"
-                    , target "_blank"
-                    , class Link
-                    ]
-                    [ text "src" ]
-                ]
-            ]
-        ]
-
-
-viewProject : Project -> Html Msg
-viewProject project =
-    div [ class ProjectInfo ]
-        [ div [ class ProjectHeader ]
-            [ span [ class ProjectName ]
-                [ text project.name ]
-            , (getStatus project)
-            , (getLink project)
-            , (getSrc project)
-            ]
-        , div [ class ProjectDetails ]
-            [ div [ class ProjectDetail ]
-                [ div [ class P ] [ text project.description ]
-                , div [ class P ] [ text ("Technologies used: " ++ (join ", " (List.sort project.technologies))) ]
-                , div [ class P ] [ text ("File under: " ++ (join ", " (List.sort project.categories))) ]
-                ]
-            ]
-        ]
-
-
-statusFilters : String -> Html Msg
-statusFilters status =
-    div
-        [ class FilterBtn
-        , onClick (StatusFilter status)
-        ]
-        [ text separator
-        , text status
-        ]
-
-
-categoryFilters : String -> Html Msg
-categoryFilters category =
-    div
-        [ class FilterBtn
-        , onClick (CategoryFilter category)
-        ]
-        [ text separator
-        , text category
-        ]
-
-
-techFilters : String -> Html Msg
-techFilters tech =
-    div
-        [ class FilterBtn
-        , onClick (TechFilter tech)
-        ]
-        [ text separator
-        , text tech
-        ]
-
-
-getStatus : Project -> Html Msg
-getStatus project =
-    if project.status == "Active" then
-        div [ class Active ]
-            [ text "(active)" ]
-    else if project.status == "In Progress" then
-        div [ class InProgress ]
-            [ text "(in progress)" ]
-    else
-        div [ class Inactive ]
-            [ text "(inactive)" ]
-
-
-getLink : Project -> Html Msg
-getLink project =
-    if project.link /= "" then
-        span [ class ProjectLink ]
-            [ a
-                [ href project.link
-                , target "_blank"
-                , class Link
-                ]
-                [ text "link" ]
-            ]
-    else
-        text ""
-
-
-getSrc : Project -> Html Msg
-getSrc project =
-    if project.src_link /= "" then
-        span [ class ProjectLink ]
-            [ a
-                [ href project.src_link
-                , target "_blank"
-                , class Link
-                ]
-                [ text "src" ]
-            ]
-    else
-        text ""
-
-
-separator : String
-separator =
-    " | "
+init : ( Model, Cmd Msg )
+init =
+    ( initialModel
+    , Task.perform Resize Window.size
+    )
 
 
 
--- update
+-- UPDATE
 
 
 type Msg
-    = StatusFilter String
-    | CategoryFilter String
-    | TechFilter String
-    | ResetModel
+    = Clear
+    | UpdateFilter String
+    | Resize Window.Size
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        StatusFilter status ->
-            ( filterByStatus initialModel status, Cmd.none )
-
-        CategoryFilter category ->
-            ( filterByCategory initialModel category, Cmd.none )
-
-        TechFilter tech ->
-            ( filterByTech initialModel tech, Cmd.none )
-
-        ResetModel ->
+        Clear ->
             ( initialModel, Cmd.none )
 
+        UpdateFilter newFilter ->
+            ( filterProjects initialModel newFilter, Cmd.none )
 
-filterByStatus : Model -> String -> Model
-filterByStatus model status =
+        Resize newSize ->
+            ( { model | windowSize = newSize }, Cmd.none )
+
+
+filterProjects : Model -> String -> Model
+filterProjects model newFilter =
     let
         newProjects =
-            List.filter (\p -> p.status == status) model.projects
+            List.filter (\p -> (List.member newFilter (flattenTags p))) model.projects
     in
-        { model | projects = newProjects }
+        { model
+            | filterBy = newFilter
+            , projects = newProjects
+        }
 
 
-filterByCategory : Model -> String -> Model
-filterByCategory model category =
+flattenTags : Project -> List String
+flattenTags project =
     let
-        newProjects =
-            List.filter (\p -> (List.member category p.categories)) model.projects
+        newProject =
+            project
     in
-        { model | projects = newProjects }
-
-
-filterByTech : Model -> String -> Model
-filterByTech model tech =
-    let
-        newProjects =
-            List.filter (\p -> (List.member tech p.technologies)) model.projects
-    in
-        { model | projects = newProjects }
+        newProject.categories ++ newProject.technologies ++ [ newProject.status ]
 
 
 
--- Subscriptions
+-- SUBSCRIPTIONS
 
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-    Sub.none
+    Window.resizes Resize
+
+
+
+-- VIEW
+
+
+view : Model -> Html Msg
+view model =
+    let
+        responsiveStyle style attrs children =
+            if model.windowSize.width > 920 then
+                column style (Element.Attributes.width (px 900) :: attrs) children
+            else
+                column style (Element.Attributes.width (percent 100) :: attrs) children
+    in
+        Element.layout stylesheet <|
+            responsiveStyle Main
+                [ paddingLeft 17, paddingTop 3 ]
+                [ header model.bio
+                , content model
+                ]
+
+
+header bio =
+    column Header
+        [ paddingBottom 25 ]
+        [ el Title [ moveLeft 2 ] (Element.text "Patrick Kolodgy")
+        , navBar
+        , el None [ paddingTop 12 ] (Element.text bio)
+        ]
+
+
+navBar =
+    row Nav
+        [ spacing 10, paddingTop 4 ]
+        [ el None [] (Element.text "Brooklyn, NY")
+        , el None [] (Element.text "pkolodgy at gmail")
+        , newTab "http://github.com/pkolo" <| el Link [] (Element.text "github")
+        , newTab "https://www.linkedin.com/in/pkolodgy/" <| el Link [] (Element.text "linkedin")
+        ]
+
+
+content model =
+    let
+        responsiveStyle =
+            if model.windowSize.width > 920 then
+                row
+            else
+                column
+    in
+        responsiveStyle None
+            [ spacing 20, paddingTop 2 ]
+            [ sideBar model
+            , projectList model.projects
+            ]
+
+
+sideBar model =
+    let
+        responsiveStyle style attrs children =
+            if model.windowSize.width < 920 then
+                column style (hidden :: attrs) children
+            else
+                column style (attrs) children
+    in
+        responsiveStyle SideBar
+            [ Element.Attributes.width (px 180), spacing 10 ]
+            [ el SideBarTitle [] (Element.text "Filter projects by")
+            , el Tag [ onClick Clear ] (Element.text "All")
+            , filterWidget "Status" model.statuses model.windowSize
+            , filterWidget "Technologies" model.technologies model.windowSize
+            , filterWidget "Categories" model.categories model.windowSize
+            , footer
+            ]
+
+
+footer =
+    column None
+        [ paddingTop 30 ]
+        [ el None [] (Element.text "© Patrick Kolodgy, 2017")
+        , row None
+            []
+            [ el None [] (Element.text "Written in Elm")
+            , el None [] (Element.text " | ")
+            , newTab "https://github.com/pkolo/pkolo.github.io" <| el Link [] (Element.text "src")
+            ]
+        ]
+
+
+filterWidget title tagList windowSize =
+    column None
+        []
+        (List.map (tagLink) tagList)
+
+
+projectList projects =
+    column None
+        [ spacing 25 ]
+        (List.map project projects)
+
+
+project p =
+    column None
+        [ spacing 5 ]
+        [ projectMeta p
+        , paragraph ProjectDescription
+            []
+            [ (Element.text p.description) ]
+        , projectTagList "Technologies" p.technologies
+        , projectTagList "Categories" p.categories
+        ]
+
+
+projectMeta p =
+    row None
+        [ spacing 7 ]
+        [ el ProjectTitle [ alignBottom ] (Element.text p.name)
+        , el (statusStyle p.status) [ alignBottom ] (Element.text ("(" ++ (toLower p.status) ++ ")"))
+        , newTab p.link <| el Link [ alignBottom ] (Element.text "link")
+        , newTab p.src_link <| el Link [ alignBottom ] (Element.text "src")
+        ]
+
+
+projectTagList title tagList =
+    row None
+        [ spacing 10 ]
+        ([ el None [] (Element.text (title ++ ":")) ]
+            ++ (List.map (tagLink) tagList)
+        )
+
+
+tagLink : String -> Element NewStyle variation Msg
+tagLink tag =
+    el Tag [ onClick (UpdateFilter tag) ] (Element.text tag)
+
+
+statusStyle status =
+    case status of
+        "Active" ->
+            NewStyle.Active
+
+        "Inactive" ->
+            NewStyle.Inactive
+
+        "In Progress" ->
+            NewStyle.InProgress
+
+        _ ->
+            NewStyle.Inactive
