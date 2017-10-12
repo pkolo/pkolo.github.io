@@ -2,6 +2,8 @@ module Main exposing (..)
 
 import String exposing (toLower)
 import Html exposing (..)
+import Window exposing (..)
+import Task
 import Json.Decode exposing (..)
 import Json.Decode.Pipeline exposing (..)
 import Element exposing (..)
@@ -18,7 +20,7 @@ main =
         { init = init
         , update = update
         , view = view
-        , subscriptions = \_ -> Sub.none
+        , subscriptions = subscriptions
         }
 
 
@@ -33,6 +35,7 @@ type alias Model =
     , technologies : List String
     , categories : List String
     , filterBy : String
+    , windowSize : Window.Size
     }
 
 
@@ -122,12 +125,15 @@ initialModel =
         , statuses = unique (List.concat (List.map (\p -> [ p.status ]) result.projects))
         , technologies = unique (List.concat (List.map (\p -> p.technologies) result.projects))
         , categories = unique (List.concat (List.map (\p -> p.categories) result.projects))
+        , windowSize = Window.Size 0 0
         }
 
 
 init : ( Model, Cmd Msg )
 init =
-    ( initialModel, Cmd.none )
+    ( initialModel
+    , Task.perform Resize Window.size
+    )
 
 
 
@@ -137,6 +143,7 @@ init =
 type Msg
     = Clear
     | UpdateFilter String
+    | Resize Window.Size
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -147,6 +154,9 @@ update msg model =
 
         UpdateFilter newFilter ->
             ( filterProjects initialModel newFilter, Cmd.none )
+
+        Resize newSize ->
+            ( { model | windowSize = newSize }, Cmd.none )
 
 
 filterProjects : Model -> String -> Model
@@ -171,6 +181,15 @@ flattenTags project =
 
 
 
+-- SUBSCRIPTIONS
+
+
+subscriptions : Model -> Sub Msg
+subscriptions model =
+    Window.resizes Resize
+
+
+
 -- VIEW
 
 
@@ -178,7 +197,7 @@ view : Model -> Html Msg
 view model =
     Element.layout stylesheet <|
         column Main
-            [ paddingLeft 17, paddingTop 3, width (px 900) ]
+            [ paddingLeft 17, paddingTop 3, Element.Attributes.width (px 900) ]
             [ header model.bio
             , content model
             ]
@@ -213,7 +232,7 @@ content model =
 
 sideBar model =
     column SideBar
-        [ width (px 180), spacing 10 ]
+        [ Element.Attributes.width (px 180), spacing 10 ]
         [ el SideBarTitle [] (Element.text "Filter projects by")
         , el Tag [ onClick Clear ] (Element.text "All")
         , filterWidget "Status" model.statuses

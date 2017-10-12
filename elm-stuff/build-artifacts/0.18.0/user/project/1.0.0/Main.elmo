@@ -290,9 +290,9 @@ var _user$project$Main$uniqueHelp = F3(
 var _user$project$Main$unique = function (list) {
 	return A3(_user$project$Main$uniqueHelp, _elm_lang$core$Basics$identity, _elm_lang$core$Set$empty, list);
 };
-var _user$project$Main$Model = F6(
-	function (a, b, c, d, e, f) {
-		return {bio: a, projects: b, statuses: c, technologies: d, categories: e, filterBy: f};
+var _user$project$Main$Model = F7(
+	function (a, b, c, d, e, f, g) {
+		return {bio: a, projects: b, statuses: c, technologies: d, categories: e, filterBy: f, windowSize: g};
 	});
 var _user$project$Main$Result = F2(
 	function (a, b) {
@@ -392,23 +392,43 @@ var _user$project$Main$initialModel = function () {
 					function (p) {
 						return p.categories;
 					},
-					result.projects)))
+					result.projects))),
+		windowSize: A2(_elm_lang$window$Window$Size, 0, 0)
 	};
 }();
-var _user$project$Main$init = {ctor: '_Tuple2', _0: _user$project$Main$initialModel, _1: _elm_lang$core$Platform_Cmd$none};
 var _user$project$Main$update = F2(
 	function (msg, model) {
 		var _p5 = msg;
-		if (_p5.ctor === 'Clear') {
-			return {ctor: '_Tuple2', _0: _user$project$Main$initialModel, _1: _elm_lang$core$Platform_Cmd$none};
-		} else {
-			return {
-				ctor: '_Tuple2',
-				_0: A2(_user$project$Main$filterProjects, _user$project$Main$initialModel, _p5._0),
-				_1: _elm_lang$core$Platform_Cmd$none
-			};
+		switch (_p5.ctor) {
+			case 'Clear':
+				return {ctor: '_Tuple2', _0: _user$project$Main$initialModel, _1: _elm_lang$core$Platform_Cmd$none};
+			case 'UpdateFilter':
+				return {
+					ctor: '_Tuple2',
+					_0: A2(_user$project$Main$filterProjects, _user$project$Main$initialModel, _p5._0),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			default:
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{windowSize: _p5._0}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
 		}
 	});
+var _user$project$Main$Resize = function (a) {
+	return {ctor: 'Resize', _0: a};
+};
+var _user$project$Main$init = {
+	ctor: '_Tuple2',
+	_0: _user$project$Main$initialModel,
+	_1: A2(_elm_lang$core$Task$perform, _user$project$Main$Resize, _elm_lang$window$Window$size)
+};
+var _user$project$Main$subscriptions = function (model) {
+	return _elm_lang$window$Window$resizes(_user$project$Main$Resize);
+};
 var _user$project$Main$UpdateFilter = function (a) {
 	return {ctor: 'UpdateFilter', _0: a};
 };
@@ -610,11 +630,4 @@ var _user$project$Main$view = function (model) {
 			}));
 };
 var _user$project$Main$main = _elm_lang$html$Html$program(
-	{
-		init: _user$project$Main$init,
-		update: _user$project$Main$update,
-		view: _user$project$Main$view,
-		subscriptions: function (_p6) {
-			return _elm_lang$core$Platform_Sub$none;
-		}
-	})();
+	{init: _user$project$Main$init, update: _user$project$Main$update, view: _user$project$Main$view, subscriptions: _user$project$Main$subscriptions})();
